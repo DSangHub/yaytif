@@ -1,0 +1,16 @@
+# Yaytif (yaytif.com) — Cursor Agent Rules
+
+## Product & Privacy Architecture
+1. **Strict On-Device Privacy:** Personal intercepted notifications on Android MUST stay inside the local Room database. Never create API endpoints that accept, log, or store third-party notification titles, bodies, or sender names.
+2. **Backend Scope:** The backend (`/backend`) only handles user profiles, interest tags, sponsored alert campaigns, verified attention-time heartbeats, affiliate click/postback attribution, and double-entry wallet ledger payouts.
+3. **Target Markets & i18n:** Default primary markets are South America (Brazil, Colombia, Argentina, Chile) and Africa (Nigeria, Kenya, Ghana, South Africa), plus global fallbacks. Support 13 locales with automatic RTL layout handling for Arabic (`ar`).
+4. **Local Payout Rails:** Support region-specific payout rails: `PIX` (BR), `MERCADO_PAGO` (LATAM), `MPESA` (KE/TZ), `PAYSTACK_OPAY` (NG), `AIRTIME` (Africa), and `PAYPAL` (Global).
+
+## Tech Stack Standards
+- **Backend (`/backend`):** Node.js, TypeScript, Fastify, Prisma ORM, PostgreSQL. Always use `prisma.$transaction` and `Prisma.Decimal` for wallet balances and ledger entries.
+- **Web (`/web`):** Next.js (App Router), TypeScript, Tailwind CSS. Keep initial page payloads lightweight (<100KB JS) for mobile data users in Africa and LATAM.
+- **Android (`/android`):** Kotlin, Jetpack Compose, Room, WorkManager, `NotificationListenerService`, `WindowManager` overlays.
+
+## Code Quality
+- Never leave placeholder `TODO` comments in core financial ledger or notification timer logic.
+- Validate all incoming payloads with Zod (backend) and strict type safety.
