@@ -1,0 +1,2706 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yaytif (yaytif.com) — Global Geo-Localized Notification Firewall & Attention Rewards</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Arabic', 'system-ui', 'sans-serif'],
+          },
+          keyframes: {
+            edgePulseRed: {
+              '0%, 100%': { opacity: '0', boxShadow: 'inset 0 0 0px 0px rgba(239, 68, 68, 0)' },
+              '20%, 60%': { opacity: '1', boxShadow: 'inset 0 0 28px 6px rgba(239, 68, 68, 0.92)' },
+              '40%, 80%': { opacity: '0.2', boxShadow: 'inset 0 0 12px 2px rgba(239, 68, 68, 0.35)' },
+            },
+            edgePulseAmber: {
+              '0%, 100%': { opacity: '0', boxShadow: 'inset 0 0 0px 0px rgba(245, 158, 11, 0)' },
+              '25%, 70%': { opacity: '1', boxShadow: 'inset 0 0 26px 5px rgba(245, 158, 11, 0.9)' },
+              '45%': { opacity: '0.25', boxShadow: 'inset 0 0 10px 2px rgba(245, 158, 11, 0.3)' },
+            },
+            edgePulseEmerald: {
+              '0%, 100%': { opacity: '0', boxShadow: 'inset 0 0 0px 0px rgba(16, 185, 129, 0)' },
+              '25%, 70%': { opacity: '1', boxShadow: 'inset 0 0 26px 5px rgba(16, 185, 129, 0.9)' },
+              '45%': { opacity: '0.25', boxShadow: 'inset 0 0 10px 2px rgba(16, 185, 129, 0.3)' },
+            },
+            slideInUp: {
+              '0%': { opacity: '0', transform: 'translateY(-10px) scale(0.98)' },
+              '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+            }
+          },
+          animation: {
+            'edge-red': 'edgePulseRed 1.8s ease-in-out forwards',
+            'edge-amber': 'edgePulseAmber 1.8s ease-in-out forwards',
+            'edge-emerald': 'edgePulseEmerald 1.8s ease-in-out forwards',
+            'slide-in': 'slideInUp 0.25s ease-out forwards',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .phone-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .phone-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .phone-scroll::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 9999px;
+    }
+    .fade-out-card {
+      opacity: 0 !important;
+      transform: translateX(24px) scale(0.95) !important;
+      transition: all 0.38s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-emerald-500/30 selection:text-emerald-200">
+
+  <!-- TOP GLOBAL HEADER BAR WITH GEOLOCATION & LANGUAGE SWITCHER -->
+  <header class="w-full border-b border-slate-800/90 bg-slate-950/90 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Brand Identity -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-slate-950 font-black text-lg shadow-lg shadow-emerald-500/20">
+          Y
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-base tracking-tight text-white">yaytif.com</span>
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+              Global i18n + Geo
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block" data-i18n="tagline">
+            One quiet inbox. Auto-deleting spam. Paid attention &amp; local cashback.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Controls: Language/Region Selector + Full-Stack Code Drawer Toggle -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <!-- Detected Geo Pill -->
+        <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-400" data-i18n="detectedLabel">Detected:</span>
+          <span id="geo-summary-badge" class="font-semibold text-slate-100">Detecting...</span>
+        </div>
+
+        <!-- Language & Region Selector -->
+        <div class="relative">
+          <select
+            id="locale-selector"
+            aria-label="Language and Region"
+            class="appearance-none pl-3 pr-8 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500 cursor-pointer transition"
+          >
+            <option value="auto">🌐 Auto (Geolocation)</option>
+            <option value="en-US">🇺🇸 English (US / Global • $ USD)</option>
+            <option value="pt-BR">🇧🇷 Português (Brasil • R$ BRL • Pix)</option>
+            <option value="es-419">🇲🇽 Español (LATAM • $ USD • Mercado Pago)</option>
+            <option value="sw-KE">🇰🇪 Kiswahili (East Africa • KSh • M-Pesa)</option>
+            <option value="en-NG">🇳🇬 English (Nigeria • ₦ NGN • Paystack)</option>
+            <option value="fr-FR">🇫🇷 Français (FR / Afrique • € / CFA)</option>
+            <option value="ar-SA">🇸🇦 العربية (RTL • MENA • ر.س SAR)</option>
+            <option value="hi-IN">🇮🇳 हिन्दी (India • ₹ INR • UPI)</option>
+            <option value="id-ID">🇮🇩 Bahasa Indonesia (Rp IDR • GoPay)</option>
+            <option value="de-DE">🇩🇪 Deutsch (DACH • € EUR • SEPA)</option>
+            <option value="ru-RU">🇷🇺 Русский (₽ RUB • СБП)</option>
+            <option value="ja-JP">🇯🇵 日本語 (Japan • ¥ JPY)</option>
+            <option value="zh-CN">🇨🇳 中文 (China • ¥ CNY)</option>
+          </select>
+          <svg class="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
+        </div>
+
+        <!-- Full-Stack Blueprint Button -->
+        <button
+          onclick="toggleCodeDrawer(true)"
+          class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-emerald-400 flex items-center gap-1.5 cursor-pointer transition"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+          </svg>
+          <span data-i18n="viewCodeBtn">Full-Stack Geo &amp; i18n Code</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN TWO-COLUMN INTERACTIVE WORKSPACE -->
+  <div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8">
+
+    <!-- LEFT COLUMN: GEOLOCATION INSPECTOR & LIVE SIMULATOR CONTROLS -->
+    <aside class="w-full max-w-lg space-y-5">
+
+      <!-- Geolocation & Locale Telemetry Card -->
+      <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3 shadow-xl">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400" data-i18n="geoEngineTitle">
+            Cascading Geolocation Engine
+          </span>
+          <span id="geo-source-pill" class="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-[10px] font-mono text-slate-300">
+            Timezone + Browser
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/90">
+            <div class="text-[10px] text-slate-500 uppercase" data-i18n="lblRegion">Region</div>
+            <div id="tel-region" class="font-bold text-white mt-0.5 truncate">US</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/90">
+            <div class="text-[10px] text-slate-500 uppercase" data-i18n="lblLang">Language</div>
+            <div id="tel-lang" class="font-bold text-white mt-0.5 truncate">English</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/90">
+            <div class="text-[10px] text-slate-500 uppercase" data-i18n="lblCurrency">Currency</div>
+            <div id="tel-currency" class="font-bold text-emerald-400 font-mono mt-0.5 truncate">USD ($)</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/90">
+            <div class="text-[10px] text-slate-500 uppercase" data-i18n="lblRail">Default Rail</div>
+            <div id="tel-rail" class="font-bold text-amber-300 mt-0.5 truncate">PayPal</div>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed" id="tel-timezone-note">
+          Resolved via Intl.DateTimeFormat timezone &amp; navigator.languages with graceful IP geo refinement.
+        </p>
+      </div>
+
+      <!-- Incoming Alert Triggers -->
+      <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400" data-i18n="simTitle">
+            Live Notification Simulator
+          </span>
+          <span id="edge-status-badge" class="text-xs text-slate-400">LED: Ready</span>
+        </div>
+
+        <button
+          id="btn-simulate-random"
+          class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-emerald-500/20 active:scale-[0.99] transition flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+          </svg>
+          <span data-i18n="btnSimulateRandom">Simulate Incoming Alert</span>
+        </button>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <button onclick="triggerSpecificAlert('red')" class="p-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-start transition flex items-center gap-2.5 cursor-pointer">
+            <span class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444] shrink-0"></span>
+            <div>
+              <div class="text-xs font-bold text-red-300" data-i18n="trigVipTitle">VIP / Favorite</div>
+              <div class="text-[11px] text-slate-400" data-i18n="trigVipSub">Red Edge Pulse</div>
+            </div>
+          </button>
+
+          <button onclick="triggerSpecificAlert('amber')" class="p-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-start transition flex items-center gap-2.5 cursor-pointer">
+            <span class="w-3 h-3 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b] shrink-0"></span>
+            <div>
+              <div class="text-xs font-bold text-amber-300" data-i18n="trigFinTitle">Bank / Delivery</div>
+              <div class="text-[11px] text-slate-400" data-i18n="trigFinSub">Amber Edge Pulse</div>
+            </div>
+          </button>
+
+          <button onclick="triggerSpecificAlert('emerald')" class="p-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-start transition flex items-center gap-2.5 cursor-pointer">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] shrink-0"></span>
+            <div>
+              <div class="text-xs font-bold text-emerald-300" data-i18n="trigOffTitle">Paid Offer</div>
+              <div class="text-[11px] text-slate-400" data-i18n="trigOffSub">Green Pulse + Earn</div>
+            </div>
+          </button>
+
+          <button onclick="triggerSpecificAlert('blue')" class="p-3 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-start transition flex items-center gap-2.5 cursor-pointer">
+            <span class="w-3 h-3 rounded-full bg-blue-500 shrink-0"></span>
+            <div>
+              <div class="text-xs font-bold text-blue-300" data-i18n="trigSpamTitle">Promo Spam</div>
+              <div class="text-[11px] text-slate-400" data-i18n="trigSpamSub">Silent + Auto-Wipe</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Auto-Delete Timer Selector -->
+      <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <h2 class="text-sm font-bold text-white" data-i18n="timerTitle">Auto-Delete Timer (Non-Favorites)</h2>
+            <p class="text-xs text-slate-400" data-i18n="timerDesc">Unstarred alerts vanish automatically at 0s.</p>
+          </div>
+          <span id="timer-badge" class="px-2.5 py-1 rounded-lg bg-slate-800 text-emerald-400 font-mono text-xs font-bold border border-slate-700 shrink-0">
+            15s
+          </span>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2" id="timer-presets">
+          <button data-seconds="10" class="timer-btn py-2 px-2 rounded-xl text-xs font-semibold border transition cursor-pointer bg-slate-800/70 border-slate-700 text-slate-300 hover:border-slate-500">10s</button>
+          <button data-seconds="15" class="timer-btn py-2 px-2 rounded-xl text-xs font-semibold border transition cursor-pointer bg-emerald-500/20 border-emerald-500 text-emerald-300">15s</button>
+          <button data-seconds="3600" class="timer-btn py-2 px-2 rounded-xl text-xs font-semibold border transition cursor-pointer bg-slate-800/70 border-slate-700 text-slate-300 hover:border-slate-500">1h</button>
+          <button data-seconds="86400" class="timer-btn py-2 px-2 rounded-xl text-xs font-semibold border transition cursor-pointer bg-slate-800/70 border-slate-700 text-slate-300 hover:border-slate-500">24h</button>
+        </div>
+      </div>
+
+      <!-- On-Device Privacy Note -->
+      <div class="p-4 rounded-2xl bg-slate-900/50 border border-slate-800/80 text-xs text-slate-400 space-y-1.5">
+        <div class="flex items-center gap-2 text-slate-200 font-semibold">
+          <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          </svg>
+          <span data-i18n="privacyTitle">On-Device Notification Firewall</span>
+        </div>
+        <p data-i18n="privacyBody">
+          Personal notifications stay 100% on-device via Android NotificationListenerService. Only opted-in interest tags and verified offer sessions sync to Yaytif Rewards.
+        </p>
+      </div>
+    </aside>
+
+    <!-- RIGHT COLUMN: REALISTIC SMARTPHONE PROTOTYPE -->
+    <main class="relative w-full max-w-[404px] h-[790px] max-h-[88vh] bg-slate-950 rounded-[44px] border-[6px] border-slate-800 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.06)] overflow-hidden flex flex-col select-none shrink-0">
+
+      <!-- Screen-Edge Flickering Light Overlay -->
+      <div id="edge-light-overlay" class="pointer-events-none absolute inset-0 z-40 rounded-[38px] opacity-0"></div>
+
+      <!-- Android Status Bar & Camera Cutout (LTR-locked so status bar icons never flip awkwardly) -->
+      <div dir="ltr" class="relative z-30 px-6 pt-3 pb-2 flex items-center justify-between text-[11px] font-medium text-slate-300 bg-slate-950/90 backdrop-blur">
+        <span id="phone-clock">18:25</span>
+        <div class="relative flex items-center justify-center">
+          <div id="camera-led-ring" class="w-4 h-4 rounded-full bg-black border border-slate-700 flex items-center justify-center transition-all duration-300">
+            <div class="w-1.5 h-1.5 rounded-full bg-slate-800"></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-[10px] text-emerald-400 font-semibold">5G</span>
+          <svg class="w-3.5 h-3.5 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3C7.46 3 3.34 4.78.29 7.67c-.18.18-.29.43-.29.71 0 .28.11.53.29.71l11 11c.39.39 1.02.39 1.41 0l11-11c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71C20.66 4.78 16.54 3 12 3z"/>
+          </svg>
+          <div class="w-5 h-2.5 rounded-sm border border-slate-400 p-[1px] flex items-center">
+            <div class="w-4 h-full bg-emerald-400 rounded-[1px]"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile App Top Header -->
+      <div class="z-20 px-4 pt-1 pb-3 bg-slate-950/95 border-b border-slate-800/80 flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-slate-950 font-black text-base shadow-md shadow-emerald-500/20 shrink-0">
+            Y
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-sm tracking-tight text-white">Yaytif</span>
+              <span class="px-1.5 py-0.5 text-[10px] font-bold rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30" data-i18n="shieldBadge">
+                SHIELD
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 truncate" id="header-subtitle" data-i18n="shieldSub">
+              Auto-wipe active
+            </p>
+          </div>
+        </div>
+
+        <!-- Mini Wallet Pill -->
+        <button onclick="switchTab('wallet')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 flex items-center gap-1.5 transition cursor-pointer shrink-0">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span id="header-balance" class="text-xs font-bold text-emerald-400 font-mono">$2.45</span>
+        </button>
+      </div>
+
+      <!-- In-App Toast Banner -->
+      <div id="phone-toast" class="hidden absolute top-24 left-4 right-4 z-50 px-3.5 py-2.5 rounded-xl bg-slate-800/95 border border-slate-600 text-xs text-white shadow-2xl backdrop-blur">
+        <span id="phone-toast-text">Updated</span>
+      </div>
+
+      <!-- Scrollable Phone Content Area -->
+      <div id="phone-viewport" class="flex-1 overflow-y-auto phone-scroll px-4 py-3 space-y-3">
+
+        <!-- TAB 1: UNIFIED INBOX -->
+        <section id="tab-inbox" class="space-y-3">
+          <!-- Filter Chips -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1">
+            <button onclick="setInboxFilter('all')" data-filter="all" class="inbox-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500 text-slate-950 shrink-0 cursor-pointer">
+              <span data-i18n="filterAll">All</span> (<span id="count-all">0</span>)
+            </button>
+            <button onclick="setInboxFilter('favorites')" data-filter="favorites" class="inbox-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 shrink-0 cursor-pointer flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-red-500"></span> <span data-i18n="filterVip">VIP</span>
+            </button>
+            <button onclick="setInboxFilter('offers')" data-filter="offers" class="inbox-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 shrink-0 cursor-pointer flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> <span data-i18n="filterOffers">Offers</span>
+            </button>
+            <button onclick="setInboxFilter('finance')" data-filter="finance" class="inbox-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 shrink-0 cursor-pointer flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span> <span data-i18n="filterFinance">Finance</span>
+            </button>
+          </div>
+
+          <!-- Notification Cards -->
+          <div id="notification-list" class="space-y-2.5 pb-4"></div>
+
+          <!-- Empty State -->
+          <div id="empty-inbox-state" class="hidden py-12 text-center space-y-2">
+            <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 mx-auto flex items-center justify-center text-emerald-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <p class="text-sm font-semibold text-slate-200" data-i18n="emptyTitle">Inbox Zero — Clutter Wiped</p>
+            <p class="text-xs text-slate-400 max-w-[240px] mx-auto" data-i18n="emptySub">
+              Tap "Simulate Incoming Alert" to test messages or paid offers.
+            </p>
+          </div>
+        </section>
+
+        <!-- TAB 2: INTERESTS & SPONSORED OFFERS -->
+        <section id="tab-interests" class="hidden space-y-4 pb-4">
+          <div class="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-500/15 to-teal-500/5 border border-emerald-500/30 space-y-1.5">
+            <h2 class="text-sm font-bold text-white" data-i18n="interestsHeading">Your Interest Channels</h2>
+            <p class="text-xs text-slate-300 leading-relaxed" data-i18n="interestsDesc">
+              Choose categories you care about. Brands pay you per minute viewed + split up to 50% of purchase commissions.
+            </p>
+          </div>
+
+          <div id="interest-chips" class="grid grid-cols-2 gap-2"></div>
+
+          <div class="space-y-2 pt-1">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400" data-i18n="liveOffersHeading">Live Sponsored Offers</h3>
+              <span id="matched-offers-count" class="text-xs text-emerald-400 font-semibold">4</span>
+            </div>
+            <div id="sponsored-catalog-list" class="space-y-2.5"></div>
+          </div>
+        </section>
+
+        <!-- TAB 3: WALLET & REGIONAL PAYOUTS -->
+        <section id="tab-wallet" class="hidden space-y-4 pb-4">
+          <!-- Balance Card -->
+          <div class="p-4 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/50 border border-emerald-500/30 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400" data-i18n="walletAvailLabel">Available Balance</span>
+              <span class="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 text-[10px] font-bold" data-i18n="verifiedHuman">VERIFIED HUMAN</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <div id="wallet-balance-display" class="text-3xl font-extrabold text-white font-mono">$2.45</div>
+              <div id="wallet-usd-equiv" class="text-xs text-slate-400 font-mono">≈ $2.45 USD</div>
+            </div>
+
+            <!-- Daily Cap Progress -->
+            <div class="space-y-1.5 pt-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-400" data-i18n="dailyCapLabel">Daily Time-Earned Cap</span>
+                <span id="daily-cap-text" class="text-emerald-400 font-mono font-semibold">$0.42 / $1.50</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div id="daily-cap-bar" class="h-full bg-emerald-500 rounded-full transition-all duration-300" style="width: 28%"></div>
+              </div>
+              <p class="text-[10px] text-slate-500" data-i18n="noPurchaseCap">Purchase cashback has no daily cap.</p>
+            </div>
+          </div>
+
+          <!-- Regional Cash-Out Rails -->
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400" data-i18n="payoutHeading">Local Cash-Out Rail</h3>
+              <span id="region-rail-tag" class="text-[10px] font-semibold text-emerald-400">Auto-Matched</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2" id="payout-rails"></div>
+
+            <div class="space-y-2">
+              <input
+                id="payout-destination"
+                type="text"
+                placeholder="Account / Phone / Key"
+                class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+              />
+              <button
+                onclick="processWithdrawal()"
+                class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition cursor-pointer"
+              >
+                <span data-i18n="withdrawBtn">Withdraw Full Balance</span> (<span id="withdraw-btn-amount">$2.45</span>)
+              </button>
+            </div>
+          </div>
+
+          <!-- Rewards Ledger -->
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400" data-i18n="ledgerHeading">Rewards Ledger</h3>
+            <div id="ledger-list" class="space-y-2"></div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Bottom Android Navigation Bar -->
+      <nav class="z-30 px-4 py-2.5 bg-slate-950 border-t border-slate-800/90 grid grid-cols-3 gap-2">
+        <button onclick="switchTab('inbox')" data-tab="inbox" class="nav-tab-btn py-1.5 rounded-xl flex flex-col items-center gap-1 text-emerald-400 bg-emerald-500/10 cursor-pointer transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z" />
+          </svg>
+          <span class="text-[10px] font-semibold" data-i18n="navInbox">Inbox</span>
+        </button>
+
+        <button onclick="switchTab('interests')" data-tab="interests" class="nav-tab-btn py-1.5 rounded-xl flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 cursor-pointer transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+          </svg>
+          <span class="text-[10px] font-semibold" data-i18n="navInterests">Interests</span>
+        </button>
+
+        <button onclick="switchTab('wallet')" data-tab="wallet" class="nav-tab-btn py-1.5 rounded-xl flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 cursor-pointer transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3" />
+          </svg>
+          <span class="text-[10px] font-semibold" data-i18n="navWallet">Wallet</span>
+        </button>
+      </nav>
+
+      <!-- IN-APP SPONSORED OFFER & LIVE ATTENTION TIMER MODAL -->
+      <div id="offer-modal" class="hidden absolute inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex flex-col justify-between p-5">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 text-[11px] font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span data-i18n="modalSessionLive">LIVE ATTENTION SESSION</span>
+            </span>
+            <button onclick="closeOfferModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900 border border-emerald-500/30 text-center space-y-1">
+            <div class="text-[11px] uppercase tracking-wider text-slate-400" data-i18n="modalEarnedLabel">Earned This Session</div>
+            <div id="session-earned-counter" class="text-3xl font-black font-mono text-emerald-400">+$0.0000</div>
+            <div class="text-xs text-slate-400">
+              <span data-i18n="modalTimeLabel">Time:</span> <span id="session-seconds" class="text-white font-mono font-semibold">0s</span> • <span id="session-rate-label" class="text-emerald-300">$0.06/min</span>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span id="modal-brand" class="text-xs font-bold uppercase tracking-wider text-emerald-400">Brand</span>
+              <span id="modal-cashback-badge" class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 text-[11px] font-bold">10% Cashback</span>
+            </div>
+            <h3 id="modal-title" class="text-base font-bold text-white leading-snug">Offer Title</h3>
+            <p id="modal-body" class="text-xs text-slate-300 leading-relaxed">Offer details</p>
+            <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+              <span>Click ID: <code id="modal-click-id" class="text-slate-300">ytf_98a2</code></span>
+              <span>50/50 Rev-Share</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2.5">
+          <button
+            id="btn-simulate-purchase"
+            onclick="simulateAffiliatePurchase()"
+            class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-extrabold text-xs shadow-lg shadow-emerald-500/20 transition cursor-pointer"
+          >
+            Simulate Purchase
+          </button>
+          <button
+            onclick="closeOfferModal()"
+            class="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition cursor-pointer"
+            data-i18n="modalCollectBtn"
+          >
+            Collect Time Earnings &amp; Close
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- FULL-STACK GEO & I18N ARCHITECTURE CODE DRAWER -->
+  <div id="code-drawer" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl max-h-[90vh] bg-slate-900 border border-slate-700 rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div>
+          <h2 class="text-base font-bold text-white">Yaytif Full-Stack Geo-Detection &amp; Multi-Language Architecture</h2>
+          <p class="text-xs text-slate-400">Production Fastify/Node.js Edge Geo Middleware + Android Kotlin LocaleListCompat &amp; Payout Routing</p>
+        </div>
+        <button onclick="toggleCodeDrawer(false)" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Code Tabs -->
+      <div class="px-6 pt-3 border-b border-slate-800 flex gap-2 bg-slate-950/50">
+        <button onclick="switchCodeTab('backend')" id="ctab-backend" class="px-3.5 py-2 rounded-t-xl text-xs font-bold bg-slate-900 text-emerald-400 border-t border-x border-slate-800 cursor-pointer">
+          1. Fastify Edge Geo + i18n API (TypeScript)
+        </button>
+        <button onclick="switchCodeTab('android')" id="ctab-android" class="px-3.5 py-2 rounded-t-xl text-xs font-bold text-slate-400 hover:text-white cursor-pointer">
+          2. Android Kotlin Geo &amp; RTL Locale Engine
+        </button>
+        <button onclick="switchCodeTab('schema')" id="ctab-schema" class="px-3.5 py-2 rounded-t-xl text-xs font-bold text-slate-400 hover:text-white cursor-pointer">
+          3. PostgreSQL Multi-Currency Schema
+        </button>
+      </div>
+
+      <!-- Code Content Area -->
+      <div class="flex-1 overflow-y-auto p-6 bg-slate-950 font-mono text-xs text-slate-300 leading-relaxed relative">
+        <button onclick="copyActiveCode()" class="sticky top-0 float-right px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-sans text-xs font-semibold cursor-pointer">
+          Copy Code
+        </button>
+
+        <pre id="code-pane-backend" class="whitespace-pre-wrap"><code>// server/geo-i18n-middleware.ts — Fastify + Cloudflare CF-IPCountry + Accept-Language
+import Fastify, { FastifyRequest } from 'fastify';
+import { PrismaClient } from '@prisma/client';
+
+const app = Fastify({ logger: true });
+const prisma = new PrismaClient();
+
+interface GeoLocaleConfig {
+  country: string;
+  lang: string;
+  dir: 'ltr' | 'rtl';
+  currency: string;
+  fxRateFromUsd: number;
+  defaultPayoutRail: string;
+  availableRails: string[];
+}
+
+const REGION_CATALOG: Record&lt;string, GeoLocaleConfig&gt; = {
+  BR: { country: 'BR', lang: 'pt-BR', dir: 'ltr', currency: 'BRL', fxRateFromUsd: 5.65, defaultPayoutRail: 'PIX', availableRails: ['PIX', 'MERCADO_PAGO', 'AIRTIME'] },
+  CO: { country: 'CO', lang: 'es-419', dir: 'ltr', currency: 'COP', fxRateFromUsd: 4150, defaultPayoutRail: 'MERCADO_PAGO', availableRails: ['MERCADO_PAGO', 'NEQUI', 'AIRTIME'] },
+  AR: { country: 'AR', lang: 'es-419', dir: 'ltr', currency: 'USD', fxRateFromUsd: 1.0, defaultPayoutRail: 'MERCADO_PAGO', availableRails: ['MERCADO_PAGO', 'AIRTIME'] },
+  MX: { country: 'MX', lang: 'es-419', dir: 'ltr', currency: 'MXN', fxRateFromUsd: 19.8, defaultPayoutRail: 'MERCADO_PAGO', availableRails: ['MERCADO_PAGO', 'SPEI', 'AIRTIME'] },
+  KE: { country: 'KE', lang: 'sw-KE', dir: 'ltr', currency: 'KES', fxRateFromUsd: 129.0, defaultPayoutRail: 'MPESA', availableRails: ['MPESA', 'AIRTEL_MONEY', 'AIRTIME'] },
+  NG: { country: 'NG', lang: 'en-NG', dir: 'ltr', currency: 'NGN', fxRateFromUsd: 1580.0, defaultPayoutRail: 'PAYSTACK_BANK', availableRails: ['PAYSTACK_BANK', 'OPAY', 'AIRTIME'] },
+  SA: { country: 'SA', lang: 'ar-SA', dir: 'rtl', currency: 'SAR', fxRateFromUsd: 3.75, defaultPayoutRail: 'STC_PAY', availableRails: ['STC_PAY', 'MADA', 'PAYPAL'] },
+  IN: { country: 'IN', lang: 'hi-IN', dir: 'ltr', currency: 'INR', fxRateFromUsd: 84.5, defaultPayoutRail: 'UPI', availableRails: ['UPI', 'PAYTM', 'AIRTIME'] },
+  DE: { country: 'DE', lang: 'de-DE', dir: 'ltr', currency: 'EUR', fxRateFromUsd: 0.92, defaultPayoutRail: 'SEPA', availableRails: ['SEPA', 'PAYPAL'] },
+  US: { country: 'US', lang: 'en-US', dir: 'ltr', currency: 'USD', fxRateFromUsd: 1.0, defaultPayoutRail: 'PAYPAL', availableRails: ['PAYPAL', 'STRIPE_INSTANT'] },
+};
+
+function resolveGeoLocale(req: FastifyRequest): GeoLocaleConfig {
+  // 1. Edge CDN header (Cloudflare CF-IPCountry or Vercel x-vercel-ip-country)
+  const cfCountry = (req.headers['cf-ipcountry'] as string || '').toUpperCase();
+  if (cfCountry && REGION_CATALOG[cfCountry]) {
+    return REGION_CATALOG[cfCountry];
+  }
+
+  // 2. Fallback to Accept-Language header
+  const acceptLang = (req.headers['accept-language'] || 'en-US').split(',')[0].trim();
+  if (acceptLang.startsWith('pt')) return REGION_CATALOG.BR;
+  if (acceptLang.startsWith('es')) return REGION_CATALOG.MX;
+  if (acceptLang.startsWith('sw')) return REGION_CATALOG.KE;
+  if (acceptLang.startsWith('ar')) return REGION_CATALOG.SA;
+  if (acceptLang.startsWith('hi')) return REGION_CATALOG.IN;
+  if (acceptLang.startsWith('de')) return REGION_CATALOG.DE;
+
+  return REGION_CATALOG.US;
+}
+
+// Endpoint called on app boot to hydrate locale, currency, and localized sponsored feed
+app.get('/api/v1/bootstrap', async (req) => {
+  const geo = resolveGeoLocale(req);
+  const localizedAlerts = await prisma.sponsoredAlert.findMany({
+    where: {
+      active: true,
+      OR: [{ region: geo.country }, { region: 'GLOBAL' }],
+    },
+    take: 25,
+  });
+
+  return {
+    geo,
+    alerts: localizedAlerts.map((a) => ({
+      ...a,
+      localRatePerMinute: Number(a.payoutPerMinuteUsd) * geo.fxRateFromUsd,
+      displayCurrency: geo.currency,
+    })),
+  };
+});
+
+app.listen({ port: 3000, host: '0.0.0.0' });</code></pre>
+
+        <pre id="code-pane-android" class="hidden whitespace-pre-wrap"><code>// android/app/src/main/java/com/yaytif/app/geo/GeoLocaleManager.kt
+package com.yaytif.app.geo
+
+import android.content.Context
+import android.telephony.TelephonyManager
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
+import java.util.Locale
+import java.util.TimeZone
+
+data class RegionalProfile(
+    val isoCountry: String,
+    val languageTag: String,
+    val currencyCode: String,
+    val primaryPayoutRail: String
+)
+
+object GeoLocaleManager {
+
+    fun detectAndApplyLocale(context: Context): RegionalProfile {
+        // 1. Detect country via SIM / Network MCC (no GPS permission required)
+        val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
+        val simCountry = tm?.simCountryIso?.uppercase(Locale.US).orEmpty()
+        val netCountry = tm?.networkCountryIso?.uppercase(Locale.US).orEmpty()
+        val tzId = TimeZone.getDefault().id
+
+        val resolvedCountry = when {
+            simCountry.length == 2 -> simCountry
+            netCountry.length == 2 -> netCountry
+            tzId.startsWith("America/Sao_Paulo") -> "BR"
+            tzId.startsWith("Africa/Nairobi") -> "KE"
+            tzId.startsWith("Africa/Lagos") -> "NG"
+            tzId.startsWith("Asia/Riyadh") || tzId.startsWith("Africa/Cairo") -> "SA"
+            tzId.startsWith("Asia/Kolkata") -> "IN"
+            else -> Locale.getDefault().country.ifEmpty { "US" }
+        }
+
+        val profile = mapCountryToProfile(resolvedCountry)
+
+        // 2. Apply Android per-app language & automatic RTL layout direction
+        val appLocale = LocaleListCompat.forLanguageTags(profile.languageTag)
+        AppCompatDelegate.setApplicationLocales(appLocale)
+
+        return profile
+    }
+
+    private fun mapCountryToProfile(country: String): RegionalProfile = when (country) {
+        "BR" -> RegionalProfile("BR", "pt-BR", "BRL", "PIX")
+        "CO", "AR", "MX", "CL", "PE" -> RegionalProfile(country, "es-419", "USD", "MERCADO_PAGO")
+        "KE", "TZ", "UG" -> RegionalProfile(country, "sw-KE", "KES", "MPESA")
+        "NG" -> RegionalProfile("NG", "en-NG", "NGN", "PAYSTACK")
+        "SA", "AE", "EG" -> RegionalProfile(country, "ar-SA", "SAR", "STC_PAY")
+        "IN" -> RegionalProfile("IN", "hi-IN", "INR", "UPI")
+        "FR", "SN", "CI" -> RegionalProfile(country, "fr-FR", "EUR", "MOBILE_MONEY")
+        else -> RegionalProfile(country, "en-US", "USD", "PAYPAL")
+    }
+}</code></pre>
+
+        <pre id="code-pane-schema" class="hidden whitespace-pre-wrap"><code>-- schema.sql — Multi-Currency & Localized Sponsored Offer Storage
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    phone_hash TEXT UNIQUE NOT NULL,
+    iso_country CHAR(2) NOT NULL DEFAULT 'US',
+    preferred_lang VARCHAR(12) NOT NULL DEFAULT 'en-US',
+    display_currency VARCHAR(6) NOT NULL DEFAULT 'USD',
+    wallet_balance_usd NUMERIC(14, 6) NOT NULL DEFAULT 0.000000,
+    daily_time_earned_usd NUMERIC(14, 6) NOT NULL DEFAULT 0.000000,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE sponsored_alerts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    advertiser_name TEXT NOT NULL,
+    region VARCHAR(8) NOT NULL, -- 'BR', 'KE', 'NG', 'IN', 'GLOBAL'
+    category VARCHAR(32) NOT NULL,
+    -- JSONB map of localized titles/bodies: {"en-US": {...}, "pt-BR": {...}, "sw-KE": {...}, "ar-SA": {...}}
+    localized_copy JSONB NOT NULL,
+    payout_per_minute_usd NUMERIC(10, 6) NOT NULL,
+    commission_share NUMERIC(4, 2) NOT NULL DEFAULT 0.50,
+    affiliate_url_template TEXT NOT NULL,
+    budget_remaining_usd NUMERIC(14, 2) NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE payout_requests (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id),
+    rail VARCHAR(32) NOT NULL, -- 'PIX', 'MERCADO_PAGO', 'MPESA', 'UPI', 'PAYSTACK', 'STC_PAY'
+    destination TEXT NOT NULL,
+    amount_usd NUMERIC(14, 4) NOT NULL,
+    settled_local_amount NUMERIC(14, 2) NOT NULL,
+    settled_currency VARCHAR(6) NOT NULL,
+    status VARCHAR(16) NOT NULL DEFAULT 'PENDING',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. MULTI-LANGUAGE & REGIONAL CONFIGURATION (13 LOCALES + RTL SUPPORT)
+    // =========================================================================
+    const LOCALE_CONFIGS = {
+      'en-US': {
+        label: 'English (US / Global)',
+        region: 'US',
+        dir: 'ltr',
+        currency: 'USD',
+        symbol: '$',
+        fx: 1.0,
+        decimals: 2,
+        subDecimals: 4,
+        defaultRail: 'PayPal Instant',
+        rails: [
+          { id: 'PayPal Instant', sub: 'US / Global • 0% fee', placeholder: 'PayPal Email Address' },
+          { id: 'Stripe Cash', sub: 'Instant Debit Card', placeholder: 'Debit Card or Routing Tag' },
+          { id: 'Mobile Airtime', sub: 'Global Top-Up', placeholder: '+1 (555) 000-0000' },
+          { id: 'USDC Wallet', sub: 'Base / Polygon', placeholder: '0x... Wallet Address' },
+        ],
+        i18n: {
+          tagline: 'One quiet inbox. Auto-deleting spam. Paid attention & local cashback.',
+          detectedLabel: 'Detected:',
+          viewCodeBtn: 'Full-Stack Geo & i18n Code',
+          geoEngineTitle: 'Cascading Geolocation Engine',
+          lblRegion: 'Region',
+          lblLang: 'Language',
+          lblCurrency: 'Currency',
+          lblRail: 'Default Rail',
+          simTitle: 'Live Notification Simulator',
+          btnSimulateRandom: 'Simulate Incoming Alert',
+          trigVipTitle: 'VIP / Favorite',
+          trigVipSub: 'Red Edge Pulse',
+          trigFinTitle: 'Bank / Delivery',
+          trigFinSub: 'Amber Edge Pulse',
+          trigOffTitle: 'Paid Offer',
+          trigOffSub: 'Green Pulse + Earn',
+          trigSpamTitle: 'Promo Spam',
+          trigSpamSub: 'Silent + Auto-Wipe',
+          timerTitle: 'Auto-Delete Timer (Non-Favorites)',
+          timerDesc: 'Unstarred alerts vanish automatically at 0s.',
+          privacyTitle: 'On-Device Notification Firewall',
+          privacyBody: 'Personal notifications stay 100% on-device via Android NotificationListenerService. Only opted-in interest tags and verified offer sessions sync to Yaytif Rewards.',
+          shieldBadge: 'SHIELD',
+          shieldSub: 'Auto-wipe active',
+          filterAll: 'All',
+          filterVip: 'VIP',
+          filterOffers: 'Offers',
+          filterFinance: 'Finance',
+          emptyTitle: 'Inbox Zero — Clutter Wiped',
+          emptySub: 'Tap "Simulate Incoming Alert" to test messages or paid offers.',
+          interestsHeading: 'Your Interest Channels',
+          interestsDesc: 'Choose categories you care about. Brands pay you per minute viewed + split up to 50% of purchase commissions.',
+          liveOffersHeading: 'Live Sponsored Offers',
+          walletAvailLabel: 'Available Balance',
+          verifiedHuman: 'VERIFIED HUMAN',
+          dailyCapLabel: 'Daily Time-Earned Cap',
+          noPurchaseCap: 'Purchase cashback has no daily cap.',
+          payoutHeading: 'Local Cash-Out Rail',
+          withdrawBtn: 'Withdraw Full Balance',
+          ledgerHeading: 'Rewards Ledger',
+          navInbox: 'Inbox',
+          navInterests: 'Interests',
+          navWallet: 'Wallet',
+          modalSessionLive: 'LIVE ATTENTION SESSION',
+          modalEarnedLabel: 'Earned This Session',
+          modalTimeLabel: 'Time:',
+          modalCollectBtn: 'Collect Time Earnings & Close',
+          tapToEarn: 'Tap to earn per minute',
+          openOffer: 'Open Offer →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'Finance',
+          labelOffer: 'Earn Offer',
+          labelMuted: 'Muted',
+        },
+        categories: {
+          fintech: 'Fintech & Banks',
+          food_delivery: 'Food Delivery',
+          tech_deals: 'Phones & Tech',
+          mobile_data: 'Data & Airtime',
+          travel: 'Flights & Transit',
+          gaming: 'Mobile Gaming',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'Call me when you get home ❤️', body: 'VIP Favorite • Bypasses quiet shield immediately', level: 'red', isFavorite: true },
+          { app: 'Bank Alert', title: '+$150.00 Direct Transfer Received', body: 'Instant deposit settled in your checking account.', level: 'amber', isFavorite: false },
+          { app: 'Yaytif Rewards', title: '10% Cashback on Food & Tech Deals', body: 'Tap to earn per minute viewed + 50% commission split.', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: 'AdFlash Promo', title: 'CLAIM YOUR 200% CASINO BONUS NOW!!', body: 'Muted silently by Yaytif Firewall • Auto-deleting', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'pt-BR': {
+        label: 'Português (Brasil)',
+        region: 'BR',
+        dir: 'ltr',
+        currency: 'BRL',
+        symbol: 'R$',
+        fx: 5.65,
+        decimals: 2,
+        subDecimals: 3,
+        defaultRail: 'Pix Instantâneo',
+        rails: [
+          { id: 'Pix Instantâneo', sub: 'Brasil • Taxa 0%', placeholder: 'Chave Pix (CPF, E-mail ou Aleatória)' },
+          { id: 'Mercado Pago', sub: 'Transferência na hora', placeholder: 'E-mail ou Conta Mercado Pago' },
+          { id: 'Recarga Celular', sub: 'Vivo / Claro / TIM', placeholder: '(11) 9XXXX-XXXX' },
+          { id: 'Nubank Caixinha', sub: 'Via Chave Pix', placeholder: 'Chave Pix Nubank' },
+        ],
+        i18n: {
+          tagline: 'Uma caixa de entrada silenciosa. Spam auto-destrutivo. Ganhe por atenção e cashback.',
+          detectedLabel: 'Detectado:',
+          viewCodeBtn: 'Código Full-Stack Geo & i18n',
+          geoEngineTitle: 'Motor de Geolocalização em Cascata',
+          lblRegion: 'Região',
+          lblLang: 'Idioma',
+          lblCurrency: 'Moeda',
+          lblRail: 'Saque Padrão',
+          simTitle: 'Simulador de Notificações ao Vivo',
+          btnSimulateRandom: 'Simular Nova Notificação',
+          trigVipTitle: 'VIP / Favorito',
+          trigVipSub: 'Luz Vermelha na Borda',
+          trigFinTitle: 'Banco / Entrega',
+          trigFinSub: 'Luz Âmbar na Borda',
+          trigOffTitle: 'Oferta Paga',
+          trigOffSub: 'Luz Verde + Ganhe',
+          trigSpamTitle: 'Spam / Promo',
+          trigSpamSub: 'Silenciado + Auto-Apagar',
+          timerTitle: 'Timer de Auto-Exclusão (Não-Favoritos)',
+          timerDesc: 'Alertas sem estrela somem automaticamente ao zerar.',
+          privacyTitle: 'Firewall de Privacidade no Aparelho',
+          privacyBody: 'Mensagens pessoais ficam 100% no celular via NotificationListenerService. Apenas interesses escolhidos sincronizam com o Yaytif.',
+          shieldBadge: 'ESCUDO',
+          shieldSub: 'Auto-limpeza ativa',
+          filterAll: 'Todas',
+          filterVip: 'VIP',
+          filterOffers: 'Ofertas',
+          filterFinance: 'Finanças',
+          emptyTitle: 'Caixa Limpa — Spam Eliminado',
+          emptySub: 'Toque em "Simular Nova Notificação" para testar alertas ou ofertas.',
+          interestsHeading: 'Seus Canais de Interesse',
+          interestsDesc: 'Escolha categorias do seu interesse. Marcas pagam por minuto visualizado + até 50% de cashback em compras.',
+          liveOffersHeading: 'Ofertas Patrocinadas ao Vivo',
+          walletAvailLabel: 'Saldo Disponível',
+          verifiedHuman: 'HUMANO VERIFICADO',
+          dailyCapLabel: 'Limite Diário por Tempo',
+          noPurchaseCap: 'Cashback de compras não tem limite diário.',
+          payoutHeading: 'Saque Local Instantâneo',
+          withdrawBtn: 'Sacar Saldo Total',
+          ledgerHeading: 'Extrato de Recompensas',
+          navInbox: 'Caixa',
+          navInterests: 'Interesses',
+          navWallet: 'Carteira',
+          modalSessionLive: 'SESSÃO DE ATENÇÃO ATIVA',
+          modalEarnedLabel: 'Ganho Nesta Sessão',
+          modalTimeLabel: 'Tempo:',
+          modalCollectBtn: 'Coletar Ganhos e Fechar',
+          tapToEarn: 'Toque para ganhar por minuto',
+          openOffer: 'Abrir Oferta →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'Finanças',
+          labelOffer: 'Oferta Paga',
+          labelMuted: 'Silenciado',
+        },
+        categories: {
+          fintech: 'Bancos & Pix',
+          food_delivery: 'Delivery & iFood',
+          tech_deals: 'Celulares & Tech',
+          mobile_data: 'Dados & Recarga',
+          travel: 'Viagens & Ônibus',
+          gaming: 'Jogos Mobile',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'Me liga quando chegar em casa ❤️', body: 'Favorito VIP • Ignora o modo silencioso na hora', level: 'red', isFavorite: true },
+          { app: 'Nubank', title: 'Pix recebido de R$ 150,00', body: 'Transferência instantânea de Carlos M. confirmada.', level: 'amber', isFavorite: false },
+          { app: 'Yaytif Ofertas', title: 'R$ 25 Off no iFood + 10% Cashback', body: 'Ganhe por minuto visualizado + divisão de comissão.', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: 'PromoApp Bloat', title: 'BAIXE 5 JOGOS GRÁTIS AGORA!!', body: 'Silenciado pelo Escudo Yaytif • Auto-excluindo', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'es-419': {
+        label: 'Español (LATAM)',
+        region: 'LATAM',
+        dir: 'ltr',
+        currency: 'USD',
+        symbol: '$',
+        fx: 1.0,
+        decimals: 2,
+        subDecimals: 4,
+        defaultRail: 'Mercado Pago',
+        rails: [
+          { id: 'Mercado Pago', sub: 'LATAM • Al instante', placeholder: 'Alias o Email de Mercado Pago' },
+          { id: 'Nequi / Yape', sub: 'Colombia / Perú', placeholder: 'Número de Celular' },
+          { id: 'Recarga Móvil', sub: 'Claro / Movistar / Telcel', placeholder: '+52 / +57 Número' },
+          { id: 'PayPal', sub: 'Internacional', placeholder: 'Correo PayPal' },
+        ],
+        i18n: {
+          tagline: 'Una bandeja tranquila. Spam que se autodestruye. Gana por tu atención y compras.',
+          detectedLabel: 'Detectado:',
+          viewCodeBtn: 'Código Full-Stack Geo & i18n',
+          geoEngineTitle: 'Motor de Geolocalización en Cascada',
+          lblRegion: 'Región',
+          lblLang: 'Idioma',
+          lblCurrency: 'Moneda',
+          lblRail: 'Cobro Local',
+          simTitle: 'Simulador de Notificaciones en Vivo',
+          btnSimulateRandom: 'Simular Alerta Entrante',
+          trigVipTitle: 'VIP / Favorito',
+          trigVipSub: 'Luz Roja en Borde',
+          trigFinTitle: 'Banco / Envío',
+          trigFinSub: 'Luz Ámbar en Borde',
+          trigOffTitle: 'Oferta Paga',
+          trigOffSub: 'Luz Verde + Gana',
+          trigSpamTitle: 'Spam / Promo',
+          trigSpamSub: 'Silenciado + Auto-Borrar',
+          timerTitle: 'Temporizador Auto-Borrado (No Favoritos)',
+          timerDesc: 'Las alertas sin estrella desaparecen al llegar a 0s.',
+          privacyTitle: 'Firewall de Privacidad en el Teléfono',
+          privacyBody: 'Tus mensajes personales permanecen 100% en tu Android. Solo tus intereses elegidos sincronizan recompensas con Yaytif.',
+          shieldBadge: 'ESCUDO',
+          shieldSub: 'Auto-borrado activo',
+          filterAll: 'Todas',
+          filterVip: 'VIP',
+          filterOffers: 'Ofertas',
+          filterFinance: 'Finanzas',
+          emptyTitle: 'Bandeja Limpia — Spam Eliminado',
+          emptySub: 'Toca "Simular Alerta Entrante" para probar mensajes u ofertas pagas.',
+          interestsHeading: 'Tus Canales de Interés',
+          interestsDesc: 'Elige categorías que te interesen. Las marcas te pagan por minuto visto + hasta 50% de cashback en compras.',
+          liveOffersHeading: 'Ofertas Patrocinadas en Vivo',
+          walletAvailLabel: 'Saldo Disponible',
+          verifiedHuman: 'HUMANO VERIFICADO',
+          dailyCapLabel: 'Límite Diario por Tiempo',
+          noPurchaseCap: 'El cashback por compras no tiene límite diario.',
+          payoutHeading: 'Retiro Local Instantáneo',
+          withdrawBtn: 'Retirar Saldo Total',
+          ledgerHeading: 'Historial de Recompensas',
+          navInbox: 'Bandeja',
+          navInterests: 'Intereses',
+          navWallet: 'Billetera',
+          modalSessionLive: 'SESIÓN DE ATENCIÓN ACTIVA',
+          modalEarnedLabel: 'Ganado en Esta Sesión',
+          modalTimeLabel: 'Tiempo:',
+          modalCollectBtn: 'Cobrar Tiempo y Cerrar',
+          tapToEarn: 'Toca para ganar por minuto',
+          openOffer: 'Ver Oferta →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'Finanzas',
+          labelOffer: 'Oferta Paga',
+          labelMuted: 'Silenciado',
+        },
+        categories: {
+          fintech: 'Fintech y Bancos',
+          food_delivery: 'Rappi y Comida',
+          tech_deals: 'Celulares y Tech',
+          mobile_data: 'Datos y Recargas',
+          travel: 'Vuelos y Buses',
+          gaming: 'Juegos Móviles',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'Llámame cuando llegues a casa ❤️', body: 'Favorito VIP • Pasa el escudo silencioso de inmediato', level: 'red', isFavorite: true },
+          { app: 'Mercado Libre', title: 'Tu paquete llega hoy antes de las 6 PM', body: 'El repartidor está a 4 paradas de tu dirección.', level: 'amber', isFavorite: false },
+          { app: 'Yaytif Ofertas', title: '10% Cashback en Rappi y Tecnología', body: 'Gana por minuto visto + 50% de comisión compartida.', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: 'PromoFlash', title: '¡¡RECLAMA TU BONO DEL 200% AHORA!!', body: 'Silenciado por Yaytif • Se autodestruirá pronto', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'sw-KE': {
+        label: 'Kiswahili (East Africa)',
+        region: 'KE',
+        dir: 'ltr',
+        currency: 'KES',
+        symbol: 'KSh ',
+        fx: 129.0,
+        decimals: 0,
+        subDecimals: 2,
+        defaultRail: 'M-Pesa',
+        rails: [
+          { id: 'M-Pesa', sub: 'Kenya • Papo hapo', placeholder: '+254 7XX XXX XXX' },
+          { id: 'Airtel Money', sub: 'East Africa', placeholder: 'Nambari ya Airtel' },
+          { id: 'Airtime & Data', sub: 'Safaricom / Airtel', placeholder: 'Nambari ya Simu' },
+          { id: 'PayPal', sub: 'Kimataifa', placeholder: 'Barua pepe ya PayPal' },
+        ],
+        i18n: {
+          tagline: 'Kikasha kimoja tulivu. Barua taka zinafutika zenyewe. Lipwa kwa muda wako na manunuzi.',
+          detectedLabel: 'Imegunduliwa:',
+          viewCodeBtn: 'Msimbo wa Geo & i18n',
+          geoEngineTitle: 'Injini ya Eneo (Geolocation)',
+          lblRegion: 'Eneo',
+          lblLang: 'Lugha',
+          lblCurrency: 'Sarafu',
+          lblRail: 'Malipo',
+          simTitle: 'Kielelezo cha Arifa Mubashara',
+          btnSimulateRandom: 'Jaribu Arifa Mpya',
+          trigVipTitle: 'VIP / Pendwa',
+          trigVipSub: 'Mwangaza Mwekundu',
+          trigFinTitle: 'M-Pesa / Benki',
+          trigFinSub: 'Mwangaza wa Njano',
+          trigOffTitle: 'Ofa ya Malipo',
+          trigOffSub: 'Kijani + Pata Pesa',
+          trigSpamTitle: 'Matangazo Taka',
+          trigSpamSub: 'Kimya + Futa Otomatiki',
+          timerTitle: 'Muda wa Kufuta Otomatiki (Zisizo VIP)',
+          timerDesc: 'Arifa zisizo na nyota hufutika zenyewe muda ukiisha.',
+          privacyTitle: 'Ulinzi wa Faragha Kwenye Simu',
+          privacyBody: 'Ujumbe wako binafsi unabaki 100% kwenye simu yako. Mapendeleo yako ya matangazo pekee ndiyo yanayounganishwa na Yaytif.',
+          shieldBadge: 'NGAO',
+          shieldSub: 'Kufuta otomatiki',
+          filterAll: 'Zote',
+          filterVip: 'VIP',
+          filterOffers: 'Ofa',
+          filterFinance: 'Fedha',
+          emptyTitle: 'Kikasha Safi — Taka Zimefutwa',
+          emptySub: 'Bonyeza "Jaribu Arifa Mpya" kuona ujumbe au ofa za malipo.',
+          interestsHeading: 'Chaneli Zako za Mapendeleo',
+          interestsDesc: 'Chagua mada unazopenda. Kampuni zinakulipa kwa kila dakika unayotazama + hadi 50% ya kamisheni ya manunuzi.',
+          liveOffersHeading: 'Ofa Zinazolipa Sasa',
+          walletAvailLabel: 'Salio Linalopatikana',
+          verifiedHuman: 'IMETHIBITISHWA',
+          dailyCapLabel: 'Kikomo cha Muda kwa Siku',
+          noPurchaseCap: 'Marejesho ya manunuzi hayana kikomo cha siku.',
+          payoutHeading: 'Toa Pesa Haraka',
+          withdrawBtn: 'Toa Salio Lote',
+          ledgerHeading: 'Historia ya Malipo',
+          navInbox: 'Kikasha',
+          navInterests: 'Mapendeleo',
+          navWallet: 'Pochi',
+          modalSessionLive: 'KIPINDI CHA MALIPO KINAENDELEA',
+          modalEarnedLabel: 'Ulichopata Sasa',
+          modalTimeLabel: 'Muda:',
+          modalCollectBtn: 'Kusanya Mapato na Funga',
+          tapToEarn: 'Gusa upate pesa kwa dakika',
+          openOffer: 'Fungua Ofa →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'M-Pesa',
+          labelOffer: 'Ofa Pesa',
+          labelMuted: 'Kimya',
+        },
+        categories: {
+          fintech: 'M-Pesa na Benki',
+          food_delivery: 'Chakula',
+          tech_deals: 'Simu na Teknolojia',
+          mobile_data: 'Bando na Muda wa Maongezi',
+          travel: 'Safari na Mabasi',
+          gaming: 'Michezo ya Simu',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'Nipigie ukifika nyumbani ❤️', body: 'Mpendwa VIP • Inapita ngao ya kimya mara moja', level: 'red', isFavorite: true },
+          { app: 'M-Pesa', title: 'Imethibitishwa: Umepokea KSh 4,500', body: 'Kutoka kwa Grace Wanjiku. Salio jipya ni KSh 12,840.', level: 'amber', isFavorite: false },
+          { app: 'Yaytif Ofa', title: 'Jumia & Tecno — Pata 8% Cashback', body: 'Lipwa kwa dakika unayotazama + gawio la manunuzi.', level: 'emerald', isFavorite: false, offerId: 'off-2' },
+          { app: 'BetPromo', title: 'SHINDA BONASI YA 200% SASA HIVI!!', body: 'Imenyamazishwa na Yaytif • Itafutika yenyewe', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'en-NG': {
+        label: 'English (Nigeria)',
+        region: 'NG',
+        dir: 'ltr',
+        currency: 'NGN',
+        symbol: '₦',
+        fx: 1580.0,
+        decimals: 0,
+        subDecimals: 1,
+        defaultRail: 'Paystack / OPay',
+        rails: [
+          { id: 'Paystack / OPay', sub: 'Instant NGN Transfer', placeholder: 'OPay / PalmPay / Bank Account' },
+          { id: 'MTN / Airtel Data', sub: 'Instant Top-Up', placeholder: '080X XXX XXXX' },
+          { id: 'Flutterwave', sub: 'All Nigerian Banks', placeholder: '10-Digit NUBAN' },
+          { id: 'USDC Wallet', sub: 'Polygon / Base', placeholder: '0x... Address' },
+        ],
+        i18n: {
+          tagline: 'One quiet inbox. Auto-deleting bloatware spam. Get paid for attention & local cashback.',
+          detectedLabel: 'Detected:',
+          viewCodeBtn: 'Full-Stack Geo & i18n Code',
+          geoEngineTitle: 'Cascading Geolocation Engine',
+          lblRegion: 'Region',
+          lblLang: 'Language',
+          lblCurrency: 'Currency',
+          lblRail: 'Default Rail',
+          simTitle: 'Live Notification Simulator',
+          btnSimulateRandom: 'Simulate Incoming Alert',
+          trigVipTitle: 'VIP / Favorite',
+          trigVipSub: 'Red Edge Pulse',
+          trigFinTitle: 'OPay / Bank',
+          trigFinSub: 'Amber Edge Pulse',
+          trigOffTitle: 'Paid Offer',
+          trigOffSub: 'Green Pulse + Earn',
+          trigSpamTitle: 'OEM / Bet Spam',
+          trigSpamSub: 'Silent + Auto-Wipe',
+          timerTitle: 'Auto-Delete Timer (Non-Favorites)',
+          timerDesc: 'Unstarred alerts vanish automatically at 0s.',
+          privacyTitle: 'On-Device Privacy Firewall',
+          privacyBody: 'Personal alerts stay 100% on your Android phone. Only opted-in interest categories sync with Yaytif Rewards.',
+          shieldBadge: 'SHIELD',
+          shieldSub: 'Auto-wipe active',
+          filterAll: 'All',
+          filterVip: 'VIP',
+          filterOffers: 'Offers',
+          filterFinance: 'Finance',
+          emptyTitle: 'Inbox Zero — Bloatware Wiped',
+          emptySub: 'Tap "Simulate Incoming Alert" to test alerts or paid offers.',
+          interestsHeading: 'Your Interest Channels',
+          interestsDesc: 'Pick categories you want. Brands pay you per minute viewed + split up to 50% of purchase commissions.',
+          liveOffersHeading: 'Live Sponsored Offers',
+          walletAvailLabel: 'Available Balance',
+          verifiedHuman: 'VERIFIED HUMAN',
+          dailyCapLabel: 'Daily Time-Earned Cap',
+          noPurchaseCap: 'Purchase cashback has no daily cap.',
+          payoutHeading: 'Instant NGN Payout',
+          withdrawBtn: 'Withdraw Full Balance',
+          ledgerHeading: 'Rewards Ledger',
+          navInbox: 'Inbox',
+          navInterests: 'Interests',
+          navWallet: 'Wallet',
+          modalSessionLive: 'LIVE ATTENTION SESSION',
+          modalEarnedLabel: 'Earned This Session',
+          modalTimeLabel: 'Time:',
+          modalCollectBtn: 'Collect Time Earnings & Close',
+          tapToEarn: 'Tap to earn per minute',
+          openOffer: 'Open Offer →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'Fintech',
+          labelOffer: 'Earn Offer',
+          labelMuted: 'Muted',
+        },
+        categories: {
+          fintech: 'OPay & Fintech',
+          food_delivery: 'Food & Chowdeck',
+          tech_deals: 'Tecno & Phones',
+          mobile_data: 'MTN / Airtel Data',
+          travel: 'Bolt & Flights',
+          gaming: 'Mobile Gaming',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'Call me when you reach home ❤️', body: 'VIP Favorite • Bypasses quiet shield immediately', level: 'red', isFavorite: true },
+          { app: 'OPay', title: 'Credit Alert: +₦45,000.00 Received', body: 'Transfer from Chinedu O. settled instantly.', level: 'amber', isFavorite: false },
+          { app: 'Yaytif Rewards', title: 'Jumia & Tecno Flash Drop — 8% Back', body: 'Earn Naira per minute viewed + 50% commission split.', level: 'emerald', isFavorite: false, offerId: 'off-2' },
+          { app: 'HiOS Bloatware', title: 'DOWNLOAD 5 TRENDING APPS NOW!!', body: 'Muted silently by Yaytif Firewall • Auto-deleting', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'fr-FR': {
+        label: 'Français (FR / Afrique)',
+        region: 'FR',
+        dir: 'ltr',
+        currency: 'EUR',
+        symbol: '€',
+        fx: 0.92,
+        decimals: 2,
+        subDecimals: 4,
+        defaultRail: 'SEPA / Mobile Money',
+        rails: [
+          { id: 'SEPA Instant', sub: 'Zone Euro • 0% frais', placeholder: 'IBAN FR76...' },
+          { id: 'Orange / Wave', sub: 'Afrique Francophone', placeholder: '+221 / +225 Numéro' },
+          { id: 'PayPal', sub: 'Instantané', placeholder: 'Email PayPal' },
+          { id: 'Crédit Mobile', sub: 'Recharge directe', placeholder: 'Numéro de téléphone' },
+        ],
+        i18n: {
+          tagline: 'Une boîte calme. Spam auto-supprimé. Soyez payé pour votre attention et vos achats.',
+          detectedLabel: 'Détecté :',
+          viewCodeBtn: 'Code Full-Stack Geo & i18n',
+          geoEngineTitle: 'Moteur de Géolocalisation en Cascade',
+          lblRegion: 'Région',
+          lblLang: 'Langue',
+          lblCurrency: 'Devise',
+          lblRail: 'Paiement',
+          simTitle: 'Simulateur de Notifications en Direct',
+          btnSimulateRandom: 'Simuler une Alerte',
+          trigVipTitle: 'VIP / Favori',
+          trigVipSub: 'Flash Rouge Bordure',
+          trigFinTitle: 'Banque / Livraison',
+          trigFinSub: 'Flash Ambre Bordure',
+          trigOffTitle: 'Offre Rémunérée',
+          trigOffSub: 'Flash Vert + Gains',
+          trigSpamTitle: 'Pub / Spam',
+          trigSpamSub: 'Silencieux + Auto-Suppr.',
+          timerTitle: 'Minuteur Auto-Suppression (Non-Favoris)',
+          timerDesc: 'Les alertes non étoilées disparaissent à 0s.',
+          privacyTitle: 'Pare-Feu de Confidentialité Local',
+          privacyBody: 'Vos messages personnels restent 100% sur votre téléphone. Seuls vos centres d’intérêt choisis synchronisent avec Yaytif.',
+          shieldBadge: 'BOUCLIER',
+          shieldSub: 'Auto-suppression active',
+          filterAll: 'Toutes',
+          filterVip: 'VIP',
+          filterOffers: 'Offres',
+          filterFinance: 'Finance',
+          emptyTitle: 'Boîte Vide — Spam Éliminé',
+          emptySub: 'Appuyez sur "Simuler une Alerte" pour tester.',
+          interestsHeading: 'Vos Chaînes d’Intérêt',
+          interestsDesc: 'Choisissez vos catégories. Les marques vous paient à la minute + jusqu’à 50% de cashback.',
+          liveOffersHeading: 'Offres Sponsorisées en Direct',
+          walletAvailLabel: 'Solde Disponible',
+          verifiedHuman: 'HUMAIN VÉRIFIÉ',
+          dailyCapLabel: 'Plafond Quotidien Temps',
+          noPurchaseCap: 'Le cashback sur achats est illimité.',
+          payoutHeading: 'Retrait Local Instantané',
+          withdrawBtn: 'Retirer le Solde Total',
+          ledgerHeading: 'Historique des Gains',
+          navInbox: 'Boîte',
+          navInterests: 'Intérêts',
+          navWallet: 'Portefeuille',
+          modalSessionLive: 'SESSION D’ATTENTION EN DIRECT',
+          modalEarnedLabel: 'Gagné Cette Session',
+          modalTimeLabel: 'Temps :',
+          modalCollectBtn: 'Encaisser et Fermer',
+          tapToEarn: 'Touchez pour gagner à la minute',
+          openOffer: 'Ouvrir l’Offre →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'Finance',
+          labelOffer: 'Offre Payée',
+          labelMuted: 'Muet',
+        },
+        categories: {
+          fintech: 'Banques & Wave',
+          food_delivery: 'Livraison Repas',
+          tech_deals: 'Smartphones & Tech',
+          mobile_data: 'Data & Forfaits',
+          travel: 'Trains & Vols',
+          gaming: 'Jeux Mobiles',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'Appelle-moi quand tu rentres ❤️', body: 'Favori VIP • Passe le mode silencieux immédiatement', level: 'red', isFavorite: true },
+          { app: 'Wave / Banque', title: 'Virement reçu : +150,00 €', body: 'Transfert instantané confirmé sur votre compte.', level: 'amber', isFavorite: false },
+          { app: 'Yaytif Offres', title: '10% Cashback sur Tech & Livraison', body: 'Gagnez à la minute vue + 50% de commission partagée.', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: 'PromoFlash', title: 'RÉCLAMEZ VOTRE BONUS 200% !!', body: 'Mis en sourdine par Yaytif • Suppression auto', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'ar-SA': {
+        label: 'العربية (RTL • MENA)',
+        region: 'SA',
+        dir: 'rtl',
+        currency: 'SAR',
+        symbol: 'ر.س ',
+        fx: 3.75,
+        decimals: 2,
+        subDecimals: 3,
+        defaultRail: 'STC Pay',
+        rails: [
+          { id: 'STC Pay', sub: 'السعودية والخليج • فوري', placeholder: 'رقم الجوال 05XXXXXXXX' },
+          { id: 'مدى / تحويل بنكي', sub: 'تحويل محلي', placeholder: 'رقم الآيبان SA...' },
+          { id: 'رصيد بيانات', sub: 'STC / Mobily / Zain', placeholder: 'رقم الهاتف' },
+          { id: 'PayPal', sub: 'دولي', placeholder: 'البريد الإلكتروني' },
+        ],
+        i18n: {
+          tagline: 'صندوق وارد هادئ واحد. حذف تلقائي للإزعاج. اربح مقابل وقتك ومشترياتك.',
+          detectedLabel: 'تم الاكتشاف:',
+          viewCodeBtn: 'كود البرمجة الكامل Geo & i18n',
+          geoEngineTitle: 'محرك تحديد الموقع الجغرافي التلقائي',
+          lblRegion: 'المنطقة',
+          lblLang: 'اللغة',
+          lblCurrency: 'العملة',
+          lblRail: 'وسيلة السحب',
+          simTitle: 'محاكي الإشعارات المباشر',
+          btnSimulateRandom: 'محاكاة إشعار جديد',
+          trigVipTitle: 'مهم / مفضل',
+          trigVipSub: 'وميض حافة أحمر',
+          trigFinTitle: 'بنك / توصيل',
+          trigFinSub: 'وميض حافة كهرماني',
+          trigOffTitle: 'عرض مدفوع',
+          trigOffSub: 'وميض أخضر + ربح',
+          trigSpamTitle: 'إعلان مزعج',
+          trigSpamSub: 'صامت + حذف تلقائي',
+          timerTitle: 'مؤقت الحذف التلقائي (لغير المفضلة)',
+          timerDesc: 'تختفي الإشعارات غير المميزة بنجمة تلقائياً عند انتهاء المؤقت.',
+          privacyTitle: 'جدار حماية الخصوصية على الجهاز',
+          privacyBody: 'تبقى رسائلك الشخصية 100% على هاتفك. تتم مزامنة اهتماماتك المختارة فقط مع مكافآت Yaytif.',
+          shieldBadge: 'درع الحماية',
+          shieldSub: 'الحذف التلقائي نشط',
+          filterAll: 'الكل',
+          filterVip: 'المفضلة',
+          filterOffers: 'العروض',
+          filterFinance: 'المالية',
+          emptyTitle: 'الصندوق نظيف — تم مسح الإزعاج',
+          emptySub: 'اضغط على "محاكاة إشعار جديد" لتجربة التنبيهات أو العروض المدفوعة.',
+          interestsHeading: 'قنوات اهتماماتك',
+          interestsDesc: 'اختر الفئات التي تهمك. تدفع لك العلامات التجارية مقابل كل دقيقة مشاهدة + حتى 50% استرداد نقدي.',
+          liveOffersHeading: 'عروض ممولة مباشرة',
+          walletAvailLabel: 'الرصيد المتاح',
+          verifiedHuman: 'حساب موثق',
+          dailyCapLabel: 'الحد اليومي لأرباح الوقت',
+          noPurchaseCap: 'الاسترداد النقدي للمشتريات بلا حد يومي.',
+          payoutHeading: 'سحب محلي فوري',
+          withdrawBtn: 'سحب الرصيد بالكامل',
+          ledgerHeading: 'سجل المكافآت',
+          navInbox: 'الوارد',
+          navInterests: 'الاهتمامات',
+          navWallet: 'المحفظة',
+          modalSessionLive: 'جلسة مشاهدة مدفوعة نشطة',
+          modalEarnedLabel: 'أرباح هذه الجلسة',
+          modalTimeLabel: 'الوقت:',
+          modalCollectBtn: 'جمع الأرباح وإغلاق',
+          tapToEarn: 'اضغط للربح مقابل كل دقيقة',
+          openOffer: 'افتح العرض ←',
+          keptVip: '∞ مهم',
+          labelVip: 'مهم',
+          labelFinance: 'مالية',
+          labelOffer: 'عرض مدفوع',
+          labelMuted: 'مكتوم',
+        },
+        categories: {
+          fintech: 'البنوك و STC Pay',
+          food_delivery: 'توصيل الطعام',
+          tech_deals: 'الهواتف والتقنية',
+          mobile_data: 'باقات البيانات',
+          travel: 'السفر والطيران',
+          gaming: 'ألعاب الجوال',
+        },
+        sampleAlerts: [
+          { app: 'واتساب', title: 'اتصل بي عندما تصل إلى المنزل ❤️', body: 'مفضلة VIP • يتجاوز الوضع الصامت فوراً', level: 'red', isFavorite: true },
+          { app: 'مصرف الراجحي', title: 'حوالة واردة: +550.00 ر.س', body: 'تم إيداع الحوالة الفورية في حسابك الجاري.', level: 'amber', isFavorite: false },
+          { app: 'عروض Yaytif', title: 'استرداد نقدي 10% على المطاعم والتقنية', body: 'اربح مقابل كل دقيقة مشاهدة + 50% مشاركة عمولة.', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: 'إعلان ترويجي', title: 'احصل على مكافأة 200% الآن!!', body: 'تم كتمه بواسطة درع Yaytif • سيُحذف تلقائياً', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'hi-IN': {
+        label: 'हिन्दी (India • UPI)',
+        region: 'IN',
+        dir: 'ltr',
+        currency: 'INR',
+        symbol: '₹',
+        fx: 84.5,
+        decimals: 0,
+        subDecimals: 2,
+        defaultRail: 'UPI Instant',
+        rails: [
+          { id: 'UPI Instant', sub: 'GPay / PhonePe / Paytm', placeholder: 'yourname@okicici / UPI ID' },
+          { id: 'Jio / Airtel Data', sub: 'Instant Mobile Recharge', placeholder: '+91 98XXX XXXXX' },
+          { id: 'Amazon Pay', sub: 'Gift Balance', placeholder: 'Mobile or Email' },
+          { id: 'IMPS Bank', sub: 'Zero Fee', placeholder: 'Account + IFSC' },
+        ],
+        i18n: {
+          tagline: 'एक शांत इनबॉक्स। स्पैम अपने आप डिलीट। विज्ञापन देखने और खरीदारी पर पैसे कमाएं।',
+          detectedLabel: 'पहचाना गया:',
+          viewCodeBtn: 'फुल-स्टैक Geo & i18n कोड',
+          geoEngineTitle: 'ऑटो जियोलोकेशन इंजन',
+          lblRegion: 'क्षेत्र',
+          lblLang: 'भाषा',
+          lblCurrency: 'मुद्रा',
+          lblRail: 'पेआउट',
+          simTitle: 'लाइव नोटिफिकेशन सिम्युलेटर',
+          btnSimulateRandom: 'नया अलर्ट सिम्युलेट करें',
+          trigVipTitle: 'VIP / पसंदीदा',
+          trigVipSub: 'लाल एज लाइट',
+          trigFinTitle: 'बैंक / डिलीवरी',
+          trigFinSub: 'पीली एज लाइट',
+          trigOffTitle: 'पेड ऑफर',
+          trigOffSub: 'हरी लाइट + कमाई',
+          trigSpamTitle: 'प्रोमो स्पैम',
+          trigSpamSub: 'म्यूट + ऑटो-डिलीट',
+          timerTitle: 'ऑटो-डिलीट टाइमर (नॉन-VIP)',
+          timerDesc: 'बिना स्टार वाले अलर्ट 0s पर अपने आप हट जाते हैं।',
+          privacyTitle: 'ऑन-डिवाइस प्राइवेसी फ़ायरवॉल',
+          privacyBody: 'आपके निजी संदेश 100% आपके फ़ोन पर रहते हैं। केवल चुनी गई रुचियां ही Yaytif रिवॉर्ड्स से सिंक होती हैं।',
+          shieldBadge: 'शील्ड',
+          shieldSub: 'ऑटो-डिलीट सक्रिय',
+          filterAll: 'सभी',
+          filterVip: 'VIP',
+          filterOffers: 'ऑफर',
+          filterFinance: 'बैंक',
+          emptyTitle: 'इनबॉक्स साफ़ — स्पैम हट गया',
+          emptySub: 'नए अलर्ट या पेड ऑफर देखने के लिए बटन दबाएं।',
+          interestsHeading: 'आपकी रुचि के चैनल',
+          interestsDesc: 'अपनी पसंद की श्रेणियां चुनें। ब्रांड प्रति मिनट देखने और खरीदारी पर 50% तक कैशबैक देते हैं।',
+          liveOffersHeading: 'लाइव स्पॉन्सर्ड ऑफर',
+          walletAvailLabel: 'उपलब्ध बैलेंस',
+          verifiedHuman: 'सत्यापित यूज़र',
+          dailyCapLabel: 'दैनिक समय-कमाई सीमा',
+          noPurchaseCap: 'खरीदारी कैशबैक की कोई दैनिक सीमा नहीं है।',
+          payoutHeading: 'तुरंत UPI निकासी',
+          withdrawBtn: 'पूरा बैलेंस निकालें',
+          ledgerHeading: 'रिवॉर्ड्स लेजर',
+          navInbox: 'इनबॉक्स',
+          navInterests: 'रुचियां',
+          navWallet: 'वॉलेट',
+          modalSessionLive: 'लाइव कमाई सत्र चालू',
+          modalEarnedLabel: 'इस सत्र की कमाई',
+          modalTimeLabel: 'समय:',
+          modalCollectBtn: 'कमाई जोड़ें और बंद करें',
+          tapToEarn: 'प्रति मिनट कमाने के लिए टैप करें',
+          openOffer: 'ऑफर खोलें →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'बैंक',
+          labelOffer: 'पेड ऑफर',
+          labelMuted: 'म्यूट',
+        },
+        categories: {
+          fintech: 'UPI और बैंकिंग',
+          food_delivery: 'ज़ोमैटो / स्विगी',
+          tech_deals: 'स्मार्टफोन डील',
+          mobile_data: 'डेटा और रिचार्ज',
+          travel: 'ट्रेन और फ्लाइट',
+          gaming: 'मोबाइल गेमिंग',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'घर पहुँचकर कॉल करना ❤️', body: 'VIP पसंदीदा • तुरंत अलर्ट', level: 'red', isFavorite: true },
+          { app: 'HDFC / UPI', title: '₹1,500.00 UPI से प्राप्त हुए', body: 'आपके खाते में तुरंत जमा हो गए हैं।', level: 'amber', isFavorite: false },
+          { app: 'Yaytif ऑफर', title: 'फ़ूड और टेक पर 10% कैशबैक', body: 'प्रति मिनट देखने पर कमाएं + 50% कमीशन शेयर।', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: 'PromoBloat', title: 'अभी 200% बोनस क्लेम करें!!', body: 'Yaytif द्वारा म्यूट • ऑटो-डिलीट हो रहा है', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'id-ID': {
+        label: 'Bahasa Indonesia (IDR)',
+        region: 'ID',
+        dir: 'ltr',
+        currency: 'IDR',
+        symbol: 'Rp ',
+        fx: 15850,
+        decimals: 0,
+        subDecimals: 0,
+        defaultRail: 'GoPay / DANA',
+        rails: [
+          { id: 'GoPay / DANA', sub: 'Indonesia • Instan', placeholder: '08XX-XXXX-XXXX' },
+          { id: 'OVO / ShopeePay', sub: 'E-Wallet', placeholder: 'Nomor HP Terdaftar' },
+          { id: 'Pulsa & Kuota', sub: 'Telkomsel / Indosat', placeholder: '08XX-XXXX-XXXX' },
+          { id: 'QRIS / Bank', sub: 'BCA / Mandiri / BRI', placeholder: 'Nomor Rekening' },
+        ],
+        i18n: {
+          tagline: 'Satu kotak masuk tenang. Spam terhapus otomatis. Dibayar dari waktu & belanja Anda.',
+          detectedLabel: 'Terdeteksi:',
+          viewCodeBtn: 'Kode Full-Stack Geo & i18n',
+          geoEngineTitle: 'Mesin Geolokasi Otomatis',
+          lblRegion: 'Wilayah',
+          lblLang: 'Bahasa',
+          lblCurrency: 'Mata Uang',
+          lblRail: 'Penarikan',
+          simTitle: 'Simulator Notifikasi Langsung',
+          btnSimulateRandom: 'Simulasikan Notifikasi Masuk',
+          trigVipTitle: 'VIP / Favorit',
+          trigVipSub: 'Cahaya Tepi Merah',
+          trigFinTitle: 'Bank / Kurir',
+          trigFinSub: 'Cahaya Tepi Kuning',
+          trigOffTitle: 'Promo Berbayar',
+          trigOffSub: 'Cahaya Hijau + Cuan',
+          trigSpamTitle: 'Spam Iklan',
+          trigSpamSub: 'Senyap + Hapus Otomatis',
+          timerTitle: 'Timer Hapus Otomatis (Non-Favorit)',
+          timerDesc: 'Notifikasi tanpa bintang hilang otomatis saat 0 detik.',
+          privacyTitle: 'Firewall Privasi di Perangkat',
+          privacyBody: 'Pesan pribadi tetap 100% di HP Android Anda. Hanya kategori minat pilihan yang tersinkron ke Yaytif.',
+          shieldBadge: 'PERISAI',
+          shieldSub: 'Hapus otomatis aktif',
+          filterAll: 'Semua',
+          filterVip: 'VIP',
+          filterOffers: 'Promo',
+          filterFinance: 'Keuangan',
+          emptyTitle: 'Kotak Masuk Bersih',
+          emptySub: 'Ketuk "Simulasikan Notifikasi Masuk" untuk mencoba.',
+          interestsHeading: 'Saluran Minat Anda',
+          interestsDesc: 'Pilih kategori favorit. Brand membayar per menit dilihat + bagi hasil cashback hingga 50%.',
+          liveOffersHeading: 'Penawaran Sponsor Aktif',
+          walletAvailLabel: 'Saldo Tersedia',
+          verifiedHuman: 'TERVERIFIKASI',
+          dailyCapLabel: 'Batas Harian Waktu',
+          noPurchaseCap: 'Cashback belanja tanpa batas harian.',
+          payoutHeading: 'Tarik Dana Instan',
+          withdrawBtn: 'Tarik Semua Saldo',
+          ledgerHeading: 'Riwayat Hadiah',
+          navInbox: 'Kotak',
+          navInterests: 'Minat',
+          navWallet: 'Dompet',
+          modalSessionLive: 'SESI PERHATIAN AKTIF',
+          modalEarnedLabel: 'Pendapatan Sesi Ini',
+          modalTimeLabel: 'Waktu:',
+          modalCollectBtn: 'Kumpulkan & Tutup',
+          tapToEarn: 'Ketuk untuk dapat cuan per menit',
+          openOffer: 'Buka Promo →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'Keuangan',
+          labelOffer: 'Promo Cuan',
+          labelMuted: 'Senyap',
+        },
+        categories: {
+          fintech: 'GoPay & Bank',
+          food_delivery: 'GoFood & Kuliner',
+          tech_deals: 'HP & Gadget',
+          mobile_data: 'Kuota & Pulsa',
+          travel: 'Tiket & Travel',
+          gaming: 'Game Mobile',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'Telepon Ibu kalau sudah sampai rumah ❤️', body: 'Favorit VIP • Langsung masuk tanpa senyap', level: 'red', isFavorite: true },
+          { app: 'BCA / GoPay', title: 'Transfer Masuk +Rp 250.000', body: 'Saldo berhasil ditambahkan ke akun Anda.', level: 'amber', isFavorite: false },
+          { app: 'Yaytif Promo', title: 'Cashback 10% GoFood & Gadget', body: 'Dapat bayaran per menit + bagi hasil komisi 50%.', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: 'Iklan Bawaan', title: 'KLAIM BONUS 200% SEKARANG!!', body: 'Disenyapkan Yaytif • Akan terhapus otomatis', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'de-DE': {
+        label: 'Deutsch (DACH • EUR)',
+        region: 'DE',
+        dir: 'ltr',
+        currency: 'EUR',
+        symbol: '€',
+        fx: 0.92,
+        decimals: 2,
+        subDecimals: 4,
+        defaultRail: 'SEPA Echtzeit',
+        rails: [
+          { id: 'SEPA Echtzeit', sub: 'EU • 0% Gebühr', placeholder: 'DE89 3704 0044...' },
+          { id: 'PayPal', sub: 'Sofortauszahlung', placeholder: 'PayPal E-Mail' },
+          { id: 'Guthaben', sub: 'Telekom / Vodafone', placeholder: '+49 17X XXXXXXX' },
+          { id: 'Wero', sub: 'EU Wallet', placeholder: 'Handynummer / E-Mail' },
+        ],
+        i18n: {
+          tagline: 'Ein ruhiger Posteingang. Auto-Löschung für Spam. Bezahlte Aufmerksamkeit & Cashback.',
+          detectedLabel: 'Erkannt:',
+          viewCodeBtn: 'Full-Stack Geo & i18n Code',
+          geoEngineTitle: 'Kaskadierende Geolokalisierung',
+          lblRegion: 'Region',
+          lblLang: 'Sprache',
+          lblCurrency: 'Währung',
+          lblRail: 'Auszahlung',
+          simTitle: 'Live-Benachrichtigungssimulator',
+          btnSimulateRandom: 'Eingehenden Alarm simulieren',
+          trigVipTitle: 'VIP / Favorit',
+          trigVipSub: 'Roter Rand-Puls',
+          trigFinTitle: 'Bank / Paket',
+          trigFinSub: 'Gelber Rand-Puls',
+          trigOffTitle: 'Bezahltes Angebot',
+          trigOffSub: 'Grüner Puls + Verdienst',
+          trigSpamTitle: 'Werbe-Spam',
+          trigSpamSub: 'Stumm + Auto-Löschen',
+          timerTitle: 'Auto-Lösch-Timer (Nicht-Favoriten)',
+          timerDesc: 'Nicht markierte Hinweise verschwinden bei 0s.',
+          privacyTitle: 'Lokale Datenschutz-Firewall',
+          privacyBody: 'Persönliche Nachrichten bleiben zu 100% lokal auf Ihrem Gerät. Nur gewählte Interessen werden synchronisiert.',
+          shieldBadge: 'SCHUTZ',
+          shieldSub: 'Auto-Löschung aktiv',
+          filterAll: 'Alle',
+          filterVip: 'VIP',
+          filterOffers: 'Angebote',
+          filterFinance: 'Finanzen',
+          emptyTitle: 'Posteingang Leer — Spam Gelöscht',
+          emptySub: 'Tippen Sie auf "Eingehenden Alarm simulieren".',
+          interestsHeading: 'Ihre Interessenkanäle',
+          interestsDesc: 'Wählen Sie Kategorien. Marken zahlen pro Minute + bis zu 50% Einkaufs-Cashback.',
+          liveOffersHeading: 'Aktive Sponsoren-Angebote',
+          walletAvailLabel: 'Verfügbares Guthaben',
+          verifiedHuman: 'VERIFIZIERT',
+          dailyCapLabel: 'Tägliches Zeit-Limit',
+          noPurchaseCap: 'Einkaufs-Cashback hat kein Tageslimit.',
+          payoutHeading: 'Lokale Sofortauszahlung',
+          withdrawBtn: 'Gesamtes Guthaben auszahlen',
+          ledgerHeading: 'Prämien-Übersicht',
+          navInbox: 'Eingang',
+          navInterests: 'Interessen',
+          navWallet: 'Wallet',
+          modalSessionLive: 'AKTIVE AUFMERKSAMKEITS-SITZUNG',
+          modalEarnedLabel: 'In dieser Sitzung verdient',
+          modalTimeLabel: 'Zeit:',
+          modalCollectBtn: 'Verdienst sichern & schließen',
+          tapToEarn: 'Tippen für Minuten-Verdienst',
+          openOffer: 'Angebot öffnen →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'Finanzen',
+          labelOffer: 'Angebot',
+          labelMuted: 'Stumm',
+        },
+        categories: {
+          fintech: 'Banking & Finanzen',
+          food_delivery: 'Lieferando & Food',
+          tech_deals: 'Smartphones & Tech',
+          mobile_data: 'Mobilfunk & Daten',
+          travel: 'Bahn & Flüge',
+          gaming: 'Mobile Gaming',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'Ruf kurz an, wenn du zu Hause bist ❤️', body: 'VIP-Favorit • Umgeht den Ruhemodus sofort', level: 'red', isFavorite: true },
+          { app: 'N26 / Bank', title: 'Echtzeit-Überweisung: +150,00 €', body: 'Zahlungseingang auf Ihrem Girokonto verbucht.', level: 'amber', isFavorite: false },
+          { app: 'Yaytif Angebote', title: '10% Cashback auf Tech & Lieferdienste', body: 'Pro Minute verdienen + 50% Provisionsanteil.', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: 'Werbe-App', title: 'JETZT 200% BONUS SICHERN!!', body: 'Von Yaytif stummgeschaltet • Wird gelöscht', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'ru-RU': {
+        label: 'Русский (RUB • СБП)',
+        region: 'RU',
+        dir: 'ltr',
+        currency: 'RUB',
+        symbol: '₽',
+        fx: 96.0,
+        decimals: 0,
+        subDecimals: 2,
+        defaultRail: 'СБП (Мгновенно)',
+        rails: [
+          { id: 'СБП (Мгновенно)', sub: 'По номеру телефона • 0%', placeholder: '+7 (9XX) XXX-XX-XX' },
+          { id: 'ЮMoney', sub: 'Электронный кошелёк', placeholder: 'Номер кошелька ЮMoney' },
+          { id: 'Баланс связи', sub: 'МТС / Билайн / МегаФон', placeholder: '+7 (9XX) XXX-XX-XX' },
+          { id: 'Карта МИР', sub: 'Перевод на карту', placeholder: 'Номер карты' },
+        ],
+        i18n: {
+          tagline: 'Единый тихий центр уведомлений. Автоудаление спама. Оплата за внимание и кэшбэк.',
+          detectedLabel: 'Определено:',
+          viewCodeBtn: 'Код Geo & i18n',
+          geoEngineTitle: 'Каскадная геолокация',
+          lblRegion: 'Регион',
+          lblLang: 'Язык',
+          lblCurrency: 'Валюта',
+          lblRail: 'Вывод',
+          simTitle: 'Симулятор уведомлений',
+          btnSimulateRandom: 'Симулировать уведомление',
+          trigVipTitle: 'VIP / Избранное',
+          trigVipSub: 'Красный контур',
+          trigFinTitle: 'Банк / Доставка',
+          trigFinSub: 'Жёлтый контур',
+          trigOffTitle: 'Платный оффер',
+          trigOffSub: 'Зелёный + Доход',
+          trigSpamTitle: 'Рекламный спам',
+          trigSpamSub: 'Без звука + Автоудаление',
+          timerTitle: 'Таймер автоудаления (не из VIP)',
+          timerDesc: 'Обычные уведомления исчезают автоматически.',
+          privacyTitle: 'Локальная защита данных',
+          privacyBody: 'Личные сообщения остаются на 100% внутри вашего телефона. Синхронизируются только выбранные интересы.',
+          shieldBadge: 'ЩИТ',
+          shieldSub: 'Автоочистка активна',
+          filterAll: 'Все',
+          filterVip: 'VIP',
+          filterOffers: 'Офферы',
+          filterFinance: 'Финансы',
+          emptyTitle: 'Чисто — спам удалён',
+          emptySub: 'Нажмите «Симулировать уведомление» для проверки.',
+          interestsHeading: 'Ваши категории интересов',
+          interestsDesc: 'Выберите темы. Бренды платят за минуты просмотра и делятся до 50% комиссии с покупок.',
+          liveOffersHeading: 'Активные предложения',
+          walletAvailLabel: 'Доступный баланс',
+          verifiedHuman: 'ПОДТВЕРЖДЕНО',
+          dailyCapLabel: 'Дневной лимит за время',
+          noPurchaseCap: 'Кэшбэк за покупки без лимита.',
+          payoutHeading: 'Мгновенный вывод',
+          withdrawBtn: 'Вывести весь баланс',
+          ledgerHeading: 'История начислений',
+          navInbox: 'Входящие',
+          navInterests: 'Интересы',
+          navWallet: 'Кошелёк',
+          modalSessionLive: 'АКТИВНАЯ СЕССИЯ ПРОСМОТРА',
+          modalEarnedLabel: 'Заработано за сессию',
+          modalTimeLabel: 'Время:',
+          modalCollectBtn: 'Забрать награду и закрыть',
+          tapToEarn: 'Нажмите для оплаты за минуту',
+          openOffer: 'Открыть оффер →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: 'Банк',
+          labelOffer: 'Оффер',
+          labelMuted: 'Без звука',
+        },
+        categories: {
+          fintech: 'Банки и СБП',
+          food_delivery: 'Доставка еды',
+          tech_deals: 'Смартфоны и техника',
+          mobile_data: 'Связь и интернет',
+          travel: 'Билеты и отели',
+          gaming: 'Мобильные игры',
+        },
+        sampleAlerts: [
+          { app: 'WhatsApp', title: 'Позвони, как доберёшься домой ❤️', body: 'VIP-контакт • Проходит без задержки', level: 'red', isFavorite: true },
+          { app: 'Банк / СБП', title: 'Поступление +4 500 ₽', body: 'Мгновенный перевод зачислен на счёт.', level: 'amber', isFavorite: false },
+          { app: 'Yaytif Офферы', title: 'Кэшбэк 10% на доставку и технику', body: 'Оплата за каждую минуту + 50% от комиссии.', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: 'Реклама', title: 'ЗАБЕРИ БОНУС 200% ПРЯМО СЕЙЧАС!!', body: 'Заглушено Yaytif • Скоро удалится', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'ja-JP': {
+        label: '日本語 (Japan • JPY)',
+        region: 'JP',
+        dir: 'ltr',
+        currency: 'JPY',
+        symbol: '¥',
+        fx: 154,
+        decimals: 0,
+        subDecimals: 1,
+        defaultRail: 'PayPay',
+        rails: [
+          { id: 'PayPay', sub: '即時チャージ・手数料0%', placeholder: 'PayPay ID / 電話番号' },
+          { id: '楽天ペイ', sub: '楽天キャッシュ', placeholder: '楽天ID' },
+          { id: 'Amazonギフト', sub: 'Eメールタイプ', placeholder: 'メールアドレス' },
+          { id: '銀行振込', sub: '全銀システム', placeholder: '口座番号' },
+        ],
+        i18n: {
+          tagline: '静かな受信トレイ。迷惑通知は自動削除。関心広告の閲覧と購入で報酬を獲得。',
+          detectedLabel: '自動検出:',
+          viewCodeBtn: 'Geo & i18n コード表示',
+          geoEngineTitle: '自動地域・言語判定エンジン',
+          lblRegion: '地域',
+          lblLang: '言語',
+          lblCurrency: '通貨',
+          lblRail: '出金先',
+          simTitle: '通知シミュレーター',
+          btnSimulateRandom: '受信通知をテスト',
+          trigVipTitle: 'VIP / お気に入り',
+          trigVipSub: '赤色エッジ発光',
+          trigFinTitle: '銀行・配送',
+          trigFinSub: '琥珀色エッジ発光',
+          trigOffTitle: '報酬オファー',
+          trigOffSub: '緑色発光 + 報酬',
+          trigSpamTitle: '広告スパム',
+          trigSpamSub: '消音 + 自動削除',
+          timerTitle: '自動削除タイマー（VIP以外）',
+          timerDesc: 'お気に入り以外の通知は0秒で自動消去されます。',
+          privacyTitle: '端末内プライバシー保護',
+          privacyBody: '個人メッセージは端末内に100%保存され、外部送信されません。選択した興味カテゴリのみ同期されます。',
+          shieldBadge: '保護中',
+          shieldSub: '自動削除オン',
+          filterAll: 'すべて',
+          filterVip: 'VIP',
+          filterOffers: 'オファー',
+          filterFinance: '金融',
+          emptyTitle: '受信トレイは空です',
+          emptySub: '「受信通知をテスト」を押して動作を確認できます。',
+          interestsHeading: '興味チャンネル設定',
+          interestsDesc: '関心のあるジャンルを選択。閲覧時間に応じた報酬と購入キャッシュバック（最大50%還元）を獲得できます。',
+          liveOffersHeading: '配信中のスポンサーオファー',
+          walletAvailLabel: '出金可能残高',
+          verifiedHuman: '本人確認済',
+          dailyCapLabel: '1日の閲覧報酬上限',
+          noPurchaseCap: '購入キャッシュバックに上限はありません。',
+          payoutHeading: '即時出金ルート',
+          withdrawBtn: '全額を出金する',
+          ledgerHeading: '報酬履歴',
+          navInbox: '受信箱',
+          navInterests: '興味設定',
+          navWallet: 'ウォレット',
+          modalSessionLive: '閲覧報酬カウント中',
+          modalEarnedLabel: '今回の獲得報酬',
+          modalTimeLabel: '閲覧時間:',
+          modalCollectBtn: '報酬を受け取って閉じる',
+          tapToEarn: 'タップして閲覧報酬を獲得',
+          openOffer: '詳細を見る →',
+          keptVip: '∞ VIP',
+          labelVip: 'VIP',
+          labelFinance: '金融',
+          labelOffer: '報酬あり',
+          labelMuted: '消音',
+        },
+        categories: {
+          fintech: 'PayPay・銀行',
+          food_delivery: 'フードデリバリー',
+          tech_deals: 'スマホ・家電',
+          mobile_data: '通信・ギガ',
+          travel: '旅行・交通',
+          gaming: 'モバイルゲーム',
+        },
+        sampleAlerts: [
+          { app: 'LINE / WhatsApp', title: '家に着いたら連絡してね ❤️', body: 'VIPお気に入り • サイレントモードを即時通過', level: 'red', isFavorite: true },
+          { app: '銀行通知', title: '振込入金: +¥15,000', body: '即時振込が口座に反映されました。', level: 'amber', isFavorite: false },
+          { app: 'Yaytif リワード', title: 'フード＆家電 10%キャッシュバック', body: '1分ごとの閲覧報酬 + 成果報酬50%還元。', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: '広告スパム', title: '今すぐ200%ボーナスを獲得!!', body: 'Yaytifが消音ブロック • まもなく自動削除', level: 'blue', isFavorite: false },
+        ]
+      },
+
+      'zh-CN': {
+        label: '中文 (China • CNY)',
+        region: 'CN',
+        dir: 'ltr',
+        currency: 'CNY',
+        symbol: '¥',
+        fx: 7.25,
+        decimals: 2,
+        subDecimals: 3,
+        defaultRail: '支付宝 / 微信',
+        rails: [
+          { id: '支付宝 Alipay', sub: '秒到账 • 0手续费', placeholder: '支付宝账号 / 手机号' },
+          { id: '微信零钱', sub: '微信支付', placeholder: '微信号' },
+          { id: '话费流量', sub: '移动 / 联通 / 电信', placeholder: '13X XXXX XXXX' },
+          { id: 'PayPal', sub: '跨境提现', placeholder: 'PayPal 邮箱' },
+        ],
+        i18n: {
+          tagline: '一个安静的统一通知中心。垃圾信息定时自动销毁。看感兴趣广告与购物返现赚钱。',
+          detectedLabel: '已自动定位：',
+          viewCodeBtn: '查看全栈定位与多语言代码',
+          geoEngineTitle: '级联地理位置识别引擎',
+          lblRegion: '地区',
+          lblLang: '语言',
+          lblCurrency: '货币',
+          lblRail: '默认提现',
+          simTitle: '实时通知模拟器',
+          btnSimulateRandom: '模拟新通知到达',
+          trigVipTitle: 'VIP / 特别关注',
+          trigVipSub: '屏幕边缘红光闪烁',
+          trigFinTitle: '银行 / 快递',
+          trigFinSub: '屏幕边缘黄光闪烁',
+          trigOffTitle: '有奖优惠',
+          trigOffSub: '绿光闪烁 + 赚收益',
+          trigSpamTitle: '营销垃圾',
+          trigSpamSub: '静音拦截 + 自动销毁',
+          timerTitle: '自动销毁倒计时（非特别关注）',
+          timerDesc: '未标星的通知在倒计时归零后自动清除。',
+          privacyTitle: '本地端侧隐私防火墙',
+          privacyBody: '个人聊天与账单通知 100% 保留在手机本地，仅将您主动订阅的兴趣标签同步至 Yaytif 奖励系统。',
+          shieldBadge: '防护中',
+          shieldSub: '自动清理已开启',
+          filterAll: '全部',
+          filterVip: '特别关注',
+          filterOffers: '有奖优惠',
+          filterFinance: '金融账单',
+          emptyTitle: '收件箱已清空 — 干扰已销毁',
+          emptySub: '点击“模拟新通知到达”体验提醒或有奖优惠。',
+          interestsHeading: '您的兴趣频道',
+          interestsDesc: '勾选感兴趣的分类，品牌按浏览时长付费，并分享高达 50% 的购物佣金返现。',
+          liveOffersHeading: '实时赞助优惠',
+          walletAvailLabel: '可提现余额',
+          verifiedHuman: '真人已认证',
+          dailyCapLabel: '每日浏览收益上限',
+          noPurchaseCap: '购物返现无每日上限。',
+          payoutHeading: '本地极速提现',
+          withdrawBtn: '全额提现',
+          ledgerHeading: '收益明细账本',
+          navInbox: '通知箱',
+          navInterests: '兴趣频道',
+          navWallet: '钱包',
+          modalSessionLive: '正在计费浏览会话',
+          modalEarnedLabel: '本次浏览已赚取',
+          modalTimeLabel: '时长：',
+          modalCollectBtn: '领取浏览收益并关闭',
+          tapToEarn: '点击按分钟赚取收益',
+          openOffer: '打开优惠 →',
+          keptVip: '∞ 永久保留',
+          labelVip: 'VIP',
+          labelFinance: '金融',
+          labelOffer: '有奖',
+          labelMuted: '已静音',
+        },
+        categories: {
+          fintech: '支付与银行',
+          food_delivery: '外卖美食',
+          tech_deals: '手机数码',
+          mobile_data: '话费流量',
+          travel: '机票出行',
+          gaming: '手机游戏',
+        },
+        sampleAlerts: [
+          { app: '微信 / WhatsApp', title: '到家记得给我回个电话 ❤️', body: 'VIP 特别关注 • 立即穿透静音提醒', level: 'red', isFavorite: true },
+          { app: '支付宝 / 银行', title: '收款到账 +¥150.00', body: '转账资金已实时存入您的账户。', level: 'amber', isFavorite: false },
+          { app: 'Yaytif 奖励', title: '外卖与数码专享 10% 返现', body: '按浏览分钟计费 + 50% 购物佣金分成。', level: 'emerald', isFavorite: false, offerId: 'off-1' },
+          { app: '系统推广', title: '立即领取 200% 游戏大礼包！！', body: '已被 Yaytif 静音拦截 • 即将自动销毁', level: 'blue', isFavorite: false },
+        ]
+      }
+    };
+
+    // =========================================================================
+    // 2. CASCADING GEOLOCATION DETECTION (TIMEZONE + NAVIGATOR + OPTIONAL IP)
+    // =========================================================================
+    let activeLocaleKey = 'en-US';
+    let detectionSource = 'Timezone + Browser';
+
+    function detectLocaleFromBrowserAndTimezone() {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      const langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en-US']).map((l) => l.toLowerCase());
+
+      // 1. Timezone-first mapping for accurate regional payout rails
+      if (tz.startsWith('America/Sao_Paulo') || tz.startsWith('America/Fortaleza') || tz.startsWith('America/Recife') || tz.startsWith('America/Manaus')) {
+        return 'pt-BR';
+      }
+      if (
+        tz.startsWith('America/Mexico_City') ||
+        tz.startsWith('America/Bogota') ||
+        tz.startsWith('America/Argentina') ||
+        tz.startsWith('America/Santiago') ||
+        tz.startsWith('America/Lima')
+      ) {
+        return 'es-419';
+      }
+      if (tz.startsWith('Africa/Nairobi') || tz.startsWith('Africa/Dar_es_Salaam') || tz.startsWith('Africa/Kampala')) {
+        return 'sw-KE';
+      }
+      if (tz.startsWith('Africa/Lagos')) {
+        return 'en-NG';
+      }
+      if (tz.startsWith('Asia/Riyadh') || tz.startsWith('Asia/Dubai') || tz.startsWith('Africa/Cairo') || tz.startsWith('Asia/Qatar')) {
+        return 'ar-SA';
+      }
+      if (tz.startsWith('Asia/Kolkata') || tz.startsWith('Asia/Calcutta')) {
+        return 'hi-IN';
+      }
+      if (tz.startsWith('Asia/Jakarta') || tz.startsWith('Asia/Makassar')) {
+        return 'id-ID';
+      }
+      if (tz.startsWith('Asia/Tokyo')) {
+        return 'ja-JP';
+      }
+      if (tz.startsWith('Asia/Shanghai') || tz.startsWith('Asia/Chongqing')) {
+        return 'zh-CN';
+      }
+      if (tz.startsWith('Europe/Berlin') || tz.startsWith('Europe/Vienna') || tz.startsWith('Europe/Zurich')) {
+        return 'de-DE';
+      }
+      if (tz.startsWith('Europe/Moscow')) {
+        return 'ru-RU';
+      }
+      if (tz.startsWith('Europe/Paris') || tz.startsWith('Africa/Dakar') || tz.startsWith('Africa/Abidjan')) {
+        return 'fr-FR';
+      }
+
+      // 2. Fallback to navigator.languages
+      for (const l of langs) {
+        if (l.startsWith('pt')) return 'pt-BR';
+        if (l.startsWith('es')) return 'es-419';
+        if (l.startsWith('sw')) return 'sw-KE';
+        if (l === 'en-ng') return 'en-NG';
+        if (l.startsWith('ar')) return 'ar-SA';
+        if (l.startsWith('hi')) return 'hi-IN';
+        if (l.startsWith('id')) return 'id-ID';
+        if (l.startsWith('ja')) return 'ja-JP';
+        if (l.startsWith('zh')) return 'zh-CN';
+        if (l.startsWith('de')) return 'de-DE';
+        if (l.startsWith('ru')) return 'ru-RU';
+        if (l.startsWith('fr')) return 'fr-FR';
+      }
+
+      return 'en-US';
+    }
+
+    // Optional non-blocking IP geolocation refinement (gracefully ignored if blocked/offline)
+    async function refineGeoViaIP() {
+      const selector = document.getElementById('locale-selector');
+      if (selector.value !== 'auto') return;
+
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2200);
+        const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (!res.ok) return;
+
+        const data = await res.json();
+        const cc = (data.country_code || '').toUpperCase();
+        const countryMap = {
+          BR: 'pt-BR',
+          MX: 'es-419',
+          CO: 'es-419',
+          AR: 'es-419',
+          CL: 'es-419',
+          PE: 'es-419',
+          KE: 'sw-KE',
+          TZ: 'sw-KE',
+          UG: 'sw-KE',
+          NG: 'en-NG',
+          SA: 'ar-SA',
+          AE: 'ar-SA',
+          EG: 'ar-SA',
+          IN: 'hi-IN',
+          ID: 'id-ID',
+          JP: 'ja-JP',
+          CN: 'zh-CN',
+          DE: 'de-DE',
+          AT: 'de-DE',
+          CH: 'de-DE',
+          RU: 'ru-RU',
+          FR: 'fr-FR',
+          SN: 'fr-FR',
+          CI: 'fr-FR',
+        };
+
+        if (countryMap[cc] && selector.value === 'auto') {
+          detectionSource = `IP Geo (${cc}) + Timezone`;
+          applyLocale(countryMap[cc], false);
+        }
+      } catch (_err) {
+        // Safe offline / sandbox fallback: keep timezone + browser detection
+      }
+    }
+
+    // =========================================================================
+    // 3. APP STATE & CURRENCY FORMATTING HELPERS
+    // =========================================================================
+    let autoDeleteSeconds = 15;
+    let currentFilter = 'all';
+    let walletBalanceUsd = 2.45;
+    let dailyEarnedUsd = 0.42;
+    const DAILY_CAP_USD = 1.50;
+    let selectedRail = 'PayPal Instant';
+
+    let activeOfferSession = null;
+    let sessionInterval = null;
+
+    const interestCategories = [
+      { id: 'fintech', active: true },
+      { id: 'food_delivery', active: true },
+      { id: 'tech_deals', active: true },
+      { id: 'mobile_data', active: true },
+      { id: 'travel', active: false },
+      { id: 'gaming', active: false },
+    ];
+
+    const sponsoredCatalog = [
+      {
+        id: 'off-1',
+        brand: 'Yaytif Partner • Food & Retail',
+        category: 'food_delivery',
+        ratePerMinUsd: 0.06,
+        cashbackPct: '10%',
+        purchaseBonusUsd: 1.25,
+      },
+      {
+        id: 'off-2',
+        brand: 'Yaytif Partner • Mobile & Tech',
+        category: 'tech_deals',
+        ratePerMinUsd: 0.08,
+        cashbackPct: '8%',
+        purchaseBonusUsd: 2.10,
+      },
+      {
+        id: 'off-3',
+        brand: 'Yaytif Partner • Fintech Vault',
+        category: 'fintech',
+        ratePerMinUsd: 0.05,
+        cashbackPct: '12%',
+        purchaseBonusUsd: 1.50,
+      },
+      {
+        id: 'off-4',
+        brand: 'Yaytif Partner • Data & Airtime',
+        category: 'mobile_data',
+        ratePerMinUsd: 0.04,
+        cashbackPct: '15%',
+        purchaseBonusUsd: 0.75,
+      },
+    ];
+
+    let notifications = [];
+    let ledgerEntriesUsd = [
+      { id: 'l-1', label: 'Partner Cashback Split (50%)', amountUsd: 1.65, time: 'Today, 14:12' },
+      { id: 'l-2', label: 'Sponsored Offer Viewing (7m)', amountUsd: 0.42, time: 'Today, 11:30' },
+      { id: 'l-3', label: 'Fintech Promo Session (6m)', amountUsd: 0.38, time: 'Yesterday' },
+    ];
+
+    function getCfg() {
+      return LOCALE_CONFIGS[activeLocaleKey] || LOCALE_CONFIGS['en-US'];
+    }
+
+    function formatMoney(usdAmount, useSubDecimals = false) {
+      const cfg = getCfg();
+      const localVal = usdAmount * cfg.fx;
+      const dec = useSubDecimals ? cfg.subDecimals : cfg.decimals;
+      return `${cfg.symbol}${localVal.toLocaleString(undefined, {
+        minimumFractionDigits: dec,
+        maximumFractionDigits: dec,
+      })}`;
+    }
+
+    // =========================================================================
+    // 4. APPLY LOCALE (TEXT, RTL DIRECTION, CURRENCY, RAILS & SEEDED FEED)
+    // =========================================================================
+    function applyLocale(localeKey, isManual = true) {
+      activeLocaleKey = LOCALE_CONFIGS[localeKey] ? localeKey : 'en-US';
+      const cfg = getCfg();
+
+      if (isManual) {
+        detectionSource = 'Manual Override';
+      }
+
+      // Set HTML lang & RTL/LTR direction dynamically
+      document.documentElement.lang = activeLocaleKey;
+      document.documentElement.dir = cfg.dir;
+
+      // Update static UI strings via data-i18n attributes
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.getAttribute('data-i18n');
+        if (cfg.i18n[key]) {
+          el.textContent = cfg.i18n[key];
+        }
+      });
+
+      // Update Geolocation Telemetry Panel
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+      document.getElementById('geo-summary-badge').textContent = `${cfg.label} • ${cfg.currency}`;
+      document.getElementById('geo-source-pill').textContent = detectionSource;
+      document.getElementById('tel-region').textContent = cfg.region;
+      document.getElementById('tel-lang').textContent = cfg.label.split(' ')[0];
+      document.getElementById('tel-currency').textContent = `${cfg.currency} (${cfg.symbol.trim()})`;
+      document.getElementById('tel-rail').textContent = cfg.defaultRail;
+      document.getElementById('tel-timezone-note').textContent = `Timezone: ${tz} • Direction: ${cfg.dir.toUpperCase()} • FX: 1 USD = ${cfg.fx} ${cfg.currency}`;
+
+      // Reset payout rail selection to regional default
+      selectedRail = cfg.defaultRail;
+      renderPayoutRails();
+
+      // Seed localized initial notifications so the inbox immediately reflects the chosen language
+      const now = Date.now();
+      notifications = cfg.sampleAlerts.map((item, idx) => ({
+        id: `init-${activeLocaleKey}-${idx}`,
+        app: item.app,
+        title: item.title,
+        body: item.body,
+        level: item.level,
+        isFavorite: Boolean(item.isFavorite),
+        offerId: item.offerId || null,
+        expiresAt: item.isFavorite ? null : now + (autoDeleteSeconds + idx * 8) * 1000,
+      }));
+
+      renderNotifications();
+      renderInterests();
+      updateWalletUI();
+    }
+
+    document.getElementById('locale-selector').addEventListener('change', (e) => {
+      const val = e.target.value;
+      if (val === 'auto') {
+        detectionSource = 'Timezone + Browser';
+        applyLocale(detectLocaleFromBrowserAndTimezone(), false);
+        refineGeoViaIP();
+      } else {
+        applyLocale(val, true);
+      }
+    });
+
+    // =========================================================================
+    // 5. SCREEN-EDGE LED FLICKER & INBOX INTERACTIONS
+    // =========================================================================
+    function triggerEdgeFlicker(level) {
+      const overlay = document.getElementById('edge-light-overlay');
+      const camRing = document.getElementById('camera-led-ring');
+      const statusBadge = document.getElementById('edge-status-badge');
+
+      overlay.className = 'pointer-events-none absolute inset-0 z-40 rounded-[38px] opacity-0';
+      void overlay.offsetWidth;
+
+      if (level === 'red') {
+        overlay.classList.add('animate-edge-red');
+        camRing.style.boxShadow = '0 0 12px 3px #ef4444';
+        statusBadge.innerHTML = '<span class="text-red-400 font-semibold">LED: RED (VIP)</span>';
+      } else if (level === 'amber') {
+        overlay.classList.add('animate-edge-amber');
+        camRing.style.boxShadow = '0 0 12px 3px #f59e0b';
+        statusBadge.innerHTML = '<span class="text-amber-400 font-semibold">LED: AMBER</span>';
+      } else if (level === 'emerald') {
+        overlay.classList.add('animate-edge-emerald');
+        camRing.style.boxShadow = '0 0 12px 3px #10b981';
+        statusBadge.innerHTML = '<span class="text-emerald-400 font-semibold">LED: GREEN</span>';
+      } else {
+        statusBadge.innerHTML = '<span class="text-blue-400">LED: Muted</span>';
+        return;
+      }
+
+      setTimeout(() => {
+        camRing.style.boxShadow = 'none';
+        statusBadge.textContent = 'LED: Ready';
+      }, 1900);
+    }
+
+    function addIncomingNotification(template) {
+      const id = 'n-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+      const isFav = Boolean(template.isFavorite);
+      const newAlert = {
+        id,
+        app: template.app,
+        title: template.title,
+        body: template.body,
+        level: isFav ? 'red' : template.level,
+        isFavorite: isFav,
+        offerId: template.offerId || null,
+        expiresAt: isFav ? null : Date.now() + autoDeleteSeconds * 1000,
+      };
+
+      notifications.unshift(newAlert);
+      triggerEdgeFlicker(newAlert.level);
+      renderNotifications();
+    }
+
+    function triggerSpecificAlert(level) {
+      const cfg = getCfg();
+      const matches = cfg.sampleAlerts.filter((a) => a.level === level);
+      const pick = matches[Math.floor(Math.random() * matches.length)] || cfg.sampleAlerts[0];
+      addIncomingNotification(pick);
+    }
+
+    document.getElementById('btn-simulate-random').addEventListener('click', () => {
+      const cfg = getCfg();
+      const pick = cfg.sampleAlerts[Math.floor(Math.random() * cfg.sampleAlerts.length)];
+      addIncomingNotification(pick);
+    });
+
+    function toggleFavorite(id, event) {
+      event.stopPropagation();
+      const item = notifications.find((n) => n.id === id);
+      if (!item) return;
+
+      item.isFavorite = !item.isFavorite;
+      if (item.isFavorite) {
+        item.level = 'red';
+        item.expiresAt = null;
+        triggerEdgeFlicker('red');
+      } else {
+        item.level = item.offerId ? 'emerald' : 'blue';
+        item.expiresAt = Date.now() + autoDeleteSeconds * 1000;
+      }
+      renderNotifications();
+    }
+
+    function dismissNotification(id, event) {
+      if (event) event.stopPropagation();
+      const cardEl = document.getElementById('card-' + id);
+      if (cardEl) {
+        cardEl.classList.add('fade-out-card');
+        setTimeout(() => {
+          notifications = notifications.filter((n) => n.id !== id);
+          renderNotifications();
+        }, 350);
+      } else {
+        notifications = notifications.filter((n) => n.id !== id);
+        renderNotifications();
+      }
+    }
+
+    function formatRemaining(ms) {
+      const totalSec = Math.max(0, Math.ceil(ms / 1000));
+      if (totalSec < 60) return `${totalSec}s`;
+      if (totalSec < 3600) return `${Math.floor(totalSec / 60)}m ${totalSec % 60}s`;
+      return `${Math.floor(totalSec / 3600)}h`;
+    }
+
+    setInterval(() => {
+      const now = Date.now();
+      notifications.forEach((n) => {
+        if (!n.isFavorite && n.expiresAt) {
+          const remaining = n.expiresAt - now;
+          const badge = document.getElementById('countdown-' + n.id);
+          if (badge) badge.textContent = formatRemaining(remaining);
+
+          if (remaining <= 0) {
+            const cardEl = document.getElementById('card-' + n.id);
+            if (cardEl && !cardEl.classList.contains('fade-out-card')) {
+              cardEl.classList.add('fade-out-card');
+              setTimeout(() => {
+                notifications = notifications.filter((item) => item.id !== n.id);
+                renderNotifications();
+              }, 360);
+            }
+          }
+        }
+      });
+    }, 500);
+
+    function getLevelStyles(level) {
+      const t = getCfg().i18n;
+      switch (level) {
+        case 'red':
+          return {
+            border: 'border-red-500/40 bg-red-950/15',
+            dot: 'bg-red-500 shadow-[0_0_8px_#ef4444]',
+            badge: 'bg-red-500/15 text-red-300 border-red-500/30',
+            label: t.labelVip,
+          };
+        case 'amber':
+          return {
+            border: 'border-amber-500/40 bg-amber-950/15',
+            dot: 'bg-amber-500 shadow-[0_0_8px_#f59e0b]',
+            badge: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+            label: t.labelFinance,
+          };
+        case 'emerald':
+          return {
+            border: 'border-emerald-500/45 bg-emerald-950/20 hover:border-emerald-400 cursor-pointer',
+            dot: 'bg-emerald-500 shadow-[0_0_8px_#10b981]',
+            badge: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+            label: t.labelOffer,
+          };
+        default:
+          return {
+            border: 'border-slate-800 bg-slate-900/75 opacity-85',
+            dot: 'bg-blue-500',
+            badge: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
+            label: t.labelMuted,
+          };
+      }
+    }
+
+    function renderNotifications() {
+      const listEl = document.getElementById('notification-list');
+      const emptyEl = document.getElementById('empty-inbox-state');
+      const countAllEl = document.getElementById('count-all');
+      const t = getCfg().i18n;
+
+      countAllEl.textContent = notifications.length;
+
+      const filtered = notifications.filter((n) => {
+        if (currentFilter === 'favorites') return n.isFavorite;
+        if (currentFilter === 'offers') return n.level === 'emerald';
+        if (currentFilter === 'finance') return n.level === 'amber';
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      const now = Date.now();
+
+      listEl.innerHTML = filtered
+        .map((n) => {
+          const style = getLevelStyles(n.level);
+          const remainingText = formatRemaining((n.expiresAt || now) - now);
+          const clickHandler = n.offerId ? `onclick="openOfferModal('${n.offerId}')"` : '';
+
+          return `
+            <div id="card-${n.id}" ${clickHandler} class="p-3.5 rounded-2xl border ${style.border} transition-all duration-200 space-y-2 animate-slide-in">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                  <span class="w-2.5 h-2.5 rounded-full ${style.dot} shrink-0"></span>
+                  <span class="text-[11px] font-bold text-slate-300 truncate">${n.app}</span>
+                  <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold border ${style.badge}">${style.label}</span>
+                </div>
+
+                <div class="flex items-center gap-1 shrink-0">
+                  <span class="px-2 py-0.5 rounded-md bg-slate-950/90 border border-slate-800 text-[10px] font-mono ${n.isFavorite ? 'text-red-300' : 'text-slate-400'}">
+                    ${n.isFavorite ? t.keptVip : `⏱ <span id="countdown-${n.id}">${remainingText}</span>`}
+                  </span>
+
+                  <button onclick="toggleFavorite('${n.id}', event)" class="p-1 rounded-lg hover:bg-slate-800 transition cursor-pointer">
+                    <svg class="w-4 h-4 ${n.isFavorite ? 'text-red-400 fill-red-400' : 'text-slate-500'}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                    </svg>
+                  </button>
+
+                  <button onclick="dismissNotification('${n.id}', event)" class="p-1 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <div class="text-xs font-bold text-white leading-snug">${n.title}</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">${n.body}</div>
+              </div>
+
+              ${
+                n.offerId
+                  ? `<div class="pt-1 flex items-center justify-between text-[11px] font-semibold text-emerald-400">
+                      <span>${t.tapToEarn}</span>
+                      <span>${t.openOffer}</span>
+                    </div>`
+                  : ''
+              }
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function setInboxFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.inbox-filter-btn').forEach((btn) => {
+        if (btn.dataset.filter === filter) {
+          btn.className = 'inbox-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500 text-slate-950 shrink-0 cursor-pointer flex items-center gap-1';
+        } else {
+          btn.className = 'inbox-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 shrink-0 cursor-pointer flex items-center gap-1';
+        }
+      });
+      renderNotifications();
+    }
+
+    // =========================================================================
+    // 6. INTERESTS, OFFER MODAL & WALLET
+    // =========================================================================
+    function renderInterests() {
+      const cfg = getCfg();
+      const chipsEl = document.getElementById('interest-chips');
+      chipsEl.innerHTML = interestCategories
+        .map((cat) => {
+          const label = cfg.categories[cat.id] || cat.id;
+          return `
+            <button onclick="toggleInterest('${cat.id}')" class="p-2.5 rounded-xl border text-start transition flex items-center justify-between cursor-pointer ${
+              cat.active
+                ? 'bg-emerald-500/15 border-emerald-500/50 text-white'
+                : 'bg-slate-900 border-slate-800 text-slate-400'
+            }">
+              <span class="text-xs font-semibold truncate">${label}</span>
+              <span class="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                cat.active ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-slate-500'
+              }">${cat.active ? '✓' : '+'}</span>
+            </button>
+          `;
+        })
+        .join('');
+
+      const activeCats = new Set(interestCategories.filter((c) => c.active).map((c) => c.id));
+      const matched = sponsoredCatalog.filter((o) => activeCats.has(o.category));
+      document.getElementById('matched-offers-count').textContent = `${matched.length}`;
+
+      const listEl = document.getElementById('sponsored-catalog-list');
+      listEl.innerHTML = matched
+        .map((o) => {
+          const catTitle = cfg.categories[o.category] || o.category;
+          return `
+            <div onclick="openOfferModal('${o.id}')" class="p-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800/90 border border-emerald-500/30 cursor-pointer transition space-y-1.5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-[11px] font-bold text-emerald-400 truncate">${catTitle}</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 text-[10px] font-mono font-bold shrink-0">
+                  ${formatMoney(o.ratePerMinUsd)}/min • ${o.cashbackPct}
+                </span>
+              </div>
+              <div class="text-xs font-bold text-white">${o.brand} — ${o.cashbackPct} Cashback</div>
+              <div class="text-[11px] text-slate-400">${cfg.i18n.tapToEarn}</div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function toggleInterest(id) {
+      const cat = interestCategories.find((c) => c.id === id);
+      if (cat) {
+        cat.active = !cat.active;
+        renderInterests();
+      }
+    }
+
+    function openOfferModal(offerId) {
+      const cfg = getCfg();
+      const offer = sponsoredCatalog.find((o) => o.id === offerId) || sponsoredCatalog[0];
+      activeOfferSession = {
+        offer,
+        seconds: 0,
+        earnedUsd: 0,
+        purchased: false,
+        clickId: 'ytf_' + Math.random().toString(36).substring(2, 8),
+      };
+
+      document.getElementById('modal-brand').textContent = cfg.categories[offer.category] || offer.brand;
+      document.getElementById('modal-cashback-badge').textContent = `${offer.cashbackPct} Cashback`;
+      document.getElementById('modal-title').textContent = `${offer.brand} (${cfg.region})`;
+      document.getElementById('modal-body').textContent = cfg.i18n.interestsDesc;
+      document.getElementById('modal-click-id').textContent = activeOfferSession.clickId;
+      document.getElementById('session-rate-label').textContent = `${formatMoney(offer.ratePerMinUsd)}/min`;
+      document.getElementById('session-seconds').textContent = '0s';
+      document.getElementById('session-earned-counter').textContent = `+${formatMoney(0, true)}`;
+
+      const purchaseBtn = document.getElementById('btn-simulate-purchase');
+      purchaseBtn.disabled = false;
+      purchaseBtn.textContent = `+${formatMoney(offer.purchaseBonusUsd)} Cashback (50% Split)`;
+      purchaseBtn.className = 'w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-extrabold text-xs shadow-lg shadow-emerald-500/20 transition cursor-pointer';
+
+      document.getElementById('offer-modal').classList.remove('hidden');
+
+      clearInterval(sessionInterval);
+      sessionInterval = setInterval(() => {
+        if (!activeOfferSession) return;
+        activeOfferSession.seconds += 1;
+        const perSecUsd = activeOfferSession.offer.ratePerMinUsd / 60;
+        if (dailyEarnedUsd + activeOfferSession.earnedUsd + perSecUsd <= DAILY_CAP_USD) {
+          activeOfferSession.earnedUsd += perSecUsd;
+        }
+        document.getElementById('session-seconds').textContent = `${activeOfferSession.seconds}s`;
+        document.getElementById('session-earned-counter').textContent = `+${formatMoney(activeOfferSession.earnedUsd, true)}`;
+      }, 1000);
+    }
+
+    function simulateAffiliatePurchase() {
+      if (!activeOfferSession || activeOfferSession.purchased) return;
+      activeOfferSession.purchased = true;
+
+      const bonusUsd = activeOfferSession.offer.purchaseBonusUsd;
+      walletBalanceUsd += bonusUsd;
+      ledgerEntriesUsd.unshift({
+        id: 'l-' + Date.now(),
+        label: `${activeOfferSession.offer.brand} (50% Split)`,
+        amountUsd: bonusUsd,
+        time: 'Just now',
+      });
+
+      const purchaseBtn = document.getElementById('btn-simulate-purchase');
+      purchaseBtn.disabled = true;
+      purchaseBtn.textContent = `✓ +${formatMoney(bonusUsd)} Credited`;
+      purchaseBtn.className = 'w-full py-3 px-4 rounded-xl bg-slate-800 text-emerald-400 border border-emerald-500/40 font-bold text-xs';
+
+      updateWalletUI();
+      showPhoneToast(`+${formatMoney(bonusUsd)} cashback added!`);
+    }
+
+    function closeOfferModal() {
+      clearInterval(sessionInterval);
+      if (activeOfferSession && activeOfferSession.earnedUsd > 0) {
+        const earned = activeOfferSession.earnedUsd;
+        walletBalanceUsd += earned;
+        dailyEarnedUsd = Math.min(DAILY_CAP_USD, dailyEarnedUsd + earned);
+        ledgerEntriesUsd.unshift({
+          id: 'l-' + Date.now(),
+          label: `${activeOfferSession.offer.brand} (${activeOfferSession.seconds}s)`,
+          amountUsd: earned,
+          time: 'Just now',
+        });
+        updateWalletUI();
+        showPhoneToast(`+${formatMoney(earned, true)} credited!`);
+      }
+      activeOfferSession = null;
+      document.getElementById('offer-modal').classList.add('hidden');
+    }
+
+    function renderPayoutRails() {
+      const cfg = getCfg();
+      const railsContainer = document.getElementById('payout-rails');
+      const destInput = document.getElementById('payout-destination');
+
+      const activeRailObj = cfg.rails.find((r) => r.id === selectedRail) || cfg.rails[0];
+      selectedRail = activeRailObj.id;
+      destInput.placeholder = activeRailObj.placeholder;
+
+      railsContainer.innerHTML = cfg.rails
+        .map((r) => {
+          const isSelected = r.id === selectedRail;
+          return `
+            <button onclick="selectPayoutRail('${r.id}')" class="p-2.5 rounded-xl border text-start transition cursor-pointer ${
+              isSelected
+                ? 'bg-emerald-500/15 border-emerald-500 text-white'
+                : 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'
+            }">
+              <div class="text-xs font-bold truncate">${r.id}</div>
+              <div class="text-[10px] ${isSelected ? 'text-emerald-300' : 'text-slate-400'} truncate">${r.sub}</div>
+            </button>
+          `;
+        })
+        .join('');
+    }
+
+    function selectPayoutRail(railId) {
+      selectedRail = railId;
+      renderPayoutRails();
+    }
+
+    function updateWalletUI() {
+      const formattedBal = formatMoney(walletBalanceUsd);
+      document.getElementById('header-balance').textContent = formattedBal;
+      document.getElementById('wallet-balance-display').textContent = formattedBal;
+      document.getElementById('withdraw-btn-amount').textContent = formattedBal;
+      document.getElementById('wallet-usd-equiv').textContent = `≈ $${walletBalanceUsd.toFixed(2)} USD`;
+
+      document.getElementById('daily-cap-text').textContent = `${formatMoney(dailyEarnedUsd)} / ${formatMoney(DAILY_CAP_USD)}`;
+      const pct = Math.min(100, (dailyEarnedUsd / DAILY_CAP_USD) * 100);
+      document.getElementById('daily-cap-bar').style.width = `${pct}%`;
+
+      const ledgerEl = document.getElementById('ledger-list');
+      ledgerEl.innerHTML = ledgerEntriesUsd
+        .map((entry) => {
+          const isWithdrawal = entry.amountUsd < 0;
+          return `
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <div class="text-xs font-semibold text-slate-200 truncate">${entry.label}</div>
+                <div class="text-[10px] text-slate-500">${entry.time}</div>
+              </div>
+              <div class="text-xs font-mono font-bold shrink-0 ${isWithdrawal ? 'text-amber-400' : 'text-emerald-400'}">
+                ${isWithdrawal ? '-' : '+'}${formatMoney(Math.abs(entry.amountUsd))}
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function processWithdrawal() {
+      if (walletBalanceUsd <= 0.05) {
+        showPhoneToast('Balance too low — open an offer first!');
+        return;
+      }
+      const dest = document.getElementById('payout-destination').value.trim() || 'verified-user';
+      const amt = walletBalanceUsd;
+      walletBalanceUsd = 0;
+
+      ledgerEntriesUsd.unshift({
+        id: 'l-' + Date.now(),
+        label: `${selectedRail} → ${dest}`,
+        amountUsd: -amt,
+        time: 'Just now',
+      });
+
+      document.getElementById('payout-destination').value = '';
+      updateWalletUI();
+      showPhoneToast(`${formatMoney(amt)} → ${selectedRail}`);
+    }
+
+    // =========================================================================
+    // 7. NAVIGATION, TIMER PRESETS, CODE DRAWER & CLOCK
+    // =========================================================================
+    function switchTab(tabName) {
+      ['inbox', 'interests', 'wallet'].forEach((t) => {
+        document.getElementById('tab-' + t).classList.toggle('hidden', t !== tabName);
+      });
+      document.querySelectorAll('.nav-tab-btn').forEach((btn) => {
+        if (btn.dataset.tab === tabName) {
+          btn.className = 'nav-tab-btn py-1.5 rounded-xl flex flex-col items-center gap-1 text-emerald-400 bg-emerald-500/10 cursor-pointer transition';
+        } else {
+          btn.className = 'nav-tab-btn py-1.5 rounded-xl flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 cursor-pointer transition';
+        }
+      });
+    }
+
+    document.querySelectorAll('.timer-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        autoDeleteSeconds = Number(btn.dataset.seconds);
+        document.getElementById('timer-badge').textContent = btn.textContent;
+        document.querySelectorAll('.timer-btn').forEach((b) => {
+          if (b === btn) {
+            b.className = 'timer-btn py-2 px-2 rounded-xl text-xs font-semibold border transition cursor-pointer bg-emerald-500/20 border-emerald-500 text-emerald-300';
+          } else {
+            b.className = 'timer-btn py-2 px-2 rounded-xl text-xs font-semibold border transition cursor-pointer bg-slate-800/70 border-slate-700 text-slate-300 hover:border-slate-500';
+          }
+        });
+
+        const now = Date.now();
+        notifications.forEach((n) => {
+          if (!n.isFavorite) n.expiresAt = now + autoDeleteSeconds * 1000;
+        });
+        renderNotifications();
+      });
+    });
+
+    let toastTimeout = null;
+    function showPhoneToast(msg) {
+      const toast = document.getElementById('phone-toast');
+      document.getElementById('phone-toast-text').textContent = msg;
+      toast.classList.remove('hidden');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toast.classList.add('hidden'), 2500);
+    }
+
+    function toggleCodeDrawer(open) {
+      document.getElementById('code-drawer').classList.toggle('hidden', !open);
+    }
+
+    let activeCodeTab = 'backend';
+    function switchCodeTab(tab) {
+      activeCodeTab = tab;
+      ['backend', 'android', 'schema'].forEach((t) => {
+        document.getElementById('code-pane-' + t).classList.toggle('hidden', t !== tab);
+        const btn = document.getElementById('ctab-' + t);
+        if (t === tab) {
+          btn.className = 'px-3.5 py-2 rounded-t-xl text-xs font-bold bg-slate-900 text-emerald-400 border-t border-x border-slate-800 cursor-pointer';
+        } else {
+          btn.className = 'px-3.5 py-2 rounded-t-xl text-xs font-bold text-slate-400 hover:text-white cursor-pointer';
+        }
+      });
+    }
+
+    function copyActiveCode() {
+      const pane = document.getElementById('code-pane-' + activeCodeTab);
+      const text = pane.innerText;
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      showPhoneToast('Code copied to clipboard!');
+    }
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('phone-clock').textContent =
+        `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateClock();
+      setInterval(updateClock, 15000);
+      const initialLocale = detectLocaleFromBrowserAndTimezone();
+      applyLocale(initialLocale, false);
+      refineGeoViaIP();
+    });
+  </script>
+</body>
+</html>
