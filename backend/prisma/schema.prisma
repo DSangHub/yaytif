@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LedgerEntryType {
+  ATTENTION_TIME
+  AFFILIATE_CASHBACK
+  PAYOUT_WITHDRAWAL
+  REFUND
+}
+
+enum PayoutRail {
+  PIX
+  MERCADO_PAGO
+  MPESA
+  PAYSTACK_OPAY
+  AIRTIME
+  PAYPAL
+}
+
+enum PayoutStatus {
+  PENDING
+  PROCESSING
+  PAID
+  FAILED
+}
+
+model User {
+  id              String   @id @default(uuid()) @db.Uuid
+  phoneHash       String   @unique
+  countryCode     String   @default("US") @db.VarChar(2)
+  locale          String   @default("en-US") @db.VarChar(16)
+  currency        String   @default("USD") @db.VarChar(3)
+  interests       String[] @default([])
+  walletBalance   Decimal  @default(0) @db.Decimal(18, 6)
+  dailyTimeEarned Decimal  @default(0) @db.Decimal(18, 6)
+  dailyCapResetAt DateTime @default(now())
+  createdAt       DateTime @default(now())
+
+  adSessions     AdSession[]
+  ledgerEntries  LedgerEntry[]
+  payoutRequests PayoutRequest[]
+
+  @@index([countryCode])
+  @@index([createdAt])
+  @@map("users")
+}
+
+model SponsoredAlert {
+  id              String   @id @default(uuid()) @db.Uuid
+  advertiserName  String
+  title           String
+  body            String
+  category        String
+  countryCodes    String[] @default([])
+  priorityColor   String   @default("#10B981") @db.VarChar(16)
+  payoutPerMinute Decimal  @db.Decimal(18, 6)
+  affiliateUrl    String
+  commissionShare Decimal  @default(0.50) @db.Decimal(5, 4)
+  budgetRemaining Decimal  @db.Decimal(18, 6)
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+
+  adSessions AdSession[]
+
+  @@index([active, category])
+  @@index([active, budgetRemaining])
+  @@index([countryCodes], type: Gin)
+  @@map("sponsored_alerts")
+}
+
+model AdSession {
+  id             String   @id @default(uuid()) @db.Uuid
+  userId         String   @db.Uuid
+  alertId        String   @db.Uuid
+  clickId        String   @unique @default(uuid()) @db.Uuid
+  activeSeconds  Int      @default(0)
+  creditedAmount Decimal  @default(0) @db.Decimal(18, 6)
+  converted      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  user  User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  alert SponsoredAlert @relation(fields: [alertId], references: [id], onDelete: Restrict)
+
+  @@index([userId, createdAt])
+  @@index([alertId, converted])
+  @@index([userId, alertId])
+  @@map("ad_sessions")
+}
+
+model LedgerEntry {
+  id          String          @id @default(uuid()) @db.Uuid
+  userId      String          @db.Uuid
+  type        LedgerEntryType
+  amount      Decimal         @db.Decimal(18, 6)
+  currency    String          @db.VarChar(3)
+  referenceId String?
+  createdAt   DateTime        @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@index([userId, createdAt])
+  @@index([userId, type])
+  @@index([referenceId])
+  @@map("ledger_entries")
+}
+
+model PayoutRequest {
+  id           String       @id @default(uuid()) @db.Uuid
+  userId       String       @db.Uuid
+  rail         PayoutRail
+  destination  String
+  amount       Decimal      @db.Decimal(18, 6)
+  currency     String       @db.VarChar(3)
+  status       PayoutStatus @default(PENDING)
+  externalTxId String?      @unique
+  createdAt    DateTime     @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+  @@index([rail, status])
+  @@map("payout_requests")
+}
