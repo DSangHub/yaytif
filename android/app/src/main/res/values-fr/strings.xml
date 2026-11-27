@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s cashback</string>
     <string name="feed_empty_title">Aucune alerte en cache</string>
     <string name="feed_empty_body">Appuyez sur Synchroniser pour récupérer les offres actives dans votre région.</string>
+    <string name="feed_active_session_label">Session d\'Attention Active</string>
+    <string name="feed_tap_to_earn">Appuyez pour gagner et voir l\'offre</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Attention vérifiée en cours</string>
+    <string name="feed_session_status_paused">Minuteur en pause</string>
+    <string name="feed_session_status_daily_cap">Plafond quotidien atteint</string>
+    <string name="feed_session_status_budget_exhausted">Budget de campagne épuisé</string>
+    <string name="feed_session_pause">Pause</string>
+    <string name="feed_session_resume">Reprendre</string>
+    <string name="feed_session_stop">Terminer</string>
+    <string name="feed_session_open_offer">Ouvrir l\'offre</string>
+    <string name="feed_session_show_overlay">Afficher en superposition</string>
+    <string name="feed_session_enable_overlay">Activer la superposition</string>
+    <string name="feed_session_account_required">Créez votre compte avant de démarrer une session d\'attention.</string>
+    <string name="feed_session_start_error">Impossible de démarrer la session sponsorisée. Réessayez.</string>
+    <string name="feed_session_invalid_link">Le lien de l\'offre est indisponible.</string>
+    <string name="overlay_dismiss">Fermer</string>
+    <string name="overlay_open_offer">Profiter de l\'offre</string>
 
     <string name="vault_title">Coffre Privé</string>
     <string name="vault_privacy_title" formatted="false">Confidentialité 100% Locale</string>

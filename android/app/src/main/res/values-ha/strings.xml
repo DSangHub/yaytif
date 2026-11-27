@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s kuɗin dawowa</string>
     <string name="feed_empty_title">Babu sanarwa a ajiya tukuna</string>
     <string name="feed_empty_body">Danna Sabunta sanarwa don kawo tayin da ke aiki a yankinka.</string>
+    <string name="feed_active_session_label">Zaman Kallo Mai Aiki</string>
+    <string name="feed_tap_to_earn">Danna don samun lada da duba tayi</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Ana ƙidaya lokacin kallo mai inganci</string>
+    <string name="feed_session_status_paused">An dakatar da agogo</string>
+    <string name="feed_session_status_daily_cap">An kai iyakar samun yau</string>
+    <string name="feed_session_status_budget_exhausted">Kasafin kamfen ya ƙare</string>
+    <string name="feed_session_pause">Dakata</string>
+    <string name="feed_session_resume">Ci gaba</string>
+    <string name="feed_session_stop">Kammala</string>
+    <string name="feed_session_open_offer">Buɗe tayi</string>
+    <string name="feed_session_show_overlay">Nuna akan allo</string>
+    <string name="feed_session_enable_overlay">Bada izinin nuni</string>
+    <string name="feed_session_account_required">Yi rajistar asusunka kafin fara zaman kallo.</string>
+    <string name="feed_session_start_error">Ba a iya fara zaman talla ba. Da fatan a sake gwadawa.</string>
+    <string name="feed_session_invalid_link">Hanyar tayin ba ta samuwa.</string>
+    <string name="overlay_dismiss">Rufe</string>
+    <string name="overlay_open_offer">Karɓi tayi</string>
 
     <string name="vault_title">Ajiya ta Sirri</string>
     <string name="vault_privacy_title" formatted="false">Sirri 100% A Cikin Wayarka</string>

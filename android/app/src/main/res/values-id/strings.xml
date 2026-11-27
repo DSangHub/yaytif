@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s cashback</string>
     <string name="feed_empty_title">Belum ada peringatan tersimpan</string>
     <string name="feed_empty_body">Ketuk Sinkronkan peringatan untuk mengambil penawaran aktif di pasar Anda.</string>
+    <string name="feed_active_session_label">Sesi Perhatian Aktif</string>
+    <string name="feed_tap_to_earn">Ketuk untuk menghasilkan dan lihat penawaran</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Menghitung perhatian terverifikasi</string>
+    <string name="feed_session_status_paused">Pengatur waktu dijeda</string>
+    <string name="feed_session_status_daily_cap">Batas penghasilan harian tercapai</string>
+    <string name="feed_session_status_budget_exhausted">Anggaran kampanye selesai</string>
+    <string name="feed_session_pause">Jeda</string>
+    <string name="feed_session_resume">Lanjutkan</string>
+    <string name="feed_session_stop">Akhiri</string>
+    <string name="feed_session_open_offer">Buka penawaran</string>
+    <string name="feed_session_show_overlay">Tampilkan melayang</string>
+    <string name="feed_session_enable_overlay">Aktifkan overlay</string>
+    <string name="feed_session_account_required">Daftarkan akun Anda sebelum memulai sesi perhatian.</string>
+    <string name="feed_session_start_error">Tidak dapat memulai sesi bersponsor. Silakan coba lagi.</string>
+    <string name="feed_session_invalid_link">Tautan penawaran tidak tersedia.</string>
+    <string name="overlay_dismiss">Tutup</string>
+    <string name="overlay_open_offer">Klaim penawaran</string>
 
     <string name="vault_title">Brankas Pribadi</string>
     <string name="vault_privacy_title" formatted="false">Privasi 100% di Perangkat</string>

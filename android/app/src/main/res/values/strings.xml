@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s cashback</string>
     <string name="feed_empty_title">No cached alerts yet</string>
     <string name="feed_empty_body">Tap Sync alerts to fetch active regional offers for your market.</string>
+    <string name="feed_active_session_label">Active Attention Session</string>
+    <string name="feed_tap_to_earn">Tap to earn &amp; view offer</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Counting verified attention</string>
+    <string name="feed_session_status_paused">Timer paused</string>
+    <string name="feed_session_status_daily_cap">Daily earnings cap reached</string>
+    <string name="feed_session_status_budget_exhausted">Campaign budget completed</string>
+    <string name="feed_session_pause">Pause</string>
+    <string name="feed_session_resume">Resume</string>
+    <string name="feed_session_stop">End</string>
+    <string name="feed_session_open_offer">Open offer</string>
+    <string name="feed_session_show_overlay">Float overlay</string>
+    <string name="feed_session_enable_overlay">Enable overlay</string>
+    <string name="feed_session_account_required">Register your account before starting an attention session.</string>
+    <string name="feed_session_start_error">Could not start sponsored session. Please try again.</string>
+    <string name="feed_session_invalid_link">Offer link is unavailable.</string>
+    <string name="overlay_dismiss">Dismiss</string>
+    <string name="overlay_open_offer">Claim offer</string>
 
     <string name="vault_title">Private Vault</string>
     <string name="vault_privacy_title" formatted="false">100% On-Device Privacy</string>

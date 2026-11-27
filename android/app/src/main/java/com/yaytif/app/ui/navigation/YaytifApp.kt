@@ -38,6 +38,9 @@ fun YaytifApp(
 
     val preferences by viewModel.preferences.collectAsStateWithLifecycle()
     val alerts by viewModel.sponsoredAlerts.collectAsStateWithLifecycle()
+    val activeSession by viewModel.activeAdSession.collectAsStateWithLifecycle()
+    val isStartingSession by viewModel.isStartingSession.collectAsStateWithLifecycle()
+    val sessionError by viewModel.sessionError.collectAsStateWithLifecycle()
     val localNotifications by viewModel.localNotifications.collectAsStateWithLifecycle()
     val unreadVaultCount by viewModel.unreadVaultCount.collectAsStateWithLifecycle()
     val isSyncingAlerts by viewModel.isSyncingAlerts.collectAsStateWithLifecycle()
@@ -100,8 +103,18 @@ fun YaytifApp(
                     selectedCategory = preferences.selectedCategory,
                     currencyCode = preferences.currency,
                     isSyncing = isSyncingAlerts,
+                    activeSession = activeSession,
+                    isStartingSession = isStartingSession,
+                    sessionError = sessionError,
                     onSelectCategory = viewModel::selectCategory,
-                    onSyncNow = viewModel::triggerAlertSync
+                    onSyncNow = viewModel::triggerAlertSync,
+                    onStartAlertSession = viewModel::startSponsoredSession,
+                    onToggleSessionPause = viewModel::toggleSessionPause,
+                    onFlushSession = viewModel::flushActiveSession,
+                    onEndSession = viewModel::endSponsoredSession,
+                    onInvalidAffiliateLink = viewModel::reportInvalidAffiliateLink,
+                    onDismissSessionError = viewModel::clearSessionError,
+                    onSetSessionAdVisible = viewModel::setSessionAdVisible
                 )
             }
             composable(YaytifDestination.Vault.route) {

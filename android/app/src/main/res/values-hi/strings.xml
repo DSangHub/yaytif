@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s कैशबैक</string>
     <string name="feed_empty_title">अभी कोई कैश्ड अलर्ट नहीं है</string>
     <string name="feed_empty_body">अपने बाज़ार के सक्रिय ऑफ़र लाने के लिए अलर्ट सिंक करें पर टैप करें।</string>
+    <string name="feed_active_session_label">सक्रिय ध्यान सत्र</string>
+    <string name="feed_tap_to_earn">कमाने और ऑफ़र देखने के लिए टैप करें</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">सत्यापित ध्यान गिना जा रहा है</string>
+    <string name="feed_session_status_paused">टाइमर रुका हुआ है</string>
+    <string name="feed_session_status_daily_cap">दैनिक कमाई सीमा पूरी हो गई</string>
+    <string name="feed_session_status_budget_exhausted">अभियान बजट पूरा हो गया</string>
+    <string name="feed_session_pause">रोकें</string>
+    <string name="feed_session_resume">जारी रखें</string>
+    <string name="feed_session_stop">समाप्त करें</string>
+    <string name="feed_session_open_offer">ऑफ़र खोलें</string>
+    <string name="feed_session_show_overlay">ओवरले दिखाएं</string>
+    <string name="feed_session_enable_overlay">ओवरले सक्षम करें</string>
+    <string name="feed_session_account_required">ध्यान सत्र शुरू करने से पहले अपना खाता पंजीकृत करें।</string>
+    <string name="feed_session_start_error">प्रायोजित सत्र शुरू नहीं हो सका। कृपया पुनः प्रयास करें।</string>
+    <string name="feed_session_invalid_link">ऑफ़र लिंक उपलब्ध नहीं है।</string>
+    <string name="overlay_dismiss">बंद करें</string>
+    <string name="overlay_open_offer">ऑफ़र प्राप्त करें</string>
 
     <string name="vault_title">निजी वॉल्ट</string>
     <string name="vault_privacy_title" formatted="false">100% ऑन-डिवाइस गोपनीयता</string>
