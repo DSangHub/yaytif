@@ -26,6 +26,23 @@
     <string name="vault_archive">Chekwaa</string>
     <string name="vault_empty_title">Ọba nzuzo gị tọgbọ chakoo</string>
     <string name="vault_empty_body">Ọkwa nkeonwe echekwara na ekwentị a ga-apụta ebe a mgbe enyere ikike.</string>
+    <string name="vault_listener_permission_title">Kwe ka enweta ọkwa</string>
+    <string name="vault_listener_permission_body">Kwe ka Yaytif chekwaa ọkwa nkeonwe gị naanị n\'ọba nzuzo dị n\'ekwentị gị.</string>
+    <string name="vault_listener_permission_cta">Mepee ntọala ọkwa</string>
+    <string name="vault_listener_active_badge">Ọ na-arụ ọrụ</string>
+    <string name="vault_search_placeholder">Chọọ ọkwa…</string>
+    <string name="vault_search_clear">Hichapụ ọchụchọ</string>
+    <string name="vault_filter_all">Ha niile</string>
+    <string name="vault_filter_unread">Agụbeghị</string>
+    <string name="vault_mark_unread">Kaa dị ka agụbeghị</string>
+    <string name="vault_delete">Hichapụ</string>
+    <string name="vault_clear_all">Hichapụ ha niile</string>
+    <string name="vault_clear_dialog_title">Hichapụ ọba nzuzo?</string>
+    <string name="vault_clear_dialog_body">Nke a ga-ehichapụ ọkwa niile echekwara n\'ekwentị a kpamkpam.</string>
+    <string name="vault_clear_dialog_confirm">Hichapụ ọba</string>
+    <string name="vault_clear_dialog_cancel">Kagbuo</string>
+    <string name="vault_empty_filtered_title">Enweghị ọkwa dabara</string>
+    <string name="vault_empty_filtered_body">Nwaa ihichapụ ọchụchọ gị ma ọ bụ gbanwee nzacha.</string>
 
     <string name="wallet_title">Akpa Ego</string>
     <string name="wallet_balance_label">Ego dịnụ</string>

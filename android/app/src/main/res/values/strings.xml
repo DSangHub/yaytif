@@ -26,6 +26,23 @@
     <string name="vault_archive">Archive</string>
     <string name="vault_empty_title">Your private vault is empty</string>
     <string name="vault_empty_body">Personal notifications stored on this device will appear here once notification access is enabled.</string>
+    <string name="vault_listener_permission_title">Enable notification access</string>
+    <string name="vault_listener_permission_body">Allow Yaytif to store personal notifications locally in your private on-device vault.</string>
+    <string name="vault_listener_permission_cta">Open notification settings</string>
+    <string name="vault_listener_active_badge">Listener active</string>
+    <string name="vault_search_placeholder">Search notifications…</string>
+    <string name="vault_search_clear">Clear search</string>
+    <string name="vault_filter_all">All</string>
+    <string name="vault_filter_unread">Unread</string>
+    <string name="vault_mark_unread">Mark unread</string>
+    <string name="vault_delete">Delete</string>
+    <string name="vault_clear_all">Clear all</string>
+    <string name="vault_clear_dialog_title">Clear private vault?</string>
+    <string name="vault_clear_dialog_body">This permanently deletes all locally stored notifications on this device.</string>
+    <string name="vault_clear_dialog_confirm">Clear vault</string>
+    <string name="vault_clear_dialog_cancel">Cancel</string>
+    <string name="vault_empty_filtered_title">No matching notifications</string>
+    <string name="vault_empty_filtered_body">Try clearing your search or switching filters.</string>
 
     <string name="wallet_title">Wallet</string>
     <string name="wallet_balance_label">Available balance</string>

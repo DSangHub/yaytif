@@ -26,6 +26,23 @@
     <string name="vault_archive">Archiver</string>
     <string name="vault_empty_title">Votre coffre privé est vide</string>
     <string name="vault_empty_body">Les notifications personnelles stockées sur cet appareil s\'afficheront ici après activation de l\'accès.</string>
+    <string name="vault_listener_permission_title">Activer l\'accès aux notifications</string>
+    <string name="vault_listener_permission_body">Autorisez Yaytif à conserver vos notifications personnelles localement dans votre coffre privé.</string>
+    <string name="vault_listener_permission_cta">Ouvrir les paramètres</string>
+    <string name="vault_listener_active_badge">Écoute active</string>
+    <string name="vault_search_placeholder">Rechercher des notifications…</string>
+    <string name="vault_search_clear">Effacer la recherche</string>
+    <string name="vault_filter_all">Toutes</string>
+    <string name="vault_filter_unread">Non lues</string>
+    <string name="vault_mark_unread">Marquer non lu</string>
+    <string name="vault_delete">Supprimer</string>
+    <string name="vault_clear_all">Tout effacer</string>
+    <string name="vault_clear_dialog_title">Vider le coffre privé ?</string>
+    <string name="vault_clear_dialog_body">Cela supprime définitivement toutes les notifications stockées localement sur cet appareil.</string>
+    <string name="vault_clear_dialog_confirm">Vider le coffre</string>
+    <string name="vault_clear_dialog_cancel">Annuler</string>
+    <string name="vault_empty_filtered_title">Aucune notification trouvée</string>
+    <string name="vault_empty_filtered_body">Essayez d\'effacer la recherche ou de modifier les filtres.</string>
 
     <string name="wallet_title">Portefeuille</string>
     <string name="wallet_balance_label">Solde disponible</string>

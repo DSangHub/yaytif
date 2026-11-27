@@ -26,6 +26,23 @@
     <string name="vault_archive">Argiveer</string>
     <string name="vault_empty_title">Jou privaat kluis is leeg</string>
     <string name="vault_empty_body">Persoonlike kennisgewings wat op hierdie toestel gestoor word, sal hier verskyn sodra toegang geaktiveer is.</string>
+    <string name="vault_listener_permission_title">Aktiveer kennisgewingtoegang</string>
+    <string name="vault_listener_permission_body">Laat Yaytif toe om persoonlike kennisgewings plaaslik in jou privaat kluis op hierdie toestel te stoor.</string>
+    <string name="vault_listener_permission_cta">Open kennisgewinginstellings</string>
+    <string name="vault_listener_active_badge">Luisteraar aktief</string>
+    <string name="vault_search_placeholder">Soek kennisgewings…</string>
+    <string name="vault_search_clear">Maak soektog skoon</string>
+    <string name="vault_filter_all">Alles</string>
+    <string name="vault_filter_unread">Ongelees</string>
+    <string name="vault_mark_unread">Merk as ongelees</string>
+    <string name="vault_delete">Skrap</string>
+    <string name="vault_clear_all">Maak alles skoon</string>
+    <string name="vault_clear_dialog_title">Maak privaat kluis leeg?</string>
+    <string name="vault_clear_dialog_body">Dit skrap permanent alle kennisgewings wat plaaslik op hierdie toestel gestoor is.</string>
+    <string name="vault_clear_dialog_confirm">Maak kluis leeg</string>
+    <string name="vault_clear_dialog_cancel">Kanselleer</string>
+    <string name="vault_empty_filtered_title">Geen bypassende kennisgewings nie</string>
+    <string name="vault_empty_filtered_body">Probeer om jou soektog skoon te maak of filters te verander.</string>
 
     <string name="wallet_title">Beursie</string>
     <string name="wallet_balance_label">Beskikbare balans</string>

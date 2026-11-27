@@ -26,6 +26,23 @@
     <string name="vault_archive">Archivar</string>
     <string name="vault_empty_title">Tu bóveda privada está vacía</string>
     <string name="vault_empty_body">Las notificaciones personales guardadas en este teléfono aparecerán aquí al activar el acceso a notificaciones.</string>
+    <string name="vault_listener_permission_title">Activar acceso a notificaciones</string>
+    <string name="vault_listener_permission_body">Permite que Yaytif guarde notificaciones personales localmente en tu bóveda privada del dispositivo.</string>
+    <string name="vault_listener_permission_cta">Abrir ajustes de notificaciones</string>
+    <string name="vault_listener_active_badge">Escucha activa</string>
+    <string name="vault_search_placeholder">Buscar notificaciones…</string>
+    <string name="vault_search_clear">Borrar búsqueda</string>
+    <string name="vault_filter_all">Todas</string>
+    <string name="vault_filter_unread">Sin leer</string>
+    <string name="vault_mark_unread">Marcar sin leer</string>
+    <string name="vault_delete">Eliminar</string>
+    <string name="vault_clear_all">Vaciar todo</string>
+    <string name="vault_clear_dialog_title">¿Vaciar la bóveda privada?</string>
+    <string name="vault_clear_dialog_body">Esto elimina permanentemente todas las notificaciones guardadas localmente en este dispositivo.</string>
+    <string name="vault_clear_dialog_confirm">Vaciar bóveda</string>
+    <string name="vault_clear_dialog_cancel">Cancelar</string>
+    <string name="vault_empty_filtered_title">No hay notificaciones coincidentes</string>
+    <string name="vault_empty_filtered_body">Prueba borrar tu búsqueda o cambiar los filtros.</string>
 
     <string name="wallet_title">Billetera</string>
     <string name="wallet_balance_label">Saldo disponible</string>

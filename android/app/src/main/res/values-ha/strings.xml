@@ -26,6 +26,23 @@
     <string name="vault_archive">Ajiye</string>
     <string name="vault_empty_title">Ajiyarka ta sirri fanko ce</string>
     <string name="vault_empty_body">Sanarwar sirri da aka adana a wannan waya za su bayyana a nan idan an ba da izini.</string>
+    <string name="vault_listener_permission_title">Kunna izinin sanarwa</string>
+    <string name="vault_listener_permission_body">Ba Yaytif izinin adana sanarwar sirri a cikin ma\'ajiyar wayarka kaɗai.</string>
+    <string name="vault_listener_permission_cta">Buɗe saitin sanarwa</string>
+    <string name="vault_listener_active_badge">Yana aiki</string>
+    <string name="vault_search_placeholder">Nemo sanarwa…</string>
+    <string name="vault_search_clear">Goge nema</string>
+    <string name="vault_filter_all">Duka</string>
+    <string name="vault_filter_unread">Ba a karanta ba</string>
+    <string name="vault_mark_unread">Alama ba a karanta ba</string>
+    <string name="vault_delete">Goge</string>
+    <string name="vault_clear_all">Goge duka</string>
+    <string name="vault_clear_dialog_title">Goge ajiya ta sirri?</string>
+    <string name="vault_clear_dialog_body">Wannan zai goge dukkan sanarwar da aka adana a wannan waya har abada.</string>
+    <string name="vault_clear_dialog_confirm">Goge ajiya</string>
+    <string name="vault_clear_dialog_cancel">Soke</string>
+    <string name="vault_empty_filtered_title">Babu sanarwar da ta dace</string>
+    <string name="vault_empty_filtered_body">Gwada goge nema ko sauya tacewa.</string>
 
     <string name="wallet_title">Walat</string>
     <string name="wallet_balance_label">Kuɗin da ke ciki</string>

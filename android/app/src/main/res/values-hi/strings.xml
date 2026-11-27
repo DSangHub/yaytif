@@ -26,6 +26,23 @@
     <string name="vault_archive">आर्काइव</string>
     <string name="vault_empty_title">आपका निजी वॉल्ट खाली है</string>
     <string name="vault_empty_body">सूचना एक्सेस सक्षम होने के बाद इस डिवाइस पर सहेजी गई व्यक्तिगत सूचनाएं यहां दिखाई देंगी।</string>
+    <string name="vault_listener_permission_title">सूचना एक्सेस सक्षम करें</string>
+    <string name="vault_listener_permission_body">Yaytif को आपके डिवाइस के निजी वॉल्ट में व्यक्तिगत सूचनाएं स्थानीय रूप से सहेजने की अनुमति दें।</string>
+    <string name="vault_listener_permission_cta">सूचना सेटिंग्स खोलें</string>
+    <string name="vault_listener_active_badge">लिसनर सक्रिय</string>
+    <string name="vault_search_placeholder">सूचनाएं खोजें…</string>
+    <string name="vault_search_clear">खोज साफ़ करें</string>
+    <string name="vault_filter_all">सभी</string>
+    <string name="vault_filter_unread">अपठित</string>
+    <string name="vault_mark_unread">अपठित चिह्नित करें</string>
+    <string name="vault_delete">हटाएं</string>
+    <string name="vault_clear_all">सभी साफ़ करें</string>
+    <string name="vault_clear_dialog_title">निजी वॉल्ट साफ़ करें?</string>
+    <string name="vault_clear_dialog_body">यह इस डिवाइस पर स्थानीय रूप से सहेजी गई सभी सूचनाओं को स्थायी रूप से हटा देगा।</string>
+    <string name="vault_clear_dialog_confirm">वॉल्ट साफ़ करें</string>
+    <string name="vault_clear_dialog_cancel">रद्द करें</string>
+    <string name="vault_empty_filtered_title">कोई मेल खाती सूचना नहीं</string>
+    <string name="vault_empty_filtered_body">अपनी खोज साफ़ करने या फ़िल्टर बदलने का प्रयास करें।</string>
 
     <string name="wallet_title">वॉलेट</string>
     <string name="wallet_balance_label">उपलब्ध बैलेंस</string>

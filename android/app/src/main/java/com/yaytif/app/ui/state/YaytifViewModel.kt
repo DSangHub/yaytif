@@ -3,6 +3,7 @@ package com.yaytif.app.ui.state
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.yaytif.app.data.local.dao.VaultAppSummary
 import com.yaytif.app.data.local.entity.LocalNotificationEntity
 import com.yaytif.app.data.local.entity.SponsoredAlertEntity
 import com.yaytif.app.data.preferences.UserPreferences
@@ -21,6 +22,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
@@ -76,8 +78,36 @@ class YaytifViewModel(
             initialValue = emptyList()
         )
 
-    val localNotifications: StateFlow<List<LocalNotificationEntity>> = localNotificationRepository
-        .observeActiveNotifications()
+    private val _vaultSearchQuery = MutableStateFlow("")
+    val vaultSearchQuery: StateFlow<String> = _vaultSearchQuery.asStateFlow()
+
+    private val _vaultUnreadOnly = MutableStateFlow(false)
+    val vaultUnreadOnly: StateFlow<Boolean> = _vaultUnreadOnly.asStateFlow()
+
+    private val _vaultSelectedPackage = MutableStateFlow<String?>(null)
+    val vaultSelectedPackage: StateFlow<String?> = _vaultSelectedPackage.asStateFlow()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val localNotifications: StateFlow<List<LocalNotificationEntity>> = combine(
+        _vaultSearchQuery,
+        _vaultUnreadOnly,
+        _vaultSelectedPackage
+    ) { query, unreadOnly, selectedPackage ->
+        Triple(query, unreadOnly, selectedPackage)
+    }.flatMapLatest { (query, unreadOnly, selectedPackage) ->
+        localNotificationRepository.observeFilteredNotifications(
+            query = query,
+            unreadOnly = unreadOnly,
+            packageName = selectedPackage
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000L),
+        initialValue = emptyList()
+    )
+
+    val vaultApps: StateFlow<List<VaultAppSummary>> = localNotificationRepository
+        .observeDistinctApps()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
@@ -120,9 +150,27 @@ class YaytifViewModel(
         }
     }
 
+    fun updateVaultSearchQuery(query: String) {
+        _vaultSearchQuery.value = query
+    }
+
+    fun setVaultUnreadOnly(unreadOnly: Boolean) {
+        _vaultUnreadOnly.value = unreadOnly
+    }
+
+    fun selectVaultPackage(packageName: String?) {
+        _vaultSelectedPackage.value = packageName
+    }
+
     fun markNotificationRead(id: Long) {
         viewModelScope.launch {
             localNotificationRepository.markAsRead(id)
+        }
+    }
+
+    fun markNotificationUnread(id: Long) {
+        viewModelScope.launch {
+            localNotificationRepository.markAsUnread(id)
         }
     }
 
@@ -138,9 +186,16 @@ class YaytifViewModel(
         }
     }
 
+    fun deleteNotification(id: Long) {
+        viewModelScope.launch {
+            localNotificationRepository.deleteById(id)
+        }
+    }
+
     fun clearLocalVault() {
         viewModelScope.launch {
             localNotificationRepository.clearAll()
+            _vaultSelectedPackage.value = null
         }
     }
 
