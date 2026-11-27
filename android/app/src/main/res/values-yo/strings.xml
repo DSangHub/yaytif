@@ -26,6 +26,23 @@
     <string name="vault_archive">Tọ́jú</string>
     <string name="vault_empty_title">Àpótí àṣírí rẹ ṣófo</string>
     <string name="vault_empty_body">Àwọn ìfitónilétí ti ara ẹni tí a tọ́jú sí ẹ̀rọ yìí yóò hàn níbí nígbà tí o bá ṣí ìwọlé sílẹ̀.</string>
+    <string name="vault_listener_permission_title">Mú ìwọlé ìfitónilétí ṣiṣẹ́</string>
+    <string name="vault_listener_permission_body">Fún Yaytif láyè láti tọ́jú àwọn ìfitónilétí rẹ sínú àpótí àṣírí lórí ẹ̀rọ rẹ nìkan.</string>
+    <string name="vault_listener_permission_cta">Ṣí ètò ìfitónilétí</string>
+    <string name="vault_listener_active_badge">Ó ń ṣiṣẹ́</string>
+    <string name="vault_search_placeholder">Wá àwọn ìfitónilétí…</string>
+    <string name="vault_search_clear">Pa ìwádìí rẹ́</string>
+    <string name="vault_filter_all">Gbogbo rẹ̀</string>
+    <string name="vault_filter_unread">Tí a kò tíì kà</string>
+    <string name="vault_mark_unread">Sàmì bí àìkà</string>
+    <string name="vault_delete">Pa rẹ́</string>
+    <string name="vault_clear_all">Pa gbogbo rẹ́</string>
+    <string name="vault_clear_dialog_title">Pa àpótí àṣírí rẹ́?</string>
+    <string name="vault_clear_dialog_body">Èyí yóò pa gbogbo ìfitónilétí tí a tọ́jú sí ẹ̀rọ yìí rẹ́ pátápátá.</string>
+    <string name="vault_clear_dialog_confirm">Pa àpótí rẹ́</string>
+    <string name="vault_clear_dialog_cancel">Fagilé</string>
+    <string name="vault_empty_filtered_title">Kò sí ìfitónilétí tó báramu</string>
+    <string name="vault_empty_filtered_body">Gbìyànjú láti pa ìwádìí rẹ́ tàbí yí àṣàyàn padà.</string>
 
     <string name="wallet_title">Àpamọ́wọ́</string>
     <string name="wallet_balance_label">Owó tó wà lọ́wọ́</string>

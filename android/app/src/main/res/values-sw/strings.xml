@@ -26,6 +26,23 @@
     <string name="vault_archive">Weka kumbukumbu</string>
     <string name="vault_empty_title">Hifadhi yako binafsi haina kitu</string>
     <string name="vault_empty_body">Arifa za kibinafsi zilizohifadhiwa kwenye simu hii zitaonekana hapa ruhusa ikiwashwa.</string>
+    <string name="vault_listener_permission_title">Washa ruhusa ya arifa</string>
+    <string name="vault_listener_permission_body">Ruhusu Yaytif ihifadhi arifa za kibinafsi ndani ya simu yako pekee kwenye hifadhi binafsi.</string>
+    <string name="vault_listener_permission_cta">Fungua mipangilio ya arifa</string>
+    <string name="vault_listener_active_badge">Inasikiliza</string>
+    <string name="vault_search_placeholder">Tafuta arifa…</string>
+    <string name="vault_search_clear">Futa utafutaji</string>
+    <string name="vault_filter_all">Zote</string>
+    <string name="vault_filter_unread">Hazijasomwa</string>
+    <string name="vault_mark_unread">Weka haijasomwa</string>
+    <string name="vault_delete">Futa</string>
+    <string name="vault_clear_all">Futa zote</string>
+    <string name="vault_clear_dialog_title">Futa hifadhi binafsi?</string>
+    <string name="vault_clear_dialog_body">Hii itafuta kabisa arifa zote zilizohifadhiwa ndani ya kifaa hiki.</string>
+    <string name="vault_clear_dialog_confirm">Futa hifadhi</string>
+    <string name="vault_clear_dialog_cancel">Ghairi</string>
+    <string name="vault_empty_filtered_title">Hakuna arifa zinazolingana</string>
+    <string name="vault_empty_filtered_body">Jaribu kufuta utafutaji au kubadilisha vichujio.</string>
 
     <string name="wallet_title">Pochi</string>
     <string name="wallet_balance_label">Salio linalopatikana</string>

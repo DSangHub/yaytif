@@ -26,6 +26,23 @@
     <string name="vault_archive">Arquivar</string>
     <string name="vault_empty_title">Seu cofre privado está vazio</string>
     <string name="vault_empty_body">Notificações pessoais salvas neste aparelho aparecerão aqui quando o acesso às notificações estiver ativo.</string>
+    <string name="vault_listener_permission_title">Ativar acesso às notificações</string>
+    <string name="vault_listener_permission_body">Permita que o Yaytif salve notificações pessoais localmente no seu cofre privado no dispositivo.</string>
+    <string name="vault_listener_permission_cta">Abrir ajustes de notificação</string>
+    <string name="vault_listener_active_badge">Escuta ativa</string>
+    <string name="vault_search_placeholder">Buscar notificações…</string>
+    <string name="vault_search_clear">Limpar busca</string>
+    <string name="vault_filter_all">Todas</string>
+    <string name="vault_filter_unread">Não lidas</string>
+    <string name="vault_mark_unread">Marcar não lida</string>
+    <string name="vault_delete">Excluir</string>
+    <string name="vault_clear_all">Limpar tudo</string>
+    <string name="vault_clear_dialog_title">Limpar cofre privado?</string>
+    <string name="vault_clear_dialog_body">Isso exclui permanentemente todas as notificações armazenadas localmente neste aparelho.</string>
+    <string name="vault_clear_dialog_confirm">Limpar cofre</string>
+    <string name="vault_clear_dialog_cancel">Cancelar</string>
+    <string name="vault_empty_filtered_title">Nenhuma notificação encontrada</string>
+    <string name="vault_empty_filtered_body">Tente limpar sua busca ou trocar os filtros.</string>
 
     <string name="wallet_title">Carteira</string>
     <string name="wallet_balance_label">Saldo disponível</string>

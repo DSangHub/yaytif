@@ -41,6 +41,7 @@ class AppContainer(context: Context) {
 
     val workerFactory: YaytifWorkerFactory = YaytifWorkerFactory(
         sponsoredAlertRepository = sponsoredAlertRepository,
-        preferencesStore = preferencesRepository
+        preferencesStore = preferencesRepository,
+        localNotificationRepository = localNotificationRepository
     )
 }

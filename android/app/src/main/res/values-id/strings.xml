@@ -26,6 +26,23 @@
     <string name="vault_archive">Arsipkan</string>
     <string name="vault_empty_title">Brankas pribadi Anda kosong</string>
     <string name="vault_empty_body">Notifikasi pribadi yang tersimpan di perangkat ini akan muncul di sini setelah akses notifikasi diaktifkan.</string>
+    <string name="vault_listener_permission_title">Aktifkan akses notifikasi</string>
+    <string name="vault_listener_permission_body">Izinkan Yaytif menyimpan notifikasi pribadi secara lokal di brankas pribadi perangkat Anda.</string>
+    <string name="vault_listener_permission_cta">Buka pengaturan notifikasi</string>
+    <string name="vault_listener_active_badge">Pendengar aktif</string>
+    <string name="vault_search_placeholder">Cari notifikasi…</string>
+    <string name="vault_search_clear">Hapus pencarian</string>
+    <string name="vault_filter_all">Semua</string>
+    <string name="vault_filter_unread">Belum dibaca</string>
+    <string name="vault_mark_unread">Tandai belum dibaca</string>
+    <string name="vault_delete">Hapus</string>
+    <string name="vault_clear_all">Bersihkan semua</string>
+    <string name="vault_clear_dialog_title">Kosongkan brankas pribadi?</string>
+    <string name="vault_clear_dialog_body">Ini akan menghapus permanen semua notifikasi yang tersimpan secara lokal di perangkat ini.</string>
+    <string name="vault_clear_dialog_confirm">Kosongkan brankas</string>
+    <string name="vault_clear_dialog_cancel">Batal</string>
+    <string name="vault_empty_filtered_title">Tidak ada notifikasi yang cocok</string>
+    <string name="vault_empty_filtered_body">Coba hapus pencarian atau ubah filter Anda.</string>
 
     <string name="wallet_title">Dompet</string>
     <string name="wallet_balance_label">Saldo tersedia</string>

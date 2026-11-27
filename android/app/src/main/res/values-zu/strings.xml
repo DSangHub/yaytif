@@ -26,6 +26,23 @@
     <string name="vault_archive">Gcina emlandweni</string>
     <string name="vault_empty_title">Isisefo sakho siyimfihlo asinalutho</string>
     <string name="vault_empty_body">Izaziso zomuntu siqu ezigcinwe kule divayisi zizovela lapha uma imvume inikwe amandla.</string>
+    <string name="vault_listener_permission_title">Nika amandla ukufinyelela izaziso</string>
+    <string name="vault_listener_permission_body">Vumela i-Yaytif ukuthi igcine izaziso zomuntu siqu kudivayisi yakho kuphela kwisekhetho sakho esiyimfihlo.</string>
+    <string name="vault_listener_permission_cta">Vula izilungiselelo zezaziso</string>
+    <string name="vault_listener_active_badge">Iyasebenza</string>
+    <string name="vault_search_placeholder">Sesha izaziso…</string>
+    <string name="vault_search_clear">Sula usesho</string>
+    <string name="vault_filter_all">Zonke</string>
+    <string name="vault_filter_unread">Ezingafundiwe</string>
+    <string name="vault_mark_unread">Maka njengengafundiwe</string>
+    <string name="vault_delete">Susa</string>
+    <string name="vault_clear_all">Sula konke</string>
+    <string name="vault_clear_dialog_title">Sula isisefo esiyimfihlo?</string>
+    <string name="vault_clear_dialog_body">Lokhu kususa unomphela zonke izaziso ezigcinwe kule divayisi.</string>
+    <string name="vault_clear_dialog_confirm">Sula isisefo</string>
+    <string name="vault_clear_dialog_cancel">Khansela</string>
+    <string name="vault_empty_filtered_title">Azikho izaziso ezifanayo</string>
+    <string name="vault_empty_filtered_body">Zama ukusula usesho noma ukushintsha izihlungi.</string>
 
     <string name="wallet_title">Isikhwama</string>
     <string name="wallet_balance_label">Ibhalansi etholakalayo</string>

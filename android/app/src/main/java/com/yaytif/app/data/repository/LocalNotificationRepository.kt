@@ -1,6 +1,7 @@
 package com.yaytif.app.data.repository
 
 import com.yaytif.app.data.local.dao.LocalNotificationDao
+import com.yaytif.app.data.local.dao.VaultAppSummary
 import com.yaytif.app.data.local.entity.LocalNotificationEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -18,6 +19,24 @@ class LocalNotificationRepository(
         return localNotificationDao.observeActiveNotifications()
     }
 
+    fun observeFilteredNotifications(
+        query: String = "",
+        unreadOnly: Boolean = false,
+        packageName: String? = null
+    ): Flow<List<LocalNotificationEntity>> {
+        val normalizedQuery = query.trim()
+        val normalizedPackage = packageName?.trim()?.takeIf { it.isNotEmpty() }
+        return localNotificationDao.observeFilteredNotifications(
+            query = normalizedQuery,
+            unreadOnly = unreadOnly,
+            packageName = normalizedPackage
+        )
+    }
+
+    fun observeDistinctApps(): Flow<List<VaultAppSummary>> {
+        return localNotificationDao.observeDistinctApps()
+    }
+
     fun observeUnreadCount(): Flow<Int> {
         return localNotificationDao.observeUnreadCount()
     }
@@ -30,6 +49,10 @@ class LocalNotificationRepository(
         localNotificationDao.markAsRead(id)
     }
 
+    suspend fun markAsUnread(id: Long) {
+        localNotificationDao.markAsUnread(id)
+    }
+
     suspend fun markAllAsRead() {
         localNotificationDao.markAllAsRead()
     }
@@ -38,7 +61,25 @@ class LocalNotificationRepository(
         localNotificationDao.archive(id)
     }
 
+    suspend fun deleteById(id: Long) {
+        localNotificationDao.deleteById(id)
+    }
+
+    suspend fun pruneOlderThanDays(
+        retentionDays: Int = DEFAULT_RETENTION_DAYS,
+        nowEpochMs: Long = System.currentTimeMillis()
+    ): Int {
+        require(retentionDays > 0) { "retentionDays must be strictly positive" }
+        val cutoffEpochMs = (nowEpochMs - retentionDays.toLong() * MILLIS_PER_DAY).coerceAtLeast(0L)
+        return localNotificationDao.deleteOlderThan(cutoffEpochMs)
+    }
+
     suspend fun clearAll() {
         localNotificationDao.clearAll()
+    }
+
+    companion object {
+        const val DEFAULT_RETENTION_DAYS = 30
+        const val MILLIS_PER_DAY = 86_400_000L
     }
 }

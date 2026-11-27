@@ -39,6 +39,10 @@ fun YaytifApp(
     val preferences by viewModel.preferences.collectAsStateWithLifecycle()
     val alerts by viewModel.sponsoredAlerts.collectAsStateWithLifecycle()
     val localNotifications by viewModel.localNotifications.collectAsStateWithLifecycle()
+    val vaultSearchQuery by viewModel.vaultSearchQuery.collectAsStateWithLifecycle()
+    val vaultUnreadOnly by viewModel.vaultUnreadOnly.collectAsStateWithLifecycle()
+    val vaultSelectedPackage by viewModel.vaultSelectedPackage.collectAsStateWithLifecycle()
+    val vaultApps by viewModel.vaultApps.collectAsStateWithLifecycle()
     val unreadVaultCount by viewModel.unreadVaultCount.collectAsStateWithLifecycle()
     val isSyncingAlerts by viewModel.isSyncingAlerts.collectAsStateWithLifecycle()
     val walletState by viewModel.walletState.collectAsStateWithLifecycle()
@@ -108,9 +112,19 @@ fun YaytifApp(
                 VaultScreen(
                     notifications = localNotifications,
                     unreadCount = unreadVaultCount,
+                    searchQuery = vaultSearchQuery,
+                    unreadOnly = vaultUnreadOnly,
+                    selectedPackage = vaultSelectedPackage,
+                    availableApps = vaultApps,
+                    onSearchQueryChange = viewModel::updateVaultSearchQuery,
+                    onUnreadOnlyChange = viewModel::setVaultUnreadOnly,
+                    onSelectPackage = viewModel::selectVaultPackage,
                     onMarkRead = viewModel::markNotificationRead,
+                    onMarkUnread = viewModel::markNotificationUnread,
                     onMarkAllRead = viewModel::markAllNotificationsRead,
-                    onArchive = viewModel::archiveNotification
+                    onArchive = viewModel::archiveNotification,
+                    onDelete = viewModel::deleteNotification,
+                    onClearAll = viewModel::clearLocalVault
                 )
             }
             composable(YaytifDestination.Wallet.route) {

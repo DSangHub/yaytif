@@ -26,6 +26,23 @@
     <string name="vault_archive">أرشفة</string>
     <string name="vault_empty_title">خزنتك الخاصة فارغة</string>
     <string name="vault_empty_body">ستظهر الإشعارات الشخصية المحفوظة على هذا الجهاز هنا بمجرد تفعيل إذن الإشعارات.</string>
+    <string name="vault_listener_permission_title">تفعيل إذن الوصول للإشعارات</string>
+    <string name="vault_listener_permission_body">اسمح لتطبيق Yaytif بحفظ الإشعارات الشخصية محلياً داخل خزنتك الخاصة على الجهاز فقط.</string>
+    <string name="vault_listener_permission_cta">فتح إعدادات الإشعارات</string>
+    <string name="vault_listener_active_badge">المستمع نشط</string>
+    <string name="vault_search_placeholder">ابحث في الإشعارات…</string>
+    <string name="vault_search_clear">مسح البحث</string>
+    <string name="vault_filter_all">الكل</string>
+    <string name="vault_filter_unread">غير مقروء</string>
+    <string name="vault_mark_unread">تحديد كغير مقروء</string>
+    <string name="vault_delete">حذف</string>
+    <string name="vault_clear_all">مسح الكل</string>
+    <string name="vault_clear_dialog_title">مسح الخزنة الخاصة؟</string>
+    <string name="vault_clear_dialog_body">سيؤدي هذا إلى حذف جميع الإشعارات المحفوظة محلياً على هذا الجهاز نهائياً.</string>
+    <string name="vault_clear_dialog_confirm">مسح الخزنة</string>
+    <string name="vault_clear_dialog_cancel">إلغاء</string>
+    <string name="vault_empty_filtered_title">لا توجد إشعارات مطابقة</string>
+    <string name="vault_empty_filtered_body">جرّب مسح البحث أو تغيير عوامل التصفية.</string>
 
     <string name="wallet_title">المحفظة</string>
     <string name="wallet_balance_label">الرصيد المتاح</string>

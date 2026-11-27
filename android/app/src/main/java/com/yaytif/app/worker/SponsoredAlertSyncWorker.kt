@@ -16,6 +16,7 @@ import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.yaytif.app.data.preferences.UserPreferencesStore
+import com.yaytif.app.data.repository.LocalNotificationRepository
 import com.yaytif.app.data.repository.SponsoredAlertRepository
 import retrofit2.HttpException
 import java.io.IOException
@@ -129,7 +130,8 @@ class SponsoredAlertSyncWorker(
 
 class YaytifWorkerFactory(
     private val sponsoredAlertRepository: SponsoredAlertRepository,
-    private val preferencesStore: UserPreferencesStore
+    private val preferencesStore: UserPreferencesStore,
+    private val localNotificationRepository: LocalNotificationRepository? = null
 ) : WorkerFactory() {
 
     override fun createWorker(
@@ -144,6 +146,13 @@ class YaytifWorkerFactory(
                 sponsoredAlertRepository = sponsoredAlertRepository,
                 preferencesStore = preferencesStore
             )
+            LocalVaultRetentionWorker::class.java.name -> localNotificationRepository?.let { repo ->
+                LocalVaultRetentionWorker(
+                    appContext = appContext,
+                    workerParams = workerParameters,
+                    localNotificationRepository = repo
+                )
+            }
             else -> null
         }
     }
