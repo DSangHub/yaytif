@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yaytif</string>
+
+    <string name="nav_feed">Okuphakelayo</string>
+    <string name="nav_vault">Isisefo</string>
+    <string name="nav_wallet">Isikhwama</string>
+    <string name="nav_settings">Izilungiselelo</string>
+
+    <string name="feed_title">Izaziso Ezixhasiwe</string>
+    <string name="feed_subtitle">Imivuzo eqinisekisiwe yesikhathi sokunaka ehambisana nezinto ozithandayo</string>
+    <string name="feed_sync_button">Vumelanisa izaziso</string>
+    <string name="feed_syncing">Ivumelanisa izaziso…</string>
+    <string name="feed_all_categories">Zonke</string>
+    <string name="feed_payout_per_minute">%1$s / iminithi</string>
+    <string name="feed_commission_share">%1$s imbuyiselo</string>
+    <string name="feed_empty_title">Azikho izaziso ezigciniwe okwamanje</string>
+    <string name="feed_empty_body">Thepha u-Vumelanisa izaziso ukuze uthole izipesheli ezisebenzayo esifundeni sakho.</string>
+
+    <string name="vault_title">Isisefo Esiyimfihlo</string>
+    <string name="vault_privacy_title" formatted="false">Ubumfihlo Obungu-100% Kudivayisi</string>
+    <string name="vault_privacy_body">Izaziso zomuntu siqu zihlala endaweni yokugcina yefoni yakho kuphela futhi azilokothi zilayishwe kumaseva e-Yaytif.</string>
+    <string name="vault_unread_badge">%1$d ezingafundiwe</string>
+    <string name="vault_mark_all_read">Maka zonke njengezifundiwe</string>
+    <string name="vault_mark_read">Kufundiwe</string>
+    <string name="vault_archive">Gcina emlandweni</string>
+    <string name="vault_empty_title">Isisefo sakho siyimfihlo asinalutho</string>
+    <string name="vault_empty_body">Izaziso zomuntu siqu ezigcinwe kule divayisi zizovela lapha uma imvume inikwe amandla.</string>
+
+    <string name="wallet_title">Isikhwama</string>
+    <string name="wallet_balance_label">Ibhalansi etholakalayo</string>
+    <string name="wallet_daily_earned_label">Okuzuziwe namuhla: %1$s</string>
+    <string name="wallet_payout_rails_title">Izindlela zokukhipha zemali zasendaweni</string>
+    <string name="wallet_request_payout">Cela ukukhipha imali</string>
+    <string name="wallet_destination_label">Indawo yokukhokhela</string>
+    <string name="wallet_amount_label">Inani (%1$s)</string>
+    <string name="wallet_submit_payout">Thumela isicelo</string>
+    <string name="wallet_ledger_title">Okwenzeke muva nje</string>
+    <string name="wallet_ledger_empty">Akukho msebenzi okwamanje. Imivuzo yokunaka nembuyiselo izovela lapha.</string>
+    <string name="wallet_payout_invalid_amount">Faka inani ledesimali elivumelekile.</string>
+    <string name="wallet_payout_below_min">Inani elincane lokukhipha ngu-%1$s.</string>
+    <string name="wallet_payout_insufficient">Ibhalansi ayanele.</string>
+    <string name="wallet_payout_missing_destination">Faka indawo yokukhokhela evumelekile.</string>
+    <string name="wallet_payout_account_required">Bhalisa i-akhawunti ngaphambi kokucela ukukhipha imali.</string>
+    <string name="wallet_payout_submitted">Isicelo sokukhipha imali sithunyelwe.</string>
+
+    <string name="rail_pix">Pix (Brazil)</string>
+    <string name="rail_mercado_pago">Mercado Pago</string>
+    <string name="rail_mpesa">M-Pesa</string>
+    <string name="rail_paystack_opay">Paystack / OPay</string>
+    <string name="rail_airtime">I-Airtime Yeselula</string>
+    <string name="rail_paypal">PayPal</string>
+
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="settings_language_title">Ulimi</string>
+    <string name="settings_language_subtitle">Isekela izilimi ezingu-13 kanye nesakhiwo se-RTL esizenzakalelayo sesi-Arabhu</string>
+    <string name="settings_rtl_badge">RTL</string>
+    <string name="settings_market_title">Imakethe Nemali</string>
+    <string name="settings_interests_title">Izinto Ozithandayo</string>
+    <string name="settings_privacy_title">Izilawuli Zobumfihlo Kudivayisi</string>
+    <string name="settings_clear_vault">Sula isisefo sezaziso zasendaweni</string>
+    <string name="settings_vault_cleared">Isisefo sezaziso zasendaweni sisuliwe.</string>
+
+    <string name="category_ecommerce">Ukuthenga</string>
+    <string name="category_fintech">Ezezimali</string>
+    <string name="category_food_delivery">Ukudla</string>
+    <string name="category_telecom">Ezokuxhumana</string>
+    <string name="category_entertainment">Ezokuzijabulisa</string>
+    <string name="category_travel">Ukuhamba</string>
+</resources>

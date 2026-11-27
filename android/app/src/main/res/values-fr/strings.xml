@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yaytif</string>
+
+    <string name="nav_feed">Fil</string>
+    <string name="nav_vault">Coffre</string>
+    <string name="nav_wallet">Portefeuille</string>
+    <string name="nav_settings">Paramètres</string>
+
+    <string name="feed_title">Alertes Sponsorisées</string>
+    <string name="feed_subtitle">Récompenses d\'attention vérifiées adaptées à vos centres d\'intérêt</string>
+    <string name="feed_sync_button">Synchroniser</string>
+    <string name="feed_syncing">Synchronisation…</string>
+    <string name="feed_all_categories">Tout</string>
+    <string name="feed_payout_per_minute">%1$s / min</string>
+    <string name="feed_commission_share">%1$s cashback</string>
+    <string name="feed_empty_title">Aucune alerte en cache</string>
+    <string name="feed_empty_body">Appuyez sur Synchroniser pour récupérer les offres actives dans votre région.</string>
+
+    <string name="vault_title">Coffre Privé</string>
+    <string name="vault_privacy_title" formatted="false">Confidentialité 100% Locale</string>
+    <string name="vault_privacy_body">Les notifications personnelles interceptées restent strictement dans le stockage local et ne sont jamais envoyées aux serveurs Yaytif.</string>
+    <string name="vault_unread_badge">%1$d non lues</string>
+    <string name="vault_mark_all_read">Tout marquer comme lu</string>
+    <string name="vault_mark_read">Lu</string>
+    <string name="vault_archive">Archiver</string>
+    <string name="vault_empty_title">Votre coffre privé est vide</string>
+    <string name="vault_empty_body">Les notifications personnelles stockées sur cet appareil s\'afficheront ici après activation de l\'accès.</string>
+
+    <string name="wallet_title">Portefeuille</string>
+    <string name="wallet_balance_label">Solde disponible</string>
+    <string name="wallet_daily_earned_label">Gagné aujourd\'hui : %1$s</string>
+    <string name="wallet_payout_rails_title">Canaux de retrait locaux</string>
+    <string name="wallet_request_payout">Demander un retrait</string>
+    <string name="wallet_destination_label">Destination du retrait</string>
+    <string name="wallet_amount_label">Montant (%1$s)</string>
+    <string name="wallet_submit_payout">Valider le retrait</string>
+    <string name="wallet_ledger_title">Activité récente</string>
+    <string name="wallet_ledger_empty">Aucune opération pour le moment. Vos récompenses apparaîtront ici.</string>
+    <string name="wallet_payout_invalid_amount">Saisissez un montant décimal valide.</string>
+    <string name="wallet_payout_below_min">Le retrait minimum est de %1$s.</string>
+    <string name="wallet_payout_insufficient">Solde insuffisant.</string>
+    <string name="wallet_payout_missing_destination">Saisissez une destination de retrait valide.</string>
+    <string name="wallet_payout_account_required">Créez un compte avant de demander un retrait.</string>
+    <string name="wallet_payout_submitted">Demande de retrait envoyée.</string>
+
+    <string name="rail_pix">Pix (Brésil)</string>
+    <string name="rail_mercado_pago">Mercado Pago</string>
+    <string name="rail_mpesa">M-Pesa</string>
+    <string name="rail_paystack_opay">Paystack / OPay</string>
+    <string name="rail_airtime">Crédit Mobile</string>
+    <string name="rail_paypal">PayPal</string>
+
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_language_title">Langue</string>
+    <string name="settings_language_subtitle">Prend en charge 13 langues avec mise en page RTL automatique pour l\'arabe</string>
+    <string name="settings_rtl_badge">RTL</string>
+    <string name="settings_market_title">Marché et Devise</string>
+    <string name="settings_interests_title">Centres d\'intérêt</string>
+    <string name="settings_privacy_title">Contrôles de Confidentialité Locale</string>
+    <string name="settings_clear_vault">Vider le coffre local</string>
+    <string name="settings_vault_cleared">Coffre local vidé.</string>
+
+    <string name="category_ecommerce">Achats</string>
+    <string name="category_fintech">Fintech</string>
+    <string name="category_food_delivery">Repas</string>
+    <string name="category_telecom">Télécom</string>
+    <string name="category_entertainment">Médias</string>
+    <string name="category_travel">Voyages</string>
+</resources>

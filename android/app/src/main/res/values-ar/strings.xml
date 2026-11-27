@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yaytif</string>
+
+    <string name="nav_feed">العروض</string>
+    <string name="nav_vault">الخزنة</string>
+    <string name="nav_wallet">المحفظة</string>
+    <string name="nav_settings">الإعدادات</string>
+
+    <string name="feed_title">التنبيهات الممولة</string>
+    <string name="feed_subtitle">مكافآت موثقة لوقت الانتباه متوافقة مع اهتماماتك</string>
+    <string name="feed_sync_button">مزامنة التنبيهات</string>
+    <string name="feed_syncing">جارٍ مزامنة التنبيهات…</string>
+    <string name="feed_all_categories">الكل</string>
+    <string name="feed_payout_per_minute">%1$s / دقيقة</string>
+    <string name="feed_commission_share">استرداد %1$s</string>
+    <string name="feed_empty_title">لا توجد تنبيهات محفوظة بعد</string>
+    <string name="feed_empty_body">اضغط على مزامنة التنبيهات لجلب العروض النشطة في سوقك.</string>
+
+    <string name="vault_title">الخزنة الخاصة</string>
+    <string name="vault_privacy_title" formatted="false">خصوصية 100% على الجهاز</string>
+    <string name="vault_privacy_body">تبقى الإشعارات الشخصية المعترضة محصورة داخل التخزين المحلي لجهازك ولا يتم رفعها أبداً إلى خوادم Yaytif.</string>
+    <string name="vault_unread_badge">%1$d غير مقروء</string>
+    <string name="vault_mark_all_read">تحديد الكل كمقروء</string>
+    <string name="vault_mark_read">مقروء</string>
+    <string name="vault_archive">أرشفة</string>
+    <string name="vault_empty_title">خزنتك الخاصة فارغة</string>
+    <string name="vault_empty_body">ستظهر الإشعارات الشخصية المحفوظة على هذا الجهاز هنا بمجرد تفعيل إذن الإشعارات.</string>
+
+    <string name="wallet_title">المحفظة</string>
+    <string name="wallet_balance_label">الرصيد المتاح</string>
+    <string name="wallet_daily_earned_label">أرباح اليوم: %1$s</string>
+    <string name="wallet_payout_rails_title">قنوات السحب المحلية</string>
+    <string name="wallet_request_payout">طلب سحب</string>
+    <string name="wallet_destination_label">وجهة السحب</string>
+    <string name="wallet_amount_label">المبلغ (%1$s)</string>
+    <string name="wallet_submit_payout">إرسال طلب السحب</string>
+    <string name="wallet_ledger_title">النشاط الأخير</string>
+    <string name="wallet_ledger_empty">لا يوجد نشاط بعد. ستظهر مكافآت وقت الانتباه والاسترداد النقدي هنا.</string>
+    <string name="wallet_payout_invalid_amount">أدخل مبلغاً عشرياً صحيحاً.</string>
+    <string name="wallet_payout_below_min">الحد الأدنى للسحب هو %1$s.</string>
+    <string name="wallet_payout_insufficient">الرصيد غير كافٍ.</string>
+    <string name="wallet_payout_missing_destination">أدخل وجهة سحب صالحة.</string>
+    <string name="wallet_payout_account_required">سجّل حسابك قبل طلب السحب.</string>
+    <string name="wallet_payout_submitted">تم إرسال طلب السحب.</string>
+
+    <string name="rail_pix">بيكس (البرازيل)</string>
+    <string name="rail_mercado_pago">ميركادو باجو</string>
+    <string name="rail_mpesa">إم-بيسا</string>
+    <string name="rail_paystack_opay">بايستاك / أوبي</string>
+    <string name="rail_airtime">رصيد هاتف</string>
+    <string name="rail_paypal">باي بال</string>
+
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_language_title">اللغة</string>
+    <string name="settings_language_subtitle">يدعم 13 لغة مع تخطيط تلقائي من اليمين إلى اليسار للغة العربية</string>
+    <string name="settings_rtl_badge">RTL</string>
+    <string name="settings_market_title">السوق والعملة</string>
+    <string name="settings_interests_title">الاهتمامات</string>
+    <string name="settings_privacy_title">عناصر تحكم الخصوصية على الجهاز</string>
+    <string name="settings_clear_vault">مسح خزنة الإشعارات المحلية</string>
+    <string name="settings_vault_cleared">تم مسح خزنة الإشعارات المحلية.</string>
+
+    <string name="category_ecommerce">التسوق</string>
+    <string name="category_fintech">المالية</string>
+    <string name="category_food_delivery">الطعام</string>
+    <string name="category_telecom">الاتصالات</string>
+    <string name="category_entertainment">الوسائط</string>
+    <string name="category_travel">السفر</string>
+</resources>

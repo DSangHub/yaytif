@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yaytif</string>
+
+    <string name="nav_feed">Feed</string>
+    <string name="nav_vault">Vault</string>
+    <string name="nav_wallet">Wallet</string>
+    <string name="nav_settings">Settings</string>
+
+    <string name="feed_title">Sponsored Alerts</string>
+    <string name="feed_subtitle">Verified attention rewards matched to your interests</string>
+    <string name="feed_sync_button">Sync alerts</string>
+    <string name="feed_syncing">Syncing alerts…</string>
+    <string name="feed_all_categories">All</string>
+    <string name="feed_payout_per_minute">%1$s / min</string>
+    <string name="feed_commission_share">%1$s cashback</string>
+    <string name="feed_empty_title">No cached alerts yet</string>
+    <string name="feed_empty_body">Tap Sync alerts to fetch active regional offers for your market.</string>
+
+    <string name="vault_title">Private Vault</string>
+    <string name="vault_privacy_title" formatted="false">100% On-Device Privacy</string>
+    <string name="vault_privacy_body">Intercepted personal notifications stay strictly in local device storage and are never uploaded to Yaytif servers.</string>
+    <string name="vault_unread_badge">%1$d unread</string>
+    <string name="vault_mark_all_read">Mark all read</string>
+    <string name="vault_mark_read">Read</string>
+    <string name="vault_archive">Archive</string>
+    <string name="vault_empty_title">Your private vault is empty</string>
+    <string name="vault_empty_body">Personal notifications stored on this device will appear here once notification access is enabled.</string>
+
+    <string name="wallet_title">Wallet</string>
+    <string name="wallet_balance_label">Available balance</string>
+    <string name="wallet_daily_earned_label">Earned today: %1$s</string>
+    <string name="wallet_payout_rails_title">Local payout rails</string>
+    <string name="wallet_request_payout">Request payout</string>
+    <string name="wallet_destination_label">Payout destination</string>
+    <string name="wallet_amount_label">Amount (%1$s)</string>
+    <string name="wallet_submit_payout">Submit payout</string>
+    <string name="wallet_ledger_title">Recent activity</string>
+    <string name="wallet_ledger_empty">No ledger activity yet. Attention rewards and affiliate cashback appear here.</string>
+    <string name="wallet_payout_invalid_amount">Enter a valid decimal amount.</string>
+    <string name="wallet_payout_below_min">Minimum payout is %1$s.</string>
+    <string name="wallet_payout_insufficient">Insufficient balance.</string>
+    <string name="wallet_payout_missing_destination">Enter a valid payout destination.</string>
+    <string name="wallet_payout_account_required">Register an account before requesting a payout.</string>
+    <string name="wallet_payout_submitted">Payout request submitted.</string>
+
+    <string name="rail_pix">Pix (Brazil)</string>
+    <string name="rail_mercado_pago">Mercado Pago</string>
+    <string name="rail_mpesa">M-Pesa</string>
+    <string name="rail_paystack_opay">Paystack / OPay</string>
+    <string name="rail_airtime">Mobile Airtime</string>
+    <string name="rail_paypal">PayPal</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_language_title">Language</string>
+    <string name="settings_language_subtitle">Supports 13 locales with automatic RTL layout for Arabic</string>
+    <string name="settings_rtl_badge">RTL</string>
+    <string name="settings_market_title">Market &amp; Currency</string>
+    <string name="settings_interests_title">Interest Tags</string>
+    <string name="settings_privacy_title">On-Device Privacy Controls</string>
+    <string name="settings_clear_vault">Clear local notification vault</string>
+    <string name="settings_vault_cleared">Local notification vault cleared.</string>
+
+    <string name="category_ecommerce">Shopping</string>
+    <string name="category_fintech">Fintech</string>
+    <string name="category_food_delivery">Food</string>
+    <string name="category_telecom">Telecom</string>
+    <string name="category_entertainment">Media</string>
+    <string name="category_travel">Travel</string>
+</resources>
