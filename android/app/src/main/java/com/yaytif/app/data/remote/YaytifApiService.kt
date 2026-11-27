@@ -2,8 +2,9 @@ package com.yaytif.app.data.remote
 
 import com.yaytif.app.data.remote.dto.AlertsResponseDto
 import com.yaytif.app.data.remote.dto.CreatePayoutRequest
+import com.yaytif.app.data.remote.dto.CreatePayoutResponseDto
 import com.yaytif.app.data.remote.dto.PayoutListResponseDto
-import com.yaytif.app.data.remote.dto.PayoutRequestDto
+import com.yaytif.app.data.remote.dto.PayoutStatusDto
 import com.yaytif.app.data.remote.dto.RegisterUserRequest
 import com.yaytif.app.data.remote.dto.SessionHeartbeatRequest
 import com.yaytif.app.data.remote.dto.SessionHeartbeatResponse
@@ -65,16 +66,20 @@ interface YaytifApiService {
 
     @GET("api/v1/wallet/{userId}/ledger")
     suspend fun getWalletLedger(
-        @Path("userId") userId: String
+        @Path("userId") userId: String,
+        @Query("cursor") cursor: String? = null,
+        @Query("limit") limit: Int? = null
     ): WalletLedgerResponseDto
 
     @POST("api/v1/payouts")
     suspend fun createPayout(
         @Body request: CreatePayoutRequest
-    ): PayoutRequestDto
+    ): CreatePayoutResponseDto
 
     @GET("api/v1/payouts")
     suspend fun getPayouts(
-        @Query("userId") userId: String
+        @Query("userId") userId: String,
+        @Query("status") status: PayoutStatusDto? = null,
+        @Query("limit") limit: Int? = null
     ): PayoutListResponseDto
 }

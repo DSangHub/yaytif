@@ -7,15 +7,10 @@ import com.yaytif.app.data.local.entity.LocalNotificationEntity
 import com.yaytif.app.data.local.entity.SponsoredAlertEntity
 import com.yaytif.app.data.preferences.UserPreferences
 import com.yaytif.app.data.preferences.UserPreferencesStore
-import com.yaytif.app.data.remote.dto.LedgerEntryDto
-import com.yaytif.app.data.remote.dto.PayoutRailDto
-import com.yaytif.app.data.remote.dto.PayoutRequestDto
 import com.yaytif.app.data.repository.LocalNotificationRepository
 import com.yaytif.app.data.repository.SponsoredAlertRepository
 import com.yaytif.app.data.repository.WalletRepository
 import com.yaytif.app.domain.MarketConfig
-import com.yaytif.app.domain.MoneyFormatter
-import com.yaytif.app.domain.PayoutValidationResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,28 +20,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
-
-data class WalletUiState(
-    val walletBalance: BigDecimal = BigDecimal.ZERO,
-    val dailyTimeEarned: BigDecimal = BigDecimal.ZERO,
-    val ledgerEntries: List<LedgerEntryDto> = emptyList(),
-    val payouts: List<PayoutRequestDto> = emptyList(),
-    val isLoading: Boolean = false,
-    val payoutFeedback: PayoutFeedback? = null
-)
-
-sealed interface PayoutFeedback {
-    data object Submitted : PayoutFeedback
-    data object MissingAccount : PayoutFeedback
-    data object MissingDestination : PayoutFeedback
-    data object InvalidAmount : PayoutFeedback
-    data class BelowMinimum(val formattedMinimum: String) : PayoutFeedback
-    data object InsufficientBalance : PayoutFeedback
-    data class NetworkError(val message: String) : PayoutFeedback
-}
 
 class YaytifViewModel(
     private val preferencesStore: UserPreferencesStore,
@@ -94,9 +68,6 @@ class YaytifViewModel(
 
     private val _isSyncingAlerts = MutableStateFlow(false)
     val isSyncingAlerts: StateFlow<Boolean> = _isSyncingAlerts.asStateFlow()
-
-    private val _walletState = MutableStateFlow(WalletUiState())
-    val walletState: StateFlow<WalletUiState> = _walletState.asStateFlow()
 
     fun selectCategory(category: String?) {
         viewModelScope.launch {
@@ -168,101 +139,6 @@ class YaytifViewModel(
             val userId = preferences.value.userId
             if (!userId.isNullOrBlank()) {
                 runCatching { walletRepository.syncInterests(userId, current) }
-            }
-        }
-    }
-
-    fun refreshWallet() {
-        val userId = preferences.value.userId ?: return
-        viewModelScope.launch {
-            _walletState.update { it.copy(isLoading = true) }
-            runCatching {
-                val ledger = walletRepository.fetchWalletLedger(userId)
-                val payouts = walletRepository.fetchPayouts(userId)
-                _walletState.update {
-                    it.copy(
-                        walletBalance = ledger.walletBalance,
-                        dailyTimeEarned = ledger.dailyTimeEarned,
-                        ledgerEntries = ledger.entries,
-                        payouts = payouts,
-                        isLoading = false
-                    )
-                }
-            }.onFailure {
-                _walletState.update { it.copy(isLoading = false) }
-            }
-        }
-    }
-
-    fun clearPayoutFeedback() {
-        _walletState.update { it.copy(payoutFeedback = null) }
-    }
-
-    fun submitPayout(rail: PayoutRailDto, destination: String, rawAmount: String) {
-        val prefs = preferences.value
-        val market = MarketConfig.marketForCountry(prefs.countryCode)
-        val trimmedDestination = destination.trim()
-
-        if (trimmedDestination.isEmpty()) {
-            _walletState.update { it.copy(payoutFeedback = PayoutFeedback.MissingDestination) }
-            return
-        }
-
-        val validation = MoneyFormatter.validatePayoutAmount(
-            rawAmount = rawAmount,
-            availableBalance = _walletState.value.walletBalance,
-            minimumAmount = market.minimumPayoutAmount
-        )
-
-        val validatedAmount = when (validation) {
-            is PayoutValidationResult.Valid -> validation.amount
-            PayoutValidationResult.InvalidFormat,
-            PayoutValidationResult.TooManyDecimals,
-            PayoutValidationResult.MustBePositive -> {
-                _walletState.update { it.copy(payoutFeedback = PayoutFeedback.InvalidAmount) }
-                return
-            }
-            is PayoutValidationResult.BelowMinimum -> {
-                val formattedMin = MoneyFormatter.formatAmount(validation.minimum, prefs.currency)
-                _walletState.update { it.copy(payoutFeedback = PayoutFeedback.BelowMinimum(formattedMin)) }
-                return
-            }
-            is PayoutValidationResult.InsufficientBalance -> {
-                _walletState.update { it.copy(payoutFeedback = PayoutFeedback.InsufficientBalance) }
-                return
-            }
-        }
-
-        val userId = prefs.userId
-        if (userId.isNullOrBlank()) {
-            _walletState.update { it.copy(payoutFeedback = PayoutFeedback.MissingAccount) }
-            return
-        }
-
-        viewModelScope.launch {
-            _walletState.update { it.copy(isLoading = true, payoutFeedback = null) }
-            runCatching {
-                val created = walletRepository.requestPayout(
-                    userId = userId,
-                    rail = rail,
-                    destination = trimmedDestination,
-                    amount = validatedAmount
-                )
-                _walletState.update { current ->
-                    current.copy(
-                        walletBalance = current.walletBalance.subtract(validatedAmount).max(BigDecimal.ZERO),
-                        payouts = listOf(created) + current.payouts,
-                        isLoading = false,
-                        payoutFeedback = PayoutFeedback.Submitted
-                    )
-                }
-            }.onFailure { err ->
-                _walletState.update {
-                    it.copy(
-                        isLoading = false,
-                        payoutFeedback = PayoutFeedback.NetworkError(err.message ?: "Request failed")
-                    )
-                }
             }
         }
     }
