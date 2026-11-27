@@ -9,6 +9,8 @@ import com.yaytif.app.data.remote.YaytifApiService
 import com.yaytif.app.data.repository.LocalNotificationRepository
 import com.yaytif.app.data.repository.SponsoredAlertRepository
 import com.yaytif.app.data.repository.WalletRepository
+import com.yaytif.app.permissions.AndroidPermissionStatusChecker
+import com.yaytif.app.permissions.PermissionChecker
 import com.yaytif.app.worker.YaytifWorkerFactory
 
 class AppContainer(context: Context) {
@@ -38,6 +40,8 @@ class AppContainer(context: Context) {
         apiService = apiService,
         preferencesStore = preferencesRepository
     )
+
+    val permissionChecker: PermissionChecker = AndroidPermissionStatusChecker(appContext)
 
     val workerFactory: YaytifWorkerFactory = YaytifWorkerFactory(
         sponsoredAlertRepository = sponsoredAlertRepository,

@@ -32,11 +32,17 @@ import androidx.compose.ui.unit.dp
 import com.yaytif.app.R
 import com.yaytif.app.data.preferences.UserPreferences
 import com.yaytif.app.domain.MarketConfig
+import com.yaytif.app.permissions.PermissionStatus
+import com.yaytif.app.ui.onboarding.PermissionStatusCard
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SettingsScreen(
     preferences: UserPreferences,
+    permissionStatus: PermissionStatus,
+    onOpenNotificationListenerSettings: () -> Unit,
+    onOpenOverlaySettings: () -> Unit,
+    onRequestPostNotifications: () -> Unit,
     onSelectLocale: (String) -> Unit,
     onSelectMarket: (String) -> Unit,
     onToggleInterest: (String) -> Unit,
@@ -179,6 +185,43 @@ fun SettingsScreen(
                             )
                         }
                     }
+                }
+            }
+        }
+
+        item {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = stringResource(R.string.permissions_section_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                PermissionStatusCard(
+                    title = stringResource(R.string.permission_listener_title),
+                    description = stringResource(R.string.permission_listener_desc),
+                    isGranted = permissionStatus.notificationListenerGranted,
+                    actionLabel = stringResource(R.string.permission_open_settings),
+                    onAction = onOpenNotificationListenerSettings
+                )
+                PermissionStatusCard(
+                    title = stringResource(R.string.permission_overlay_title),
+                    description = stringResource(R.string.permission_overlay_desc),
+                    isGranted = permissionStatus.overlayGranted,
+                    actionLabel = stringResource(R.string.permission_open_settings),
+                    onAction = onOpenOverlaySettings
+                )
+                if (permissionStatus.postNotificationsRequired) {
+                    PermissionStatusCard(
+                        title = stringResource(R.string.permission_post_notifications_title),
+                        description = stringResource(R.string.permission_post_notifications_desc),
+                        isGranted = permissionStatus.postNotificationsGranted,
+                        actionLabel = stringResource(R.string.permission_grant_action),
+                        onAction = onRequestPostNotifications
+                    )
                 }
             }
         }

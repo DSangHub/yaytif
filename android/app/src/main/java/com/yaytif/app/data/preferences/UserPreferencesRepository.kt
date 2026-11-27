@@ -3,6 +3,7 @@ package com.yaytif.app.data.preferences
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.longPreferencesKey
@@ -22,18 +23,30 @@ private val Context.yaytifPreferencesDataStore: DataStore<Preferences> by prefer
 
 data class UserPreferences(
     val userId: String? = null,
+    val phoneHash: String? = null,
     val countryCode: String = MarketConfig.DEFAULT_COUNTRY_CODE,
     val localeTag: String = MarketConfig.DEFAULT_LOCALE_TAG,
     val currency: String = MarketConfig.DEFAULT_CURRENCY,
     val interests: Set<String> = MarketConfig.DEFAULT_INTERESTS,
     val selectedCategory: String? = null,
-    val lastAlertSyncEpochMs: Long? = null
+    val lastAlertSyncEpochMs: Long? = null,
+    val onboardingCompleted: Boolean = false
 )
 
 interface UserPreferencesStore {
     val preferencesFlow: Flow<UserPreferences>
     suspend fun getSnapshot(): UserPreferences
     suspend fun setUserId(userId: String)
+    suspend fun saveRegistration(
+        userId: String,
+        phoneHash: String,
+        countryCode: String,
+        localeTag: String,
+        currency: String,
+        interests: Set<String>,
+        onboardingCompleted: Boolean = false
+    )
+    suspend fun setOnboardingCompleted(completed: Boolean)
     suspend fun setMarket(countryCode: String, currency: String)
     suspend fun setLocaleTag(localeTag: String)
     suspend fun setInterests(interests: Set<String>)
@@ -49,12 +62,14 @@ class UserPreferencesRepository(
 
     private object Keys {
         val USER_ID = stringPreferencesKey("user_id")
+        val PHONE_HASH = stringPreferencesKey("phone_hash")
         val COUNTRY_CODE = stringPreferencesKey("country_code")
         val LOCALE_TAG = stringPreferencesKey("locale_tag")
         val CURRENCY = stringPreferencesKey("currency")
         val INTERESTS = stringSetPreferencesKey("interests")
         val SELECTED_CATEGORY = stringPreferencesKey("selected_category")
         val LAST_ALERT_SYNC_EPOCH_MS = longPreferencesKey("last_alert_sync_epoch_ms")
+        val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
     }
 
     override val preferencesFlow: Flow<UserPreferences> = dataStore.data
@@ -70,12 +85,14 @@ class UserPreferencesRepository(
             val defaultCurrency = MarketConfig.marketForCountry(countryCode).currency
             UserPreferences(
                 userId = prefs[Keys.USER_ID],
+                phoneHash = prefs[Keys.PHONE_HASH],
                 countryCode = countryCode,
                 localeTag = prefs[Keys.LOCALE_TAG] ?: MarketConfig.DEFAULT_LOCALE_TAG,
                 currency = prefs[Keys.CURRENCY] ?: defaultCurrency,
                 interests = prefs[Keys.INTERESTS] ?: MarketConfig.DEFAULT_INTERESTS,
                 selectedCategory = prefs[Keys.SELECTED_CATEGORY],
-                lastAlertSyncEpochMs = prefs[Keys.LAST_ALERT_SYNC_EPOCH_MS]
+                lastAlertSyncEpochMs = prefs[Keys.LAST_ALERT_SYNC_EPOCH_MS],
+                onboardingCompleted = prefs[Keys.ONBOARDING_COMPLETED] ?: false
             )
         }
 
@@ -84,6 +101,32 @@ class UserPreferencesRepository(
     override suspend fun setUserId(userId: String) {
         dataStore.edit { prefs ->
             prefs[Keys.USER_ID] = userId.trim()
+        }
+    }
+
+    override suspend fun saveRegistration(
+        userId: String,
+        phoneHash: String,
+        countryCode: String,
+        localeTag: String,
+        currency: String,
+        interests: Set<String>,
+        onboardingCompleted: Boolean
+    ) {
+        dataStore.edit { prefs ->
+            prefs[Keys.USER_ID] = userId.trim()
+            prefs[Keys.PHONE_HASH] = phoneHash.trim()
+            prefs[Keys.COUNTRY_CODE] = countryCode.uppercase()
+            prefs[Keys.LOCALE_TAG] = localeTag
+            prefs[Keys.CURRENCY] = currency.uppercase()
+            prefs[Keys.INTERESTS] = interests
+            prefs[Keys.ONBOARDING_COMPLETED] = onboardingCompleted
+        }
+    }
+
+    override suspend fun setOnboardingCompleted(completed: Boolean) {
+        dataStore.edit { prefs ->
+            prefs[Keys.ONBOARDING_COMPLETED] = completed
         }
     }
 
