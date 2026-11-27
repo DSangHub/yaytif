@@ -15,7 +15,8 @@ data class MarketProfile(
     val currency: String,
     val defaultLocaleTag: String,
     val supportedRails: List<PayoutRailDto>,
-    val minimumPayoutAmount: BigDecimal
+    val minimumPayoutAmount: BigDecimal,
+    val dailyAttentionCap: BigDecimal = BigDecimal("10.00")
 )
 
 object MarketConfig {
@@ -61,7 +62,8 @@ object MarketConfig {
             currency = "BRL",
             defaultLocaleTag = "pt-BR",
             supportedRails = listOf(PayoutRailDto.PIX, PayoutRailDto.MERCADO_PAGO, PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("5.00")
+            minimumPayoutAmount = BigDecimal("5.00"),
+            dailyAttentionCap = BigDecimal("10.00")
         ),
         MarketProfile(
             countryCode = "CO",
@@ -69,7 +71,8 @@ object MarketConfig {
             currency = "COP",
             defaultLocaleTag = "es",
             supportedRails = listOf(PayoutRailDto.MERCADO_PAGO, PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("5000.00")
+            minimumPayoutAmount = BigDecimal("5000.00"),
+            dailyAttentionCap = BigDecimal("15000.00")
         ),
         MarketProfile(
             countryCode = "AR",
@@ -77,7 +80,8 @@ object MarketConfig {
             currency = "ARS",
             defaultLocaleTag = "es",
             supportedRails = listOf(PayoutRailDto.MERCADO_PAGO, PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("1000.00")
+            minimumPayoutAmount = BigDecimal("1000.00"),
+            dailyAttentionCap = BigDecimal("5000.00")
         ),
         MarketProfile(
             countryCode = "CL",
@@ -85,7 +89,8 @@ object MarketConfig {
             currency = "CLP",
             defaultLocaleTag = "es",
             supportedRails = listOf(PayoutRailDto.MERCADO_PAGO, PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("1000.00")
+            minimumPayoutAmount = BigDecimal("1000.00"),
+            dailyAttentionCap = BigDecimal("4000.00")
         ),
         MarketProfile(
             countryCode = "NG",
@@ -93,7 +98,8 @@ object MarketConfig {
             currency = "NGN",
             defaultLocaleTag = "en",
             supportedRails = listOf(PayoutRailDto.PAYSTACK_OPAY, PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("500.00")
+            minimumPayoutAmount = BigDecimal("500.00"),
+            dailyAttentionCap = BigDecimal("2500.00")
         ),
         MarketProfile(
             countryCode = "KE",
@@ -101,7 +107,8 @@ object MarketConfig {
             currency = "KES",
             defaultLocaleTag = "sw",
             supportedRails = listOf(PayoutRailDto.MPESA, PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("100.00")
+            minimumPayoutAmount = BigDecimal("100.00"),
+            dailyAttentionCap = BigDecimal("250.00")
         ),
         MarketProfile(
             countryCode = "GH",
@@ -109,7 +116,8 @@ object MarketConfig {
             currency = "GHS",
             defaultLocaleTag = "en",
             supportedRails = listOf(PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("10.00")
+            minimumPayoutAmount = BigDecimal("10.00"),
+            dailyAttentionCap = BigDecimal("30.00")
         ),
         MarketProfile(
             countryCode = "ZA",
@@ -117,7 +125,8 @@ object MarketConfig {
             currency = "ZAR",
             defaultLocaleTag = "en",
             supportedRails = listOf(PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("20.00")
+            minimumPayoutAmount = BigDecimal("20.00"),
+            dailyAttentionCap = BigDecimal("40.00")
         ),
         MarketProfile(
             countryCode = "TZ",
@@ -125,7 +134,8 @@ object MarketConfig {
             currency = "TZS",
             defaultLocaleTag = "sw",
             supportedRails = listOf(PayoutRailDto.MPESA, PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("2000.00")
+            minimumPayoutAmount = BigDecimal("2000.00"),
+            dailyAttentionCap = BigDecimal("5000.00")
         ),
         MarketProfile(
             countryCode = "US",
@@ -133,7 +143,8 @@ object MarketConfig {
             currency = "USD",
             defaultLocaleTag = "en",
             supportedRails = listOf(PayoutRailDto.PAYPAL),
-            minimumPayoutAmount = BigDecimal("1.00")
+            minimumPayoutAmount = BigDecimal("1.00"),
+            dailyAttentionCap = BigDecimal("10.00")
         )
     )
 
@@ -144,6 +155,11 @@ object MarketConfig {
 
     fun marketForCountry(countryCode: String): MarketProfile {
         return SUPPORTED_MARKETS.firstOrNull { it.countryCode.equals(countryCode, ignoreCase = true) }
+            ?: SUPPORTED_MARKETS.last()
+    }
+
+    fun marketForCurrency(currencyCode: String): MarketProfile {
+        return SUPPORTED_MARKETS.firstOrNull { it.currency.equals(currencyCode, ignoreCase = true) }
             ?: SUPPORTED_MARKETS.last()
     }
 

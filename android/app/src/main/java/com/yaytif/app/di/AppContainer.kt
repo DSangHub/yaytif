@@ -9,6 +9,7 @@ import com.yaytif.app.data.remote.YaytifApiService
 import com.yaytif.app.data.repository.LocalNotificationRepository
 import com.yaytif.app.data.repository.SponsoredAlertRepository
 import com.yaytif.app.data.repository.WalletRepository
+import com.yaytif.app.ui.wallet.WalletViewModel
 import com.yaytif.app.worker.YaytifWorkerFactory
 
 class AppContainer(context: Context) {
@@ -36,6 +37,11 @@ class AppContainer(context: Context) {
 
     val walletRepository: WalletRepository = WalletRepository(
         apiService = apiService,
+        preferencesStore = preferencesRepository
+    )
+
+    val walletViewModelFactory: WalletViewModel.Factory = WalletViewModel.Factory(
+        walletRepository = walletRepository,
         preferencesStore = preferencesRepository
     )
 

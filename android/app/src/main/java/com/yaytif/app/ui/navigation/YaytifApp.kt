@@ -25,10 +25,12 @@ import com.yaytif.app.ui.screens.SettingsScreen
 import com.yaytif.app.ui.screens.VaultScreen
 import com.yaytif.app.ui.screens.WalletScreen
 import com.yaytif.app.ui.state.YaytifViewModel
+import com.yaytif.app.ui.wallet.WalletViewModel
 
 @Composable
 fun YaytifApp(
     viewModel: YaytifViewModel,
+    walletViewModel: WalletViewModel,
     onApplyAppLocale: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -41,7 +43,7 @@ fun YaytifApp(
     val localNotifications by viewModel.localNotifications.collectAsStateWithLifecycle()
     val unreadVaultCount by viewModel.unreadVaultCount.collectAsStateWithLifecycle()
     val isSyncingAlerts by viewModel.isSyncingAlerts.collectAsStateWithLifecycle()
-    val walletState by viewModel.walletState.collectAsStateWithLifecycle()
+    val walletState by walletViewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -116,9 +118,16 @@ fun YaytifApp(
             composable(YaytifDestination.Wallet.route) {
                 WalletScreen(
                     walletState = walletState,
-                    countryCode = preferences.countryCode,
-                    currencyCode = preferences.currency,
-                    onSubmitPayout = viewModel::submitPayout
+                    onRefresh = walletViewModel::refresh,
+                    onSelectTab = walletViewModel::selectTab,
+                    onSelectRail = walletViewModel::selectRail,
+                    onDestinationChange = walletViewModel::onDestinationChange,
+                    onAmountChange = walletViewModel::onAmountChange,
+                    onApplyQuickAmount = walletViewModel::applyQuickAmount,
+                    onRequestConfirmation = walletViewModel::requestConfirmation,
+                    onDismissConfirmation = walletViewModel::dismissConfirmation,
+                    onConfirmSubmitPayout = walletViewModel::confirmAndSubmitPayout,
+                    onLoadMoreLedger = walletViewModel::loadMoreLedger
                 )
             }
             composable(YaytifDestination.Settings.route) {

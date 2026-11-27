@@ -12,6 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yaytif.app.ui.navigation.YaytifApp
 import com.yaytif.app.ui.state.YaytifViewModel
 import com.yaytif.app.ui.theme.YaytifTheme
+import com.yaytif.app.ui.wallet.WalletViewModel
 import com.yaytif.app.worker.SponsoredAlertSyncWorker
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +34,10 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private val walletViewModel: WalletViewModel by viewModels {
+        (application as YaytifApplication).appContainer.walletViewModelFactory
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             YaytifTheme(localeTag = preferences.localeTag) {
                 YaytifApp(
                     viewModel = viewModel,
+                    walletViewModel = walletViewModel,
                     onApplyAppLocale = { localeTag ->
                         AppCompatDelegate.setApplicationLocales(
                             LocaleListCompat.forLanguageTags(localeTag)

@@ -3,7 +3,9 @@ package com.yaytif.app.data.remote
 import com.yaytif.app.data.local.entity.LocalNotificationEntity
 import com.yaytif.app.data.remote.dto.AlertsResponseDto
 import com.yaytif.app.data.remote.dto.CreatePayoutRequest
+import com.yaytif.app.data.remote.dto.CreatePayoutResponseDto
 import com.yaytif.app.data.remote.dto.LedgerEntryDto
+import com.yaytif.app.data.remote.dto.LedgerPaginationDto
 import com.yaytif.app.data.remote.dto.PayoutListResponseDto
 import com.yaytif.app.data.remote.dto.PayoutRequestDto
 import com.yaytif.app.data.remote.dto.RegisterUserRequest
@@ -15,6 +17,7 @@ import com.yaytif.app.data.remote.dto.StartSessionResponse
 import com.yaytif.app.data.remote.dto.UpdateInterestsRequest
 import com.yaytif.app.data.remote.dto.UserProfileDto
 import com.yaytif.app.data.remote.dto.WalletLedgerResponseDto
+import com.yaytif.app.data.remote.dto.WalletSummaryDto
 import com.yaytif.app.data.repository.LocalNotificationRepository
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
@@ -49,8 +52,11 @@ class PrivacyBoundaryTest {
         SessionHeartbeatRequest::class.java,
         SessionHeartbeatResponse::class.java,
         LedgerEntryDto::class.java,
+        WalletSummaryDto::class.java,
+        LedgerPaginationDto::class.java,
         WalletLedgerResponseDto::class.java,
         CreatePayoutRequest::class.java,
+        CreatePayoutResponseDto::class.java,
         PayoutRequestDto::class.java,
         PayoutListResponseDto::class.java
     )

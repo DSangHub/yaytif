@@ -43,14 +43,28 @@ data class LedgerEntryDto(
 )
 
 @Serializable
-data class WalletLedgerResponseDto(
+data class WalletSummaryDto(
     val userId: String,
-    val currency: String,
     @Serializable(with = BigDecimalSerializer::class)
     val walletBalance: BigDecimal,
     @Serializable(with = BigDecimalSerializer::class)
     val dailyTimeEarned: BigDecimal,
-    val entries: List<LedgerEntryDto> = emptyList()
+    val dailyCapResetAt: String,
+    val currency: String
+)
+
+@Serializable
+data class LedgerPaginationDto(
+    val limit: Int = 20,
+    val hasMore: Boolean = false,
+    val nextCursor: String? = null
+)
+
+@Serializable
+data class WalletLedgerResponseDto(
+    val wallet: WalletSummaryDto,
+    val entries: List<LedgerEntryDto> = emptyList(),
+    val pagination: LedgerPaginationDto = LedgerPaginationDto()
 )
 
 @Serializable
@@ -77,6 +91,15 @@ data class PayoutRequestDto(
 )
 
 @Serializable
+data class CreatePayoutResponseDto(
+    val payout: PayoutRequestDto,
+    val ledgerEntryId: String,
+    @Serializable(with = BigDecimalSerializer::class)
+    val walletBalance: BigDecimal
+)
+
+@Serializable
 data class PayoutListResponseDto(
-    val payouts: List<PayoutRequestDto> = emptyList()
+    val payouts: List<PayoutRequestDto> = emptyList(),
+    val count: Int = 0
 )

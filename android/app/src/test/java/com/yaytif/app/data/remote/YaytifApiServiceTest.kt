@@ -188,10 +188,13 @@ class YaytifApiServiceTest {
             MockResponse().setBody(
                 """
                 {
-                  "userId": "u1",
-                  "currency": "KES",
-                  "walletBalance": "380.000000",
-                  "dailyTimeEarned": "54.000000",
+                  "wallet": {
+                    "userId": "u1",
+                    "currency": "KES",
+                    "walletBalance": "380.000000",
+                    "dailyTimeEarned": "54.000000",
+                    "dailyCapResetAt": "2026-11-27T00:00:00.000Z"
+                  },
                   "entries": [
                     {
                       "id": "led-1",
@@ -202,23 +205,32 @@ class YaytifApiServiceTest {
                       "referenceId": "sess-1",
                       "createdAt": "2026-11-26T12:00:00.000Z"
                     }
-                  ]
+                  ],
+                  "pagination": {
+                    "limit": 20,
+                    "hasMore": true,
+                    "nextCursor": "led-1"
+                  }
                 }
                 """.trimIndent()
             )
         )
         server.enqueue(
-            MockResponse().setBody(
+            MockResponse().setResponseCode(201).setBody(
                 """
                 {
-                  "id": "pay-1",
-                  "userId": "u1",
-                  "rail": "MPESA",
-                  "destination": "+254700000003",
-                  "amount": "200.000000",
-                  "currency": "KES",
-                  "status": "PENDING",
-                  "createdAt": "2026-11-26T12:05:00.000Z"
+                  "payout": {
+                    "id": "pay-1",
+                    "userId": "u1",
+                    "rail": "MPESA",
+                    "destination": "+254700000003",
+                    "amount": "200.000000",
+                    "currency": "KES",
+                    "status": "PENDING",
+                    "createdAt": "2026-11-26T12:05:00.000Z"
+                  },
+                  "ledgerEntryId": "led-2",
+                  "walletBalance": "180.000000"
                 }
                 """.trimIndent()
             )
@@ -239,19 +251,23 @@ class YaytifApiServiceTest {
                       "externalTxId": "MPESA-TX-99",
                       "createdAt": "2026-11-26T12:05:00.000Z"
                     }
-                  ]
+                  ],
+                  "count": 1
                 }
                 """.trimIndent()
             )
         )
 
-        val ledger = api.getWalletLedger("u1")
+        val ledger = api.getWalletLedger("u1", cursor = "led-0", limit = 20)
         val ledgerReq = server.takeRequest()
         assertEquals("GET", ledgerReq.method)
-        assertEquals("/api/v1/wallet/u1/ledger", ledgerReq.path)
+        assertEquals("/api/v1/wallet/u1/ledger?cursor=led-0&limit=20", ledgerReq.path)
+        assertEquals(BigDecimal("380.000000"), ledger.wallet.walletBalance)
         assertEquals(LedgerEntryTypeDto.ATTENTION_TIME, ledger.entries.first().type)
+        assertTrue(ledger.pagination.hasMore)
+        assertEquals("led-1", ledger.pagination.nextCursor)
 
-        val payout = api.createPayout(
+        val created = api.createPayout(
             CreatePayoutRequest(
                 userId = "u1",
                 rail = PayoutRailDto.MPESA,
@@ -263,12 +279,15 @@ class YaytifApiServiceTest {
         assertEquals("POST", createReq.method)
         assertEquals("/api/v1/payouts", createReq.path)
         assertTrue(createReq.body.readUtf8().contains(""""amount":"200.00""""))
-        assertEquals(PayoutStatusDto.PENDING, payout.status)
+        assertEquals(PayoutStatusDto.PENDING, created.payout.status)
+        assertEquals("led-2", created.ledgerEntryId)
+        assertEquals(BigDecimal("180.000000"), created.walletBalance)
 
         val list = api.getPayouts("u1")
         val listReq = server.takeRequest()
         assertEquals("GET", listReq.method)
         assertEquals("/api/v1/payouts?userId=u1", listReq.path)
+        assertEquals(1, list.count)
         assertEquals(PayoutStatusDto.PAID, list.payouts.first().status)
     }
 }
