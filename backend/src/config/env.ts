@@ -1,4 +1,18 @@
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
+
+const positiveDecimalEnvSchema = z
+  .string()
+  .trim()
+  .regex(/^\d+(\.\d{1,6})?$/, 'Must be a positive decimal string with up to 6 decimal places')
+  .refine((value) => new Prisma.Decimal(value).gt(0), {
+    message: 'Must be greater than 0',
+  });
+
+const optionalSecretSchema = z.preprocess(
+  (value) => (typeof value === 'string' && value.trim() === '' ? undefined : value),
+  z.string().min(1).optional(),
+);
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
@@ -9,6 +23,8 @@ const envSchema = z.object({
     .default('info'),
   CORS_ORIGIN: z.string().min(1).default('http://localhost:3000'),
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+  DAILY_ATTENTION_EARNINGS_CAP: positiveDecimalEnvSchema.default('10.000000'),
+  POSTBACK_SECRET: optionalSecretSchema,
 });
 
 export type Env = z.infer<typeof envSchema>;

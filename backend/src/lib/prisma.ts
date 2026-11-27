@@ -14,9 +14,9 @@ if (process.env['NODE_ENV'] !== 'production') {
   globalForPrisma.yaytifPrisma = prisma;
 }
 
-export async function checkDatabaseConnection(): Promise<boolean> {
+export async function checkDatabaseConnection(client: PrismaClient = prisma): Promise<boolean> {
   try {
-    await prisma.$queryRaw`SELECT 1`;
+    await client.$queryRaw`SELECT 1`;
     return true;
   } catch {
     return false;
