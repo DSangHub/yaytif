@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s cashback</string>
     <string name="feed_empty_title">Nenhum alerta em cache ainda</string>
     <string name="feed_empty_body">Toque em Sincronizar alertas para buscar ofertas ativas na sua região.</string>
+    <string name="feed_active_session_label">Sessão de Atenção Ativa</string>
+    <string name="feed_tap_to_earn">Toque para ganhar e ver oferta</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Contando atenção verificada</string>
+    <string name="feed_session_status_paused">Temporizador pausado</string>
+    <string name="feed_session_status_daily_cap">Limite diário de ganhos atingido</string>
+    <string name="feed_session_status_budget_exhausted">Orçamento da campanha concluído</string>
+    <string name="feed_session_pause">Pausar</string>
+    <string name="feed_session_resume">Retomar</string>
+    <string name="feed_session_stop">Encerrar</string>
+    <string name="feed_session_open_offer">Abrir oferta</string>
+    <string name="feed_session_show_overlay">Abrir flutuante</string>
+    <string name="feed_session_enable_overlay">Ativar sobreposição</string>
+    <string name="feed_session_account_required">Cadastre sua conta antes de iniciar uma sessão de atenção.</string>
+    <string name="feed_session_start_error">Não foi possível iniciar a sessão patrocinada. Tente novamente.</string>
+    <string name="feed_session_invalid_link">O link da oferta não está disponível.</string>
+    <string name="overlay_dismiss">Dispensar</string>
+    <string name="overlay_open_offer">Ver oferta</string>
 
     <string name="vault_title">Cofre Privado</string>
     <string name="vault_privacy_title" formatted="false">Privacidade 100% no Dispositivo</string>

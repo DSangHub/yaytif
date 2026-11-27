@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s reembolso</string>
     <string name="feed_empty_title">Aún no hay alertas guardadas</string>
     <string name="feed_empty_body">Toca Sincronizar alertas para cargar ofertas activas de tu región.</string>
+    <string name="feed_active_session_label">Sesión de Atención Activa</string>
+    <string name="feed_tap_to_earn">Toca para ganar y ver oferta</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Contando atención verificada</string>
+    <string name="feed_session_status_paused">Temporizador en pausa</string>
+    <string name="feed_session_status_daily_cap">Límite diario de ganancias alcanzado</string>
+    <string name="feed_session_status_budget_exhausted">Presupuesto de campaña completado</string>
+    <string name="feed_session_pause">Pausar</string>
+    <string name="feed_session_resume">Reanudar</string>
+    <string name="feed_session_stop">Finalizar</string>
+    <string name="feed_session_open_offer">Abrir oferta</string>
+    <string name="feed_session_show_overlay">Mostrar flotante</string>
+    <string name="feed_session_enable_overlay">Habilitar superposición</string>
+    <string name="feed_session_account_required">Registra tu cuenta antes de iniciar una sesión de atención.</string>
+    <string name="feed_session_start_error">No se pudo iniciar la sesión patrocinada. Inténtalo de nuevo.</string>
+    <string name="feed_session_invalid_link">El enlace de la oferta no está disponible.</string>
+    <string name="overlay_dismiss">Cerrar</string>
+    <string name="overlay_open_offer">Reclamar oferta</string>
 
     <string name="vault_title">Bóveda Privada</string>
     <string name="vault_privacy_title" formatted="false">Privacidad 100% en el Dispositivo</string>

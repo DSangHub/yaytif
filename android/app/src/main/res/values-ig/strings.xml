@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s ego nlaghachi</string>
     <string name="feed_empty_title">Enwebeghị ọkwa echekwara</string>
     <string name="feed_empty_body">Pịa Mekọrịta ọkwa iji nweta onyinye na-arụ ọrụ na mpaghara gị.</string>
+    <string name="feed_active_session_label">Oge Nlebara Anya Na-aga n\'ihu</string>
+    <string name="feed_tap_to_earn">Pịa ka ị nweta ego ma lee onyinye</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Na-agụ oge nlebara anya enyochara</string>
+    <string name="feed_session_status_paused">Ekwụsịla oge nwa oge</string>
+    <string name="feed_session_status_daily_cap">Eruola oke ego kwa ụbọchị</string>
+    <string name="feed_session_status_budget_exhausted">Ego mgbasa ozi agwụla</string>
+    <string name="feed_session_pause">Kwụsịtụ</string>
+    <string name="feed_session_resume">Gaa n\'ihu</string>
+    <string name="feed_session_stop">Mechie</string>
+    <string name="feed_session_open_offer">Mepee onyinye</string>
+    <string name="feed_session_show_overlay">Gosi n\'elu ihuenyo</string>
+    <string name="feed_session_enable_overlay">Kwado ngosi n\'elu ihuenyo</string>
+    <string name="feed_session_account_required">Debanye aha akaụntụ gị tupu ị malite oge nlebara anya.</string>
+    <string name="feed_session_start_error">Enweghị ike ịmalite oge nkwado. Biko nwaa ọzọ.</string>
+    <string name="feed_session_invalid_link">Njikọ onyinye adịghị.</string>
+    <string name="overlay_dismiss">Mechie</string>
+    <string name="overlay_open_offer">Nweta onyinye</string>
 
     <string name="vault_title">Ọba Nzuzo</string>
     <string name="vault_privacy_title" formatted="false">Nzuzo 100% N\'ime Ngwaọrụ Gị</string>

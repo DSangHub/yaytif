@@ -28,6 +28,10 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".overlay.SponsoredOverlayService"
+            android:exported="false" />
+
         <!-- Persist per-app locale selections on Android 12 and below via AppCompat -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"

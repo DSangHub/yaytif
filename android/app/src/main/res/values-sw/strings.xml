@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s marejesho</string>
     <string name="feed_empty_title">Hakuna arifa zilizohifadhiwa bado</string>
     <string name="feed_empty_body">Gusa Landanisha arifa ili kupata ofa zinazopatikana katika soko lako.</string>
+    <string name="feed_active_session_label">Kipindi cha Umakini Kinachoendelea</string>
+    <string name="feed_tap_to_earn">Gusa ili upate zawadi na kuona ofa</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Inahesabu umakini uliothibitishwa</string>
+    <string name="feed_session_status_paused">Kipima muda kimesitishwa</string>
+    <string name="feed_session_status_daily_cap">Kikomo cha mapato cha leo kimefikiwa</string>
+    <string name="feed_session_status_budget_exhausted">Bajeti ya kampeni imekamilika</string>
+    <string name="feed_session_pause">Sitisha</string>
+    <string name="feed_session_resume">Endelea</string>
+    <string name="feed_session_stop">Maliza</string>
+    <string name="feed_session_open_offer">Fungua ofa</string>
+    <string name="feed_session_show_overlay">Onyesha kuelea</string>
+    <string name="feed_session_enable_overlay">Washa ruhusa ya kuelea</string>
+    <string name="feed_session_account_required">Sajili akaunti yako kabla ya kuanza kipindi cha umakini.</string>
+    <string name="feed_session_start_error">Imeshindikana kuanza kipindi kilichodhaminiwa. Jaribu tena.</string>
+    <string name="feed_session_invalid_link">Kiungo cha ofa hakipatikani.</string>
+    <string name="overlay_dismiss">Funga</string>
+    <string name="overlay_open_offer">Dai ofa</string>
 
     <string name="vault_title">Hifadhi Binafsi</string>
     <string name="vault_privacy_title" formatted="false">Faragha 100% Kwenye Kifaa</string>

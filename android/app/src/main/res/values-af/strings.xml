@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s kontantterug</string>
     <string name="feed_empty_title">Nog geen gekasde waarskuwings nie</string>
     <string name="feed_empty_body">Tik Sinkroniseer waarskuwings om aktiewe streekaanbiedings vir jou mark te laai.</string>
+    <string name="feed_active_session_label">Aktiewe Aandagsessie</string>
+    <string name="feed_tap_to_earn">Tik om te verdien en aanbod te sien</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Tel geverifieerde aandag</string>
+    <string name="feed_session_status_paused">Tydhouer gepouseer</string>
+    <string name="feed_session_status_daily_cap">Daaglikse verdienstelimiet bereik</string>
+    <string name="feed_session_status_budget_exhausted">Veldtogbegroting voltooi</string>
+    <string name="feed_session_pause">Pouseer</string>
+    <string name="feed_session_resume">Hervat</string>
+    <string name="feed_session_stop">Beëindig</string>
+    <string name="feed_session_open_offer">Maak aanbod oop</string>
+    <string name="feed_session_show_overlay">Wys swewend</string>
+    <string name="feed_session_enable_overlay">Aktiveer oorleg</string>
+    <string name="feed_session_account_required">Registreer jou rekening voordat jy \'n aandagsessie begin.</string>
+    <string name="feed_session_start_error">Kon nie geborgde sessie begin nie. Probeer asseblief weer.</string>
+    <string name="feed_session_invalid_link">Aanbodskakel is nie beskikbaar nie.</string>
+    <string name="overlay_dismiss">Sluit</string>
+    <string name="overlay_open_offer">Eis aanbod</string>
 
     <string name="vault_title">Privaat Kluis</string>
     <string name="vault_privacy_title" formatted="false">100% Privaatheid Op Toestel</string>

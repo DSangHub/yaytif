@@ -6,6 +6,7 @@ import com.yaytif.app.data.local.YaytifDatabase
 import com.yaytif.app.data.preferences.UserPreferencesRepository
 import com.yaytif.app.data.remote.YaytifApiFactory
 import com.yaytif.app.data.remote.YaytifApiService
+import com.yaytif.app.data.repository.AdSessionRepository
 import com.yaytif.app.data.repository.LocalNotificationRepository
 import com.yaytif.app.data.repository.SponsoredAlertRepository
 import com.yaytif.app.data.repository.WalletRepository
@@ -32,6 +33,10 @@ class AppContainer(context: Context) {
         sponsoredAlertDao = database.sponsoredAlertDao(),
         apiService = apiService,
         preferencesStore = preferencesRepository
+    )
+
+    val adSessionRepository: AdSessionRepository = AdSessionRepository(
+        apiService = apiService
     )
 
     val walletRepository: WalletRepository = WalletRepository(

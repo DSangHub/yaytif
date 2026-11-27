@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         YaytifViewModel.Factory(
             preferencesStore = container.preferencesRepository,
             sponsoredAlertRepository = container.sponsoredAlertRepository,
+            adSessionRepository = container.adSessionRepository,
             localNotificationRepository = container.localNotificationRepository,
             walletRepository = container.walletRepository,
             enqueueImmediateSync = { countryCode, category ->

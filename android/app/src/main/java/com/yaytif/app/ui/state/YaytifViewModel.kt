@@ -10,9 +10,12 @@ import com.yaytif.app.data.preferences.UserPreferencesStore
 import com.yaytif.app.data.remote.dto.LedgerEntryDto
 import com.yaytif.app.data.remote.dto.PayoutRailDto
 import com.yaytif.app.data.remote.dto.PayoutRequestDto
+import com.yaytif.app.data.repository.ActiveAdSessionState
+import com.yaytif.app.data.repository.AdSessionRepository
 import com.yaytif.app.data.repository.LocalNotificationRepository
 import com.yaytif.app.data.repository.SponsoredAlertRepository
 import com.yaytif.app.data.repository.WalletRepository
+import com.yaytif.app.domain.AttentionStopReason
 import com.yaytif.app.domain.MarketConfig
 import com.yaytif.app.domain.MoneyFormatter
 import com.yaytif.app.domain.PayoutValidationResult
@@ -48,9 +51,16 @@ sealed interface PayoutFeedback {
     data class NetworkError(val message: String) : PayoutFeedback
 }
 
+enum class SessionActionError {
+    ACCOUNT_REQUIRED,
+    START_FAILED,
+    INVALID_AFFILIATE_LINK
+}
+
 class YaytifViewModel(
     private val preferencesStore: UserPreferencesStore,
     private val sponsoredAlertRepository: SponsoredAlertRepository,
+    private val adSessionRepository: AdSessionRepository,
     private val localNotificationRepository: LocalNotificationRepository,
     private val walletRepository: WalletRepository,
     private val enqueueImmediateSync: (countryCode: String?, category: String?) -> Unit
@@ -76,6 +86,8 @@ class YaytifViewModel(
             initialValue = emptyList()
         )
 
+    val activeAdSession: StateFlow<ActiveAdSessionState?> = adSessionRepository.activeSession
+
     val localNotifications: StateFlow<List<LocalNotificationEntity>> = localNotificationRepository
         .observeActiveNotifications()
         .stateIn(
@@ -94,6 +106,12 @@ class YaytifViewModel(
 
     private val _isSyncingAlerts = MutableStateFlow(false)
     val isSyncingAlerts: StateFlow<Boolean> = _isSyncingAlerts.asStateFlow()
+
+    private val _isStartingSession = MutableStateFlow(false)
+    val isStartingSession: StateFlow<Boolean> = _isStartingSession.asStateFlow()
+
+    private val _sessionError = MutableStateFlow<SessionActionError?>(null)
+    val sessionError: StateFlow<SessionActionError?> = _sessionError.asStateFlow()
 
     private val _walletState = MutableStateFlow(WalletUiState())
     val walletState: StateFlow<WalletUiState> = _walletState.asStateFlow()
@@ -118,6 +136,61 @@ class YaytifViewModel(
             }
             _isSyncingAlerts.value = false
         }
+    }
+
+    fun startSponsoredSession(
+        alert: SponsoredAlertEntity,
+        onStarted: (ActiveAdSessionState) -> Unit = {}
+    ) {
+        val prefs = preferences.value
+        val userId = prefs.userId
+        if (userId.isNullOrBlank()) {
+            _sessionError.value = SessionActionError.ACCOUNT_REQUIRED
+            return
+        }
+
+        viewModelScope.launch {
+            _isStartingSession.value = true
+            _sessionError.value = null
+            val result = adSessionRepository.startSession(
+                userId = userId,
+                alert = alert,
+                currencyCode = prefs.currency
+            )
+            _isStartingSession.value = false
+            result
+                .onSuccess { started -> onStarted(started) }
+                .onFailure { _sessionError.value = SessionActionError.START_FAILED }
+        }
+    }
+
+    fun toggleSessionPause() {
+        val current = activeAdSession.value ?: return
+        adSessionRepository.setUserPaused(!current.timerState.isUserPaused)
+    }
+
+    fun setSessionAdVisible(visible: Boolean) {
+        adSessionRepository.setAdVisible(visible)
+    }
+
+    fun flushActiveSession() {
+        viewModelScope.launch {
+            adSessionRepository.flushNow()
+        }
+    }
+
+    fun endSponsoredSession() {
+        viewModelScope.launch {
+            adSessionRepository.endSession(AttentionStopReason.USER_DISMISSED)
+        }
+    }
+
+    fun reportInvalidAffiliateLink() {
+        _sessionError.value = SessionActionError.INVALID_AFFILIATE_LINK
+    }
+
+    fun clearSessionError() {
+        _sessionError.value = null
     }
 
     fun markNotificationRead(id: Long) {
@@ -270,6 +343,7 @@ class YaytifViewModel(
     class Factory(
         private val preferencesStore: UserPreferencesStore,
         private val sponsoredAlertRepository: SponsoredAlertRepository,
+        private val adSessionRepository: AdSessionRepository,
         private val localNotificationRepository: LocalNotificationRepository,
         private val walletRepository: WalletRepository,
         private val enqueueImmediateSync: (countryCode: String?, category: String?) -> Unit
@@ -282,6 +356,7 @@ class YaytifViewModel(
             return YaytifViewModel(
                 preferencesStore = preferencesStore,
                 sponsoredAlertRepository = sponsoredAlertRepository,
+                adSessionRepository = adSessionRepository,
                 localNotificationRepository = localNotificationRepository,
                 walletRepository = walletRepository,
                 enqueueImmediateSync = enqueueImmediateSync

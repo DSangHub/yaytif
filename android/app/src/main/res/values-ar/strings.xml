@@ -16,6 +16,24 @@
     <string name="feed_commission_share">استرداد %1$s</string>
     <string name="feed_empty_title">لا توجد تنبيهات محفوظة بعد</string>
     <string name="feed_empty_body">اضغط على مزامنة التنبيهات لجلب العروض النشطة في سوقك.</string>
+    <string name="feed_active_session_label">جلسة انتباه نشطة</string>
+    <string name="feed_tap_to_earn">اضغط للكسب وعرض العرض</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">جارٍ احتساب الانتباه المُتحقق منه</string>
+    <string name="feed_session_status_paused">المؤقت متوقف مؤقتاً</string>
+    <string name="feed_session_status_daily_cap">تم بلوغ الحد اليومي للأرباح</string>
+    <string name="feed_session_status_budget_exhausted">اكتملت ميزانية الحملة</string>
+    <string name="feed_session_pause">إيقاف مؤقت</string>
+    <string name="feed_session_resume">استئناف</string>
+    <string name="feed_session_stop">إنهاء</string>
+    <string name="feed_session_open_offer">فتح العرض</string>
+    <string name="feed_session_show_overlay">إظهار الطبقة العائمة</string>
+    <string name="feed_session_enable_overlay">تفعيل الطبقة العائمة</string>
+    <string name="feed_session_account_required">سجّل حسابك قبل بدء جلسة الانتباه.</string>
+    <string name="feed_session_start_error">تعذّر بدء الجلسة الممولة. يرجى المحاولة مجدداً.</string>
+    <string name="feed_session_invalid_link">رابط العرض غير متاح.</string>
+    <string name="overlay_dismiss">إغلاق</string>
+    <string name="overlay_open_offer">احصل على العرض</string>
 
     <string name="vault_title">الخزنة الخاصة</string>
     <string name="vault_privacy_title" formatted="false">خصوصية 100% على الجهاز</string>

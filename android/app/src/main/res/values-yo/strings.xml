@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s owó ìpadàbọ̀</string>
     <string name="feed_empty_title">Kò tíì sí ìfitónilétí ní ìpamọ́</string>
     <string name="feed_empty_body">Tẹ Mú àwọn ìfitónilétí ṣiṣẹ́ pọ̀ láti gba àwọn ìpèsè ní agbègbè rẹ.</string>
+    <string name="feed_active_session_label">Àkókò Àkíyèsí Tó Ń Lọ</string>
+    <string name="feed_tap_to_earn">Tẹ̀ láti jèrè kí o sì wo ìpèsè</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Ń ka àkókò àkíyèsí tí a fọwọ́ sí</string>
+    <string name="feed_session_status_paused">A ti dá aago dúró</string>
+    <string name="feed_session_status_daily_cap">Ó ti dé òpin èrè ojoojúmọ́</string>
+    <string name="feed_session_status_budget_exhausted">Ìṣúná ìpolówó ti parí</string>
+    <string name="feed_session_pause">Dúró díẹ̀</string>
+    <string name="feed_session_resume">Tẹ̀síwájú</string>
+    <string name="feed_session_stop">Parí</string>
+    <string name="feed_session_open_offer">Ṣí ìpèsè</string>
+    <string name="feed_session_show_overlay">Fi lórí iboju</string>
+    <string name="feed_session_enable_overlay">Gba ìfihàn lórí iboju</string>
+    <string name="feed_session_account_required">Forúkọsílẹ̀ àkántì rẹ kí o tó bẹ̀rẹ̀ àkókò àkíyèsí.</string>
+    <string name="feed_session_start_error">Kò lè bẹ̀rẹ̀ ìpèsè onígbọ̀wọ́. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i.</string>
+    <string name="feed_session_invalid_link">Ọ̀nà ìpèsè kò sí.</string>
+    <string name="overlay_dismiss">Tì pa</string>
+    <string name="overlay_open_offer">Gba ìpèsè</string>
 
     <string name="vault_title">Àpótí Àṣírí</string>
     <string name="vault_privacy_title" formatted="false">Àṣírí 100% Lórí Ẹ̀rọ Rẹ</string>

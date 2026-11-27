@@ -16,6 +16,24 @@
     <string name="feed_commission_share">%1$s imbuyiselo</string>
     <string name="feed_empty_title">Azikho izaziso ezigciniwe okwamanje</string>
     <string name="feed_empty_body">Thepha u-Vumelanisa izaziso ukuze uthole izipesheli ezisebenzayo esifundeni sakho.</string>
+    <string name="feed_active_session_label">Isikhathi Sokunaka Esisebenzayo</string>
+    <string name="feed_tap_to_earn">Thepha ukuze uzuze futhi ubuke isipesheli</string>
+    <string name="feed_session_timer_earned">%1$s · %2$s</string>
+    <string name="feed_session_status_active">Kubalwa ukunaka okuqinisekisiwe</string>
+    <string name="feed_session_status_paused">Isibali sikhathi simisiwe</string>
+    <string name="feed_session_status_daily_cap">Umkhawulo wemali wosuku ufinyelelwe</string>
+    <string name="feed_session_status_budget_exhausted">Ibhajethi yomkhankaso iphelile</string>
+    <string name="feed_session_pause">Misa okwesikhashana</string>
+    <string name="feed_session_resume">Qhubeka</string>
+    <string name="feed_session_stop">Qeda</string>
+    <string name="feed_session_open_offer">Vula isipesheli</string>
+    <string name="feed_session_show_overlay">Bonisa phezulu</string>
+    <string name="feed_session_enable_overlay">Nika amandla ukubonisa phezulu</string>
+    <string name="feed_session_account_required">Bhalisa i-akhawunti yakho ngaphambi kokuqala isikhathi sokunaka.</string>
+    <string name="feed_session_start_error">Ayikwazanga ukuqala isikhathi esixhasiwe. Sicela uzame futhi.</string>
+    <string name="feed_session_invalid_link">Isixhumanisi sesipesheli asitholakali.</string>
+    <string name="overlay_dismiss">Vala</string>
+    <string name="overlay_open_offer">Thatha isipesheli</string>
 
     <string name="vault_title">Isisefo Esiyimfihlo</string>
     <string name="vault_privacy_title" formatted="false">Ubumfihlo Obungu-100% Kudivayisi</string>
