@@ -20,10 +20,15 @@ npm-debug.log*
 # Android / Gradle
 android/.gradle/
 android/local.properties
+android/keystore.properties
 android/.idea/
 android/build/
 android/app/build/
 *.iml
+*.jks
+*.keystore
+*.p12
+*.pepk
 
 # OS / Editor
 .DS_Store
