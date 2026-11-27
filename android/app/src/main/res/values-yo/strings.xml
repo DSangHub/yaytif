@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yaytif</string>
+
+    <string name="nav_feed">Àkójọ</string>
+    <string name="nav_vault">Àpótí</string>
+    <string name="nav_wallet">Àpamọ́wọ́</string>
+    <string name="nav_settings">Ètò</string>
+
+    <string name="feed_title">Ìfitónilétí Onígbọ̀wọ́</string>
+    <string name="feed_subtitle">Èrè àkókò àkíyèsí tí a fọwọ́ sí ní ìbámu pẹ̀lú ohun tí o fẹ́ràn</string>
+    <string name="feed_sync_button">Mú àwọn ìfitónilétí ṣiṣẹ́ pọ̀</string>
+    <string name="feed_syncing">Ń mú ìfitónilétí ṣiṣẹ́ pọ̀…</string>
+    <string name="feed_all_categories">Gbogbo rẹ̀</string>
+    <string name="feed_payout_per_minute">%1$s / ìṣẹ́jú</string>
+    <string name="feed_commission_share">%1$s owó ìpadàbọ̀</string>
+    <string name="feed_empty_title">Kò tíì sí ìfitónilétí ní ìpamọ́</string>
+    <string name="feed_empty_body">Tẹ Mú àwọn ìfitónilétí ṣiṣẹ́ pọ̀ láti gba àwọn ìpèsè ní agbègbè rẹ.</string>
+
+    <string name="vault_title">Àpótí Àṣírí</string>
+    <string name="vault_privacy_title" formatted="false">Àṣírí 100% Lórí Ẹ̀rọ Rẹ</string>
+    <string name="vault_privacy_body">Àwọn ìfitónilétí ti ara ẹni dúró sínú ìpamọ́ ẹ̀rọ rẹ nìkan, a kì í gbé wọn sókè sí sáfà Yaytif.</string>
+    <string name="vault_unread_badge">%1$d tí a kò tíì kà</string>
+    <string name="vault_mark_all_read">Sàmì gbogbo rẹ̀ bí a ti kà</string>
+    <string name="vault_mark_read">Ti kà</string>
+    <string name="vault_archive">Tọ́jú</string>
+    <string name="vault_empty_title">Àpótí àṣírí rẹ ṣófo</string>
+    <string name="vault_empty_body">Àwọn ìfitónilétí ti ara ẹni tí a tọ́jú sí ẹ̀rọ yìí yóò hàn níbí nígbà tí o bá ṣí ìwọlé sílẹ̀.</string>
+
+    <string name="wallet_title">Àpamọ́wọ́</string>
+    <string name="wallet_balance_label">Owó tó wà lọ́wọ́</string>
+    <string name="wallet_daily_earned_label">Èrè òní: %1$s</string>
+    <string name="wallet_payout_rails_title">Ọ̀nà ìsanwó agbègbè</string>
+    <string name="wallet_request_payout">Béèrè fún ìsanwó</string>
+    <string name="wallet_destination_label">Ibùdó ìsanwó</string>
+    <string name="wallet_amount_label">Iye owó (%1$s)</string>
+    <string name="wallet_submit_payout">Fi ìbéèrè ránṣẹ́</string>
+    <string name="wallet_ledger_title">Ìgbòkègbodò lọ́ọ́lọ́ọ́</string>
+    <string name="wallet_ledger_empty">Kò tíì sí ìtàn ìsanwó. Àwọn èrè àkíyèsí àti owó ìpadàbọ̀ yóò hàn níbí.</string>
+    <string name="wallet_payout_invalid_amount">Tẹ iye owó tó tọ́ sínú rẹ̀.</string>
+    <string name="wallet_payout_below_min">Iye ìsanwó tó kéré jù ni %1$s.</string>
+    <string name="wallet_payout_insufficient">Owó rẹ kò tó.</string>
+    <string name="wallet_payout_missing_destination">Tẹ ibùdó ìsanwó tó tọ́.</string>
+    <string name="wallet_payout_account_required">Forúkọsílẹ̀ àkántì kí o tó béèrè fún ìsanwó.</string>
+    <string name="wallet_payout_submitted">A ti fi ìbéèrè ìsanwó ránṣẹ́.</string>
+
+    <string name="rail_pix">Pix (Brazil)</string>
+    <string name="rail_mercado_pago">Mercado Pago</string>
+    <string name="rail_mpesa">M-Pesa</string>
+    <string name="rail_paystack_opay">Paystack / OPay</string>
+    <string name="rail_airtime">Káàdì Ìpè</string>
+    <string name="rail_paypal">PayPal</string>
+
+    <string name="settings_title">Ètò</string>
+    <string name="settings_language_title">Èdè</string>
+    <string name="settings_language_subtitle">Ṣe àtìlẹyìn fún èdè 13 pẹ̀lú ìtòlẹ́sẹẹsẹ RTL fún èdè Lárúbáwá</string>
+    <string name="settings_rtl_badge">RTL</string>
+    <string name="settings_market_title">Ọjà àti Owó</string>
+    <string name="settings_interests_title">Àwọn Àmì Ìfẹ́</string>
+    <string name="settings_privacy_title">Ìṣàkóso Àṣírí Lórí Ẹ̀rọ</string>
+    <string name="settings_clear_vault">Pa àpótí ìfitónilétí rẹ́</string>
+    <string name="settings_vault_cleared">A ti pa àpótí ìfitónilétí rẹ́.</string>
+
+    <string name="category_ecommerce">Ìrajà</string>
+    <string name="category_fintech">Ìṣúná</string>
+    <string name="category_food_delivery">Oúnjẹ</string>
+    <string name="category_telecom">Ìbánisọ̀rọ̀</string>
+    <string name="category_entertainment">Eré Ìdárayá</string>
+    <string name="category_travel">Ìrìnàjò</string>
+</resources>

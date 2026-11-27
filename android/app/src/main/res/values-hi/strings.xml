@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yaytif</string>
+
+    <string name="nav_feed">फ़ीड</string>
+    <string name="nav_vault">वॉल्ट</string>
+    <string name="nav_wallet">वॉलेट</string>
+    <string name="nav_settings">सेटिंग्स</string>
+
+    <string name="feed_title">प्रायोजित अलर्ट</string>
+    <string name="feed_subtitle">आपकी रुचियों के अनुसार सत्यापित ध्यान-समय पुरस्कार</string>
+    <string name="feed_sync_button">अलर्ट सिंक करें</string>
+    <string name="feed_syncing">अलर्ट सिंक हो रहे हैं…</string>
+    <string name="feed_all_categories">सभी</string>
+    <string name="feed_payout_per_minute">%1$s / मिनट</string>
+    <string name="feed_commission_share">%1$s कैशबैक</string>
+    <string name="feed_empty_title">अभी कोई कैश्ड अलर्ट नहीं है</string>
+    <string name="feed_empty_body">अपने बाज़ार के सक्रिय ऑफ़र लाने के लिए अलर्ट सिंक करें पर टैप करें।</string>
+
+    <string name="vault_title">निजी वॉल्ट</string>
+    <string name="vault_privacy_title" formatted="false">100% ऑन-डिवाइस गोपनीयता</string>
+    <string name="vault_privacy_body">व्यक्तिगत सूचनाएं केवल आपके डिवाइस के स्थानीय स्टोरेज में रहती हैं और कभी भी Yaytif सर्वर पर अपलोड नहीं की जातीं।</string>
+    <string name="vault_unread_badge">%1$d अपठित</string>
+    <string name="vault_mark_all_read">सभी को पढ़ा हुआ चिह्नित करें</string>
+    <string name="vault_mark_read">पढ़ा</string>
+    <string name="vault_archive">आर्काइव</string>
+    <string name="vault_empty_title">आपका निजी वॉल्ट खाली है</string>
+    <string name="vault_empty_body">सूचना एक्सेस सक्षम होने के बाद इस डिवाइस पर सहेजी गई व्यक्तिगत सूचनाएं यहां दिखाई देंगी।</string>
+
+    <string name="wallet_title">वॉलेट</string>
+    <string name="wallet_balance_label">उपलब्ध बैलेंस</string>
+    <string name="wallet_daily_earned_label">आज की कमाई: %1$s</string>
+    <string name="wallet_payout_rails_title">स्थानीय भुगतान माध्यम</string>
+    <string name="wallet_request_payout">भुगतान का अनुरोध करें</string>
+    <string name="wallet_destination_label">भुगतान गंतव्य</string>
+    <string name="wallet_amount_label">राशि (%1$s)</string>
+    <string name="wallet_submit_payout">अनुरोध सबमिट करें</string>
+    <string name="wallet_ledger_title">हाल की गतिविधि</string>
+    <string name="wallet_ledger_empty">अभी कोई लेज़र गतिविधि नहीं है। ध्यान पुरस्कार और कैशबैक यहां दिखाई देंगे।</string>
+    <string name="wallet_payout_invalid_amount">मान्य दशमलव राशि दर्ज करें।</string>
+    <string name="wallet_payout_below_min">न्यूनतम निकासी %1$s है।</string>
+    <string name="wallet_payout_insufficient">अपर्याप्त बैलेंस।</string>
+    <string name="wallet_payout_missing_destination">मान्य भुगतान गंतव्य दर्ज करें।</string>
+    <string name="wallet_payout_account_required">भुगतान का अनुरोध करने से पहले खाता पंजीकृत करें।</string>
+    <string name="wallet_payout_submitted">भुगतान अनुरोध सबमिट हो गया।</string>
+
+    <string name="rail_pix">Pix (ब्राज़ील)</string>
+    <string name="rail_mercado_pago">Mercado Pago</string>
+    <string name="rail_mpesa">M-Pesa</string>
+    <string name="rail_paystack_opay">Paystack / OPay</string>
+    <string name="rail_airtime">मोबाइल एयरटाइम</string>
+    <string name="rail_paypal">PayPal</string>
+
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="settings_language_title">भाषा</string>
+    <string name="settings_language_subtitle">अरबी के लिए स्वचालित RTL लेआउट सहित 13 भाषाओं का समर्थन</string>
+    <string name="settings_rtl_badge">RTL</string>
+    <string name="settings_market_title">बाज़ार और मुद्रा</string>
+    <string name="settings_interests_title">रुचि टैग</string>
+    <string name="settings_privacy_title">ऑन-डिवाइस गोपनीयता नियंत्रण</string>
+    <string name="settings_clear_vault">स्थानीय सूचना वॉल्ट साफ़ करें</string>
+    <string name="settings_vault_cleared">स्थानीय सूचना वॉल्ट साफ़ हो गया।</string>
+
+    <string name="category_ecommerce">खरीदारी</string>
+    <string name="category_fintech">फ़िनटेक</string>
+    <string name="category_food_delivery">भोजन</string>
+    <string name="category_telecom">टेलीकॉम</string>
+    <string name="category_entertainment">मीडिया</string>
+    <string name="category_travel">यात्रा</string>
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yaytif</string>
+
+    <string name="nav_feed">Stroom</string>
+    <string name="nav_vault">Kluis</string>
+    <string name="nav_wallet">Beursie</string>
+    <string name="nav_settings">Instellings</string>
+
+    <string name="feed_title">Geborgde Waarskuwings</string>
+    <string name="feed_subtitle">Geverifieerde aandagbelonings wat by jou belangstellings pas</string>
+    <string name="feed_sync_button">Sinkroniseer waarskuwings</string>
+    <string name="feed_syncing">Sinkroniseer tans…</string>
+    <string name="feed_all_categories">Alles</string>
+    <string name="feed_payout_per_minute">%1$s / min</string>
+    <string name="feed_commission_share">%1$s kontantterug</string>
+    <string name="feed_empty_title">Nog geen gekasde waarskuwings nie</string>
+    <string name="feed_empty_body">Tik Sinkroniseer waarskuwings om aktiewe streekaanbiedings vir jou mark te laai.</string>
+
+    <string name="vault_title">Privaat Kluis</string>
+    <string name="vault_privacy_title" formatted="false">100% Privaatheid Op Toestel</string>
+    <string name="vault_privacy_body">Onderskepte persoonlike kennisgewings bly streng op plaaslike toestelberging en word nooit na Yaytif-bedieners opgelaai nie.</string>
+    <string name="vault_unread_badge">%1$d ongelees</string>
+    <string name="vault_mark_all_read">Merk alles as gelees</string>
+    <string name="vault_mark_read">Gelees</string>
+    <string name="vault_archive">Argiveer</string>
+    <string name="vault_empty_title">Jou privaat kluis is leeg</string>
+    <string name="vault_empty_body">Persoonlike kennisgewings wat op hierdie toestel gestoor word, sal hier verskyn sodra toegang geaktiveer is.</string>
+
+    <string name="wallet_title">Beursie</string>
+    <string name="wallet_balance_label">Beskikbare balans</string>
+    <string name="wallet_daily_earned_label">Vandag verdien: %1$s</string>
+    <string name="wallet_payout_rails_title">Plaaslike uitbetalingsmetodes</string>
+    <string name="wallet_request_payout">Versoek uitbetaling</string>
+    <string name="wallet_destination_label">Uitbetalingsbestemming</string>
+    <string name="wallet_amount_label">Bedrag (%1$s)</string>
+    <string name="wallet_submit_payout">Stuur uitbetaling</string>
+    <string name="wallet_ledger_title">Onlangse aktiwiteit</string>
+    <string name="wallet_ledger_empty">Nog geen grootboekaktiwiteit nie. Aandagbelonings en kontantterug sal hier verskyn.</string>
+    <string name="wallet_payout_invalid_amount">Voer \'n geldige desimale bedrag in.</string>
+    <string name="wallet_payout_below_min">Minimum uitbetaling is %1$s.</string>
+    <string name="wallet_payout_insufficient">Onvoldoende balans.</string>
+    <string name="wallet_payout_missing_destination">Voer \'n geldige uitbetalingsbestemming in.</string>
+    <string name="wallet_payout_account_required">Registreer \'n rekening voordat jy \'n uitbetaling versoek.</string>
+    <string name="wallet_payout_submitted">Uitbetalingsversoek ingedien.</string>
+
+    <string name="rail_pix">Pix (Brasilië)</string>
+    <string name="rail_mercado_pago">Mercado Pago</string>
+    <string name="rail_mpesa">M-Pesa</string>
+    <string name="rail_paystack_opay">Paystack / OPay</string>
+    <string name="rail_airtime">Selfoonlugtyd</string>
+    <string name="rail_paypal">PayPal</string>
+
+    <string name="settings_title">Instellings</string>
+    <string name="settings_language_title">Taal</string>
+    <string name="settings_language_subtitle">Ondersteun 13 tale met outomatiese RTL-uitleg vir Arabies</string>
+    <string name="settings_rtl_badge">RTL</string>
+    <string name="settings_market_title">Mark en Geldeenheid</string>
+    <string name="settings_interests_title">Belangstellings</string>
+    <string name="settings_privacy_title">Privaatheidsbeheer Op Toestel</string>
+    <string name="settings_clear_vault">Maak plaaslike kennisgewingkluis leeg</string>
+    <string name="settings_vault_cleared">Plaaslike kennisgewingkluis is leeggemaak.</string>
+
+    <string name="category_ecommerce">Inkopies</string>
+    <string name="category_fintech">Fintech</string>
+    <string name="category_food_delivery">Kos</string>
+    <string name="category_telecom">Telekom</string>
+    <string name="category_entertainment">Media</string>
+    <string name="category_travel">Reis</string>
+</resources>

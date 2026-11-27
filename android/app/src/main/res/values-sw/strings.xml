@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yaytif</string>
+
+    <string name="nav_feed">Mlisho</string>
+    <string name="nav_vault">Hifadhi</string>
+    <string name="nav_wallet">Pochi</string>
+    <string name="nav_settings">Mipangilio</string>
+
+    <string name="feed_title">Arifa Zilizodhaminiwa</string>
+    <string name="feed_subtitle">Zawadi zilizothibitishwa za muda wa umakini kulingana na mapendeleo yako</string>
+    <string name="feed_sync_button">Landanisha arifa</string>
+    <string name="feed_syncing">Inalandanisha arifa…</string>
+    <string name="feed_all_categories">Zote</string>
+    <string name="feed_payout_per_minute">%1$s / dak</string>
+    <string name="feed_commission_share">%1$s marejesho</string>
+    <string name="feed_empty_title">Hakuna arifa zilizohifadhiwa bado</string>
+    <string name="feed_empty_body">Gusa Landanisha arifa ili kupata ofa zinazopatikana katika soko lako.</string>
+
+    <string name="vault_title">Hifadhi Binafsi</string>
+    <string name="vault_privacy_title" formatted="false">Faragha 100% Kwenye Kifaa</string>
+    <string name="vault_privacy_body">Arifa za kibinafsi zinabaki kwenye hifadhi ya ndani ya simu yako na hazitumwi kamwe kwa seva za Yaytif.</string>
+    <string name="vault_unread_badge">%1$d hazijasomwa</string>
+    <string name="vault_mark_all_read">Weka zote kuwa zimesomwa</string>
+    <string name="vault_mark_read">Imesomwa</string>
+    <string name="vault_archive">Weka kumbukumbu</string>
+    <string name="vault_empty_title">Hifadhi yako binafsi haina kitu</string>
+    <string name="vault_empty_body">Arifa za kibinafsi zilizohifadhiwa kwenye simu hii zitaonekana hapa ruhusa ikiwashwa.</string>
+
+    <string name="wallet_title">Pochi</string>
+    <string name="wallet_balance_label">Salio linalopatikana</string>
+    <string name="wallet_daily_earned_label">Mapato ya leo: %1$s</string>
+    <string name="wallet_payout_rails_title">Njia za malipo za ndani</string>
+    <string name="wallet_request_payout">Omba malipo</string>
+    <string name="wallet_destination_label">Namba au akaunti ya malipo</string>
+    <string name="wallet_amount_label">Kiasi (%1$s)</string>
+    <string name="wallet_submit_payout">Tuma ombi la malipo</string>
+    <string name="wallet_ledger_title">Shughuli za hivi karibuni</string>
+    <string name="wallet_ledger_empty">Hakuna miamala bado. Zawadi za umakini na marejesho zitaonekana hapa.</string>
+    <string name="wallet_payout_invalid_amount">Weka kiasi sahihi cha desimali.</string>
+    <string name="wallet_payout_below_min">Kiwango cha chini cha kutoa ni %1$s.</string>
+    <string name="wallet_payout_insufficient">Salio halitoshi.</string>
+    <string name="wallet_payout_missing_destination">Weka namba au akaunti sahihi ya malipo.</string>
+    <string name="wallet_payout_account_required">Sajili akaunti kabla ya kuomba malipo.</string>
+    <string name="wallet_payout_submitted">Ombi la malipo limetumwa.</string>
+
+    <string name="rail_pix">Pix (Brazil)</string>
+    <string name="rail_mercado_pago">Mercado Pago</string>
+    <string name="rail_mpesa">M-Pesa</string>
+    <string name="rail_paystack_opay">Paystack / OPay</string>
+    <string name="rail_airtime">Muda wa Maongezi</string>
+    <string name="rail_paypal">PayPal</string>
+
+    <string name="settings_title">Mipangilio</string>
+    <string name="settings_language_title">Lugha</string>
+    <string name="settings_language_subtitle">Inasaidia lugha 13 ikiwemo mpangilio wa RTL kwa Kiarabu</string>
+    <string name="settings_rtl_badge">RTL</string>
+    <string name="settings_market_title">Soko na Sarafu</string>
+    <string name="settings_interests_title">Mapendeleo</string>
+    <string name="settings_privacy_title">Vidhibiti vya Faragha Kwenye Kifaa</string>
+    <string name="settings_clear_vault">Futa hifadhi ya arifa za ndani</string>
+    <string name="settings_vault_cleared">Hifadhi ya arifa za ndani imefutwa.</string>
+
+    <string name="category_ecommerce">Ununuzi</string>
+    <string name="category_fintech">Fedha</string>
+    <string name="category_food_delivery">Chakula</string>
+    <string name="category_telecom">Mawasiliano</string>
+    <string name="category_entertainment">Burudani</string>
+    <string name="category_travel">Usafiri</string>
+</resources>

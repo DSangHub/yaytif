@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yaytif</string>
+
+    <string name="nav_feed">Labarai</string>
+    <string name="nav_vault">Ajiya</string>
+    <string name="nav_wallet">Walat</string>
+    <string name="nav_settings">Saiti</string>
+
+    <string name="feed_title">Sanarwar Talla</string>
+    <string name="feed_subtitle">Lada mai inganci na lokacin kallo daidai da abubuwan da kake so</string>
+    <string name="feed_sync_button">Sabunta sanarwa</string>
+    <string name="feed_syncing">Ana sabunta sanarwa…</string>
+    <string name="feed_all_categories">Duka</string>
+    <string name="feed_payout_per_minute">%1$s / minti</string>
+    <string name="feed_commission_share">%1$s kuɗin dawowa</string>
+    <string name="feed_empty_title">Babu sanarwa a ajiya tukuna</string>
+    <string name="feed_empty_body">Danna Sabunta sanarwa don kawo tayin da ke aiki a yankinka.</string>
+
+    <string name="vault_title">Ajiya ta Sirri</string>
+    <string name="vault_privacy_title" formatted="false">Sirri 100% A Cikin Wayarka</string>
+    <string name="vault_privacy_body">Sanarwar sirri suna zama a ma\'ajiyar wayarka kaɗai kuma ba a taɓa aika su zuwa sabar Yaytif ba.</string>
+    <string name="vault_unread_badge">%1$d ba a karanta ba</string>
+    <string name="vault_mark_all_read">Alama duka an karanta</string>
+    <string name="vault_mark_read">An karanta</string>
+    <string name="vault_archive">Ajiye</string>
+    <string name="vault_empty_title">Ajiyarka ta sirri fanko ce</string>
+    <string name="vault_empty_body">Sanarwar sirri da aka adana a wannan waya za su bayyana a nan idan an ba da izini.</string>
+
+    <string name="wallet_title">Walat</string>
+    <string name="wallet_balance_label">Kuɗin da ke ciki</string>
+    <string name="wallet_daily_earned_label">Samun yau: %1$s</string>
+    <string name="wallet_payout_rails_title">Hanyoyin cire kuɗi na gida</string>
+    <string name="wallet_request_payout">Nemi cire kuɗi</string>
+    <string name="wallet_destination_label">Wurin karɓar kuɗi</string>
+    <string name="wallet_amount_label">Adadi (%1$s)</string>
+    <string name="wallet_submit_payout">Aika buƙata</string>
+    <string name="wallet_ledger_title">Harkokin baya-bayan nan</string>
+    <string name="wallet_ledger_empty">Babu harka tukuna. Ladar kallo da kuɗin dawowa za su bayyana a nan.</string>
+    <string name="wallet_payout_invalid_amount">Shigar da adadi mai inganci.</string>
+    <string name="wallet_payout_below_min">Mafi ƙarancin cirewa shi ne %1$s.</string>
+    <string name="wallet_payout_insufficient">Kuɗin bai isa ba.</string>
+    <string name="wallet_payout_missing_destination">Shigar da wurin karɓar kuɗi mai inganci.</string>
+    <string name="wallet_payout_account_required">Yi rajistar asusu kafin neman cire kuɗi.</string>
+    <string name="wallet_payout_submitted">An aika buƙatar cire kuɗi.</string>
+
+    <string name="rail_pix">Pix (Brazil)</string>
+    <string name="rail_mercado_pago">Mercado Pago</string>
+    <string name="rail_mpesa">M-Pesa</string>
+    <string name="rail_paystack_opay">Paystack / OPay</string>
+    <string name="rail_airtime">Katin Wayar Hannu</string>
+    <string name="rail_paypal">PayPal</string>
+
+    <string name="settings_title">Saiti</string>
+    <string name="settings_language_title">Harshe</string>
+    <string name="settings_language_subtitle">Yana goyan bayan harsuna 13 ciki har da tsarin RTL na Larabci</string>
+    <string name="settings_rtl_badge">RTL</string>
+    <string name="settings_market_title">Kasuwa da Kuɗi</string>
+    <string name="settings_interests_title">Abubuwan Sha\'awa</string>
+    <string name="settings_privacy_title">Kula da Sirri A Wayarka</string>
+    <string name="settings_clear_vault">Goge ajiyar sanarwa ta gida</string>
+    <string name="settings_vault_cleared">An goge ajiyar sanarwa ta gida.</string>
+
+    <string name="category_ecommerce">Siyayya</string>
+    <string name="category_fintech">Kuɗi</string>
+    <string name="category_food_delivery">Abinci</string>
+    <string name="category_telecom">Sadarwa</string>
+    <string name="category_entertainment">Nishaɗi</string>
+    <string name="category_travel">Tafiya</string>
+</resources>
