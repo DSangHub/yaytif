@@ -32,9 +32,14 @@ class WalletRepository(
                 interests = interests
             )
         )
-        preferencesStore.setUserId(profile.id)
-        preferencesStore.setMarket(profile.countryCode, profile.currency)
-        preferencesStore.setInterests(profile.interests.toSet())
+        preferencesStore.saveRegistration(
+            userId = profile.id,
+            phoneHash = profile.phoneHash,
+            countryCode = profile.countryCode,
+            localeTag = profile.locale,
+            currency = profile.currency,
+            interests = profile.interests.toSet()
+        )
         return profile
     }
 

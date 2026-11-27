@@ -8,11 +8,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -20,6 +23,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.yaytif.app.ui.onboarding.OnboardingScreen
+import com.yaytif.app.ui.onboarding.OnboardingViewModel
 import com.yaytif.app.ui.screens.FeedScreen
 import com.yaytif.app.ui.screens.SettingsScreen
 import com.yaytif.app.ui.screens.VaultScreen
@@ -29,19 +34,47 @@ import com.yaytif.app.ui.state.YaytifViewModel
 @Composable
 fun YaytifApp(
     viewModel: YaytifViewModel,
+    onboardingViewModel: OnboardingViewModel,
     onApplyAppLocale: (String) -> Unit,
+    onOpenNotificationListenerSettings: () -> Unit,
+    onOpenOverlaySettings: () -> Unit,
+    onRequestPostNotifications: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val isPreferencesLoaded by viewModel.isPreferencesLoaded.collectAsStateWithLifecycle()
+    val preferences by viewModel.preferences.collectAsStateWithLifecycle()
+
+    if (!isPreferencesLoaded) {
+        Surface(modifier = modifier.fillMaxSize()) {}
+        return
+    }
+
+    if (!preferences.onboardingCompleted) {
+        OnboardingScreen(
+            viewModel = onboardingViewModel,
+            onApplyAppLocale = onApplyAppLocale,
+            onOpenNotificationListenerSettings = onOpenNotificationListenerSettings,
+            onOpenOverlaySettings = onOpenOverlaySettings,
+            onRequestPostNotifications = onRequestPostNotifications,
+            modifier = modifier
+        )
+        return
+    }
+
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.refreshPermissions()
+    }
+
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
 
-    val preferences by viewModel.preferences.collectAsStateWithLifecycle()
     val alerts by viewModel.sponsoredAlerts.collectAsStateWithLifecycle()
     val localNotifications by viewModel.localNotifications.collectAsStateWithLifecycle()
     val unreadVaultCount by viewModel.unreadVaultCount.collectAsStateWithLifecycle()
     val isSyncingAlerts by viewModel.isSyncingAlerts.collectAsStateWithLifecycle()
     val walletState by viewModel.walletState.collectAsStateWithLifecycle()
+    val permissionStatus by viewModel.permissionStatus.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -124,6 +157,10 @@ fun YaytifApp(
             composable(YaytifDestination.Settings.route) {
                 SettingsScreen(
                     preferences = preferences,
+                    permissionStatus = permissionStatus,
+                    onOpenNotificationListenerSettings = onOpenNotificationListenerSettings,
+                    onOpenOverlaySettings = onOpenOverlaySettings,
+                    onRequestPostNotifications = onRequestPostNotifications,
                     onSelectLocale = { localeTag ->
                         viewModel.updateLocale(localeTag)
                         onApplyAppLocale(localeTag)

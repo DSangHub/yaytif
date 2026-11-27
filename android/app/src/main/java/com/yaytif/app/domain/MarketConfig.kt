@@ -13,6 +13,7 @@ data class MarketProfile(
     val countryCode: String,
     val displayName: String,
     val currency: String,
+    val callingCode: String,
     val defaultLocaleTag: String,
     val supportedRails: List<PayoutRailDto>,
     val minimumPayoutAmount: BigDecimal
@@ -59,6 +60,7 @@ object MarketConfig {
             countryCode = "BR",
             displayName = "Brazil",
             currency = "BRL",
+            callingCode = "+55",
             defaultLocaleTag = "pt-BR",
             supportedRails = listOf(PayoutRailDto.PIX, PayoutRailDto.MERCADO_PAGO, PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("5.00")
@@ -67,6 +69,7 @@ object MarketConfig {
             countryCode = "CO",
             displayName = "Colombia",
             currency = "COP",
+            callingCode = "+57",
             defaultLocaleTag = "es",
             supportedRails = listOf(PayoutRailDto.MERCADO_PAGO, PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("5000.00")
@@ -75,6 +78,7 @@ object MarketConfig {
             countryCode = "AR",
             displayName = "Argentina",
             currency = "ARS",
+            callingCode = "+54",
             defaultLocaleTag = "es",
             supportedRails = listOf(PayoutRailDto.MERCADO_PAGO, PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("1000.00")
@@ -83,6 +87,7 @@ object MarketConfig {
             countryCode = "CL",
             displayName = "Chile",
             currency = "CLP",
+            callingCode = "+56",
             defaultLocaleTag = "es",
             supportedRails = listOf(PayoutRailDto.MERCADO_PAGO, PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("1000.00")
@@ -91,6 +96,7 @@ object MarketConfig {
             countryCode = "NG",
             displayName = "Nigeria",
             currency = "NGN",
+            callingCode = "+234",
             defaultLocaleTag = "en",
             supportedRails = listOf(PayoutRailDto.PAYSTACK_OPAY, PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("500.00")
@@ -99,6 +105,7 @@ object MarketConfig {
             countryCode = "KE",
             displayName = "Kenya",
             currency = "KES",
+            callingCode = "+254",
             defaultLocaleTag = "sw",
             supportedRails = listOf(PayoutRailDto.MPESA, PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("100.00")
@@ -107,6 +114,7 @@ object MarketConfig {
             countryCode = "GH",
             displayName = "Ghana",
             currency = "GHS",
+            callingCode = "+233",
             defaultLocaleTag = "en",
             supportedRails = listOf(PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("10.00")
@@ -115,6 +123,7 @@ object MarketConfig {
             countryCode = "ZA",
             displayName = "South Africa",
             currency = "ZAR",
+            callingCode = "+27",
             defaultLocaleTag = "en",
             supportedRails = listOf(PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("20.00")
@@ -123,6 +132,7 @@ object MarketConfig {
             countryCode = "TZ",
             displayName = "Tanzania",
             currency = "TZS",
+            callingCode = "+255",
             defaultLocaleTag = "sw",
             supportedRails = listOf(PayoutRailDto.MPESA, PayoutRailDto.AIRTIME, PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("2000.00")
@@ -131,6 +141,7 @@ object MarketConfig {
             countryCode = "US",
             displayName = "Global (USD)",
             currency = "USD",
+            callingCode = "+1",
             defaultLocaleTag = "en",
             supportedRails = listOf(PayoutRailDto.PAYPAL),
             minimumPayoutAmount = BigDecimal("1.00")

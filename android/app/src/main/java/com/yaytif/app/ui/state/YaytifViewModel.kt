@@ -16,6 +16,8 @@ import com.yaytif.app.data.repository.WalletRepository
 import com.yaytif.app.domain.MarketConfig
 import com.yaytif.app.domain.MoneyFormatter
 import com.yaytif.app.domain.PayoutValidationResult
+import com.yaytif.app.permissions.PermissionChecker
+import com.yaytif.app.permissions.PermissionStatus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,6 +26,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -53,15 +56,27 @@ class YaytifViewModel(
     private val sponsoredAlertRepository: SponsoredAlertRepository,
     private val localNotificationRepository: LocalNotificationRepository,
     private val walletRepository: WalletRepository,
+    private val permissionChecker: PermissionChecker,
     private val enqueueImmediateSync: (countryCode: String?, category: String?) -> Unit
 ) : ViewModel() {
 
+    private val _isPreferencesLoaded = MutableStateFlow(false)
+    val isPreferencesLoaded: StateFlow<Boolean> = _isPreferencesLoaded.asStateFlow()
+
     val preferences: StateFlow<UserPreferences> = preferencesStore.preferencesFlow
+        .onEach { _isPreferencesLoaded.value = true }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
             initialValue = UserPreferences()
         )
+
+    private val _permissionStatus = MutableStateFlow(permissionChecker.checkStatus())
+    val permissionStatus: StateFlow<PermissionStatus> = _permissionStatus.asStateFlow()
+
+    fun refreshPermissions() {
+        _permissionStatus.value = permissionChecker.checkStatus()
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val sponsoredAlerts: StateFlow<List<SponsoredAlertEntity>> = preferences
@@ -272,6 +287,7 @@ class YaytifViewModel(
         private val sponsoredAlertRepository: SponsoredAlertRepository,
         private val localNotificationRepository: LocalNotificationRepository,
         private val walletRepository: WalletRepository,
+        private val permissionChecker: PermissionChecker,
         private val enqueueImmediateSync: (countryCode: String?, category: String?) -> Unit
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
@@ -284,6 +300,7 @@ class YaytifViewModel(
                 sponsoredAlertRepository = sponsoredAlertRepository,
                 localNotificationRepository = localNotificationRepository,
                 walletRepository = walletRepository,
+                permissionChecker = permissionChecker,
                 enqueueImmediateSync = enqueueImmediateSync
             ) as T
         }

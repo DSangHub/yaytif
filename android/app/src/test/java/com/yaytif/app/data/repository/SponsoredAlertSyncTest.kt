@@ -152,6 +152,28 @@ class SponsoredAlertSyncTest {
         override suspend fun setUserId(userId: String) {
             state.value = state.value.copy(userId = userId)
         }
+        override suspend fun saveRegistration(
+            userId: String,
+            phoneHash: String,
+            countryCode: String,
+            localeTag: String,
+            currency: String,
+            interests: Set<String>,
+            onboardingCompleted: Boolean
+        ) {
+            state.value = state.value.copy(
+                userId = userId,
+                phoneHash = phoneHash,
+                countryCode = countryCode,
+                localeTag = localeTag,
+                currency = currency,
+                interests = interests,
+                onboardingCompleted = onboardingCompleted
+            )
+        }
+        override suspend fun setOnboardingCompleted(completed: Boolean) {
+            state.value = state.value.copy(onboardingCompleted = completed)
+        }
         override suspend fun setMarket(countryCode: String, currency: String) {
             state.value = state.value.copy(countryCode = countryCode, currency = currency)
         }
